@@ -1,2 +1,53 @@
 @import "settings";
 @import "foundation";
+
+
+body {
+	font-size: rem-calc(14px);
+}
+
+.grid-container {
+	max-width: 60rem;
+}
+
+
+table {
+	td {
+		padding: 0.2rem;
+		input {
+			margin-bottom: 0 !important;
+			font-size: rem-calc(14px) !important;
+		}
+		button {
+			display: none;
+		}
+	}
+}
+
+.abilities {
+	table {
+		border-collapse: separate;
+		border-spacing: 0 0.25rem;
+	}
+	td {
+		padding: 0;
+	}
+	input {
+		height: 2rem !important;
+	}
+	td:nth-of-type(2){
+		padding: 0 0.2rem;
+	}
+	td:nth-of-type(3){
+		width: 70px;
+	}
+	td:nth-of-type(4){
+		display: none;
+	}
+	&> div {
+		float:left;
+		width: 30%;
+		margin: 0 (10% / 3 / 2);
+		min-width: 220px;
+	}
+}

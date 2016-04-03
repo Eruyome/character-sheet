@@ -3,7 +3,19 @@ name: home
 url: /
 ---
 
-<div class="grid-container">
-  <h1>Welcome to Foundation for Apps!</h1>
-  <p class="lead">This is version <strong>1.2 Eiger</strong>.</p>
+<div class="grid-container" ng-controller="CharacterController">
+
+	<div class="content grid-block">
+		<div zf-tabs="">
+			<div zf-tab="" title="Character Sheet">
+				<div sheet></div>
+			</div>
+			<div zf-tab="" title="Attributes / Abilities">
+				Tab content 2
+			</div>
+			<div zf-tab="" title="Bio & Info">
+				Tab content 3
+			</div>
+		</div>
+	</div>
 </div>

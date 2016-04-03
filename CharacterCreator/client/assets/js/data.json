@@ -1,0 +1,36 @@
+{
+  "abilities" : {
+    "common" : [
+      {"name": ["Accounting", "Buchhaltung"], "value_base" : 10, "value_added" : 0, "skilled" : false, "calc_en" : "", "calc_de" : ""},
+      {"name": ["Anthropology", "Anthropology"], "value_base" : 0, "value_added" : 0, "skilled" : false, "calc_en" : "", "calc_de" : ""},
+      {"name": ["Archeology", "Archeology"], "value_base" : 0, "value_added" : 0, "skilled" : false, "calc_en" : "", "calc_de" : ""},
+      {"name": ["Astronomy", "Astronomy"], "value_base" : 0, "value_added" : 0, "skilled" : false, "calc_en" : "", "calc_de" : ""},
+      {"name": ["Bargain", "Bargain"], "value_base" : 5, "value_added" : 0, "skilled" : false, "calc_en" : "", "calc_de" : ""},
+      {"name": ["Biology", "Biology"], "value_base" : 0, "value_added" : 0, "skilled" : false, "calc_en" : "", "calc_de" : ""},
+      {"name": ["Chemistry", "Chemistry"], "value_base" : 0, "value_added" : 0, "skilled" : false, "calc_en" : "", "calc_de" : ""},
+      {"name": ["Climb", "Climb"], "value_base" : 40, "value_added" : 0, "skilled" : false, "calc_en" : "", "calc_de" : ""},
+      {"name": ["Conceal", "Conceal"], "value_base" : 15, "value_added" : 0, "skilled" : false, "calc_en" : "", "calc_de" : ""},
+      {"name": ["Credit Rating", "Credit Rating"], "value_base" : 15, "value_added" : 0, "skilled" : false, "calc_en" : "", "calc_de" : ""},
+      {"name": ["Cthulhu Mythos", "Cthulhu Mythos"], "value_base" : 0, "value_added" : 0, "skilled" : false, "skillable" : false, "calc_en" : "", "calc_de" : ""},
+      {"name": ["Dodge", "Ausweichen"], "value_base" : 0, "value_added" : 0, "skilled" : false, "calc_en" : "DEX * 2", "calc_de" : "GE * 2"},
+      {"name": ["Electrical Repair", "Electrical Repair"], "value_base" : 10, "value_added" : 0, "skilled" : false, "calc_en" : "", "calc_de" : ""},
+      {"name": ["Own Language", "Muttersprache"], "value_base" : 0, "value_added" : 0, "skilled" : false, "custom_input" : "", "calc_en" : "EDU * 5", "calc_de" : "BI * 5"}
+    ],
+    "firearms" : [
+      {"name": ["Handgun", "Handgun"], "value_base" : 20, "value_added" : 0, "skilled" : false},
+      {"name": ["Machine Gun", "Machine Gun"], "value_base" : 15, "value_added" : 0, "skilled" : false},
+      {"name": ["Rifle", "Rifle"], "value_base" : 25, "value_added" : 0, "skilled" : false},
+      {"name": ["Shotgun", "Shotgun"], "value_base" : 30, "value_added" : 0, "skilled" : false},
+      {"name": ["Submachine Gun", "Submachine Gun"], "value_base" : 15, "value_added" : 0, "skilled" : false, "time" : "1890", "time_mod" : "not"}
+    ],
+    "other" : [
+      {"name": ["Art", "Art"], "value_base" : 5},
+      {"name": ["Computer Use", "Computer Use"], "value_base" : 0, "time" : "anytime"},
+      {"name": ["Computer Use", "Computer Use"], "value_base" : 0, "time" : "1990"},
+      {"name": ["Drive Carriage", "Drive Carriage"], "value_base" : 0, "time" : "1890"}
+    ],
+    "custom" : [
+      {"name": ["Art", "Art"], "value_base" : 5}
+    ]
+  }
+}
