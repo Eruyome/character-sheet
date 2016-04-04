@@ -3,18 +3,30 @@ name: home
 url: /
 ---
 
-<div class="grid-container" ng-controller="CharacterController">
-
+<div class="grid-container" ng-controller="characterController">
 	<div class="content grid-block">
-		<div zf-tabs="">
-			<div zf-tab="" title="Character Sheet">
-				<div sheet></div>
+		<div id="tabs">
+			<div class="tab-headers grid-block medium-up-3 small-up-1 text-center">
+				<div ng-class="{active:isActiveTab(0)}" ng-click="onClickTab(0)" class="grid-block">
+					<span class="tab-title">Character Sheet</span>
+				</div>
+				<div ng-class="{active:isActiveTab(1)}" ng-click="onClickTab(1)" class="grid-block">
+					<span class="tab-title">Abilities</span>
+				</div>
+				<div ng-class="{active:isActiveTab(2)}" ng-click="onClickTab(2)" class="grid-block">
+					<span class="tab-title">Bio & Info</span>
+				</div>
 			</div>
-			<div zf-tab="" title="Attributes / Abilities">
-				Tab content 2
-			</div>
-			<div zf-tab="" title="Bio & Info">
-				Tab content 3
+			<div class="tab-contents clearfix">
+				<div class="grid-block tab" ng-class="{active:isActiveTab(0)}" ng-show="currentTab==0">
+					<div sheet></div>
+				</div>
+				<div class="grid-block tab"	ng-class="{active:isActiveTab(1)}" ng-show="currentTab==1">
+					uh
+				</div>
+				<div class="grid-block tab"	ng-class="{active:isActiveTab(2)}" ng-show="currentTab==2">
+					uhh
+				</div>
 			</div>
 		</div>
 	</div>

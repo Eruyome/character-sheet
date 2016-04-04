@@ -1,0 +1,31 @@
+<tr ng-show="showUnskilled || ability.skilled" ng-class="{customText:!isUndefined(ability.custom_input)}">
+	<td>
+		<input id="check-{{ability.name[0]}}" ng-model="ability.skilled" type="checkbox" ng-if="ability.skillable!==false">
+	</td>
+	<td>
+		<label for="check-{{ability.name[0]}}">
+			<span>{{ability.name[languageIndex]}}</span>
+			<span ng-if="!isUndefined(ability.calc_desc)">
+				({{ability.calc_desc[languageIndex]}})
+			</span>
+		</label>
+		<input ng-if="!isUndefined(ability.custom_input)" type="text" ng-model="ability.custom_input" ng-class="{text:!isUndefined(ability.custom_input)}">
+	</td>
+	<td class="values">
+		<span ng-show="showValueBase" class="valueBase form-label" ng-if="isUndefined(ability.calc)" title="Default">
+			({{ability.value_base}}%)
+		</span>
+		<span ng-show="showValueBase" class="valueBase form-label" ng-model="ability.value_calc" ng-if="!isUndefined(ability.calc)" title="Default">
+			({{ ability.value_calc }}%)
+		</span>
+	</td>
+	<td class="values">
+		<span class="valueTotal form-label" ng-model="ability.value_total" title="Total">
+			({{ability.value_base + ability.value_added}}%)
+		</span>
+	</td>
+	<td class="numberInput">
+		<input type="number" ng-model="ability.value_added" min="0" max="{{99 - ability.value_base}}">
+	</td>
+</tr>
+

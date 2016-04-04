@@ -1,0 +1,29 @@
+<div ng-show="showUnskilled || ability.skilled" class="grid-block grow">
+	<span class="grid-block grow container">
+		<label for="check-{{ability.name[0]}}">
+			<span class="inline-label">
+				<input id="check-{{ability.name[0]}}" ng-model="ability.skilled" type="checkbox" ng-if="ability.skillable!==false">
+				<span class="name" ng-class="{fullWidth:!isUndefined(ability.custom_input)}">
+					{{ability.name[languageIndex]}}
+					<span ng-if="!isUndefined(ability.calc_desc)">
+						({{ability.calc_desc[languageIndex]}})
+					</span>
+				</span>
+				<input ng-if="!isUndefined(ability.custom_input)" type="text" ng-model="ability.custom_input" ng-class="{text:!isUndefined(ability.custom_input)}">
+
+				<span ng-show="showValueBase" class="valueBase form-label" ng-if="isUndefined(ability.calc)" title="Default">
+					({{ability.value_base}}%)
+				</span>
+				<span ng-show="showValueBase" class="valueBase form-label" ng-model="ability.value_calc" ng-if="!isUndefined(ability.calc)" title="Default">
+					({{ ability.value_calc }}%)
+				</span>
+
+				<span class="valueTotal form-label" ng-model="ability.value_total" title="Total">
+					({{ability.value_base + ability.value_added}}%)
+				</span>
+
+				<input type="number" ng-model="ability.value_added" min="0" max="{{99 - ability.value_base}}">
+			</span>
+		</label>
+	</span>
+</div>

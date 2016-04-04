@@ -1,0 +1,58 @@
+{
+  "abilities" : {
+    "common" : [
+      {"name": ["Accounting", "Buchhaltung"], "value_base" : 10, "value_added" : 0, "value_total" : 0, "skilled" : false},
+      {"name": ["Anthropology", "Anthropology"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "skilled" : false},
+      {"name": ["Archeology", "Archeology"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "skilled" : false},
+      {"name": ["Astronomy", "Astronomy"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "skilled" : false},
+      {"name": ["Bargain", "Bargain"], "value_base" : 5, "value_added" : 0, "value_total" : 0, "skilled" : false},
+      {"name": ["Biology", "Biology"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "skilled" : false},
+      {"name": ["Chemistry", "Chemistry"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "skilled" : false},
+      {"name": ["Climb", "Climb"], "value_base" : 40, "value_added" : 0, "value_total" : 0, "skilled" : false},
+      {"name": ["Conceal", "Conceal"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "skilled" : false},
+      {"name": ["Credit Rating", "Credit Rating"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "skilled" : false},
+      {"name": ["Cthulhu Mythos", "Cthulhu Mythos"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "skilled" : false, "skillable" : false},
+      {"name": ["Dodge", "Ausweichen"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "skilled" : false, "calc_desc" : ["DEX * 2", "GE * 2"], "value_calc" : 0, "calc" : { "stat" : "dex", "operator" : "*", "modifier" : 2}},
+      {"name": ["Electrical Repair", "Electrical Repair"], "value_base" : 10, "value_added" : 0, "value_total" : 0, "skilled" : false},
+      {"name": ["Own Language", "Muttersprache"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "skilled" : false, "custom_input" : "", "calc_desc" : ["EDU * 5", "BI * 5"], "value_calc" : 0, "calc" : { "stat" : "edu", "operator" : "*", "modifier" : 5}}
+    ],
+    "firearms" : [
+      {"name": ["Handgun", "Handgun"], "value_base" : 20, "value_added" : 0, "value_total" : 0, "skilled" : false},
+      {"name": ["Machine Gun", "Machine Gun"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "skilled" : false},
+      {"name": ["Rifle", "Rifle"], "value_base" : 25, "value_added" : 0, "value_total" : 0, "skilled" : false},
+      {"name": ["Shotgun", "Shotgun"], "value_base" : 30, "value_added" : 0, "value_total" : 0, "skilled" : false},
+      {"name": ["Submachine Gun", "Submachine Gun"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "skilled" : false, "time" : "1890", "time_mod" : "not"}
+    ],
+    "other" : [
+      {"name": ["Art", "Art"], "value_base" : 5, "skillable" : false},
+      {"name": ["Computer Use", "Computer Use"], "value_base" : 0, "skillable" : false, "time" : "1990"},
+      {"name": ["Drive Carriage", "Drive Carriage"], "value_base" : 0, "skillable" : false, "time" : "1890"}
+    ],
+    "custom" : [
+      {"name": [""], "value_base" : 0, "custom_input" :""}
+    ]
+  },
+  "player" : {
+    "stats_base" : {
+      "dex" : { "name" : ["DEX", "GE"], "value" : 0 },
+      "edu" : { "name" : ["EDU", "BI"], "value" : 0 },
+      "str" : { "name" : ["STR", "STR"], "value" : 0 },
+      "con" : { "name" : ["CON", "CON"], "value" : 0 },
+      "siz" : { "name" : ["SIZ", "SIZ"], "value" : 0 },
+      "int" : { "name" : ["INT", "INT"], "value" : 0 },
+      "pow" : { "name" : ["POW", "MA"], "value" : 0 },
+      "app" : { "name" : ["APP", "CHA"], "value" : 0 }
+    },
+    "stats_calc" : {
+      "san" : { "name" : ["SAN", "SAN"], "value" : 0 },
+      "idea" : { "name" : ["Idea", "Idea"], "value" : 0 },
+      "luck" : { "name" : ["Luck", "Glück"], "value" : 0 },
+      "know" : { "name" : ["Know", "Know"], "value" : 0 },
+      "san_max" : { "name" : ["Max Sanity Points", "Max Sanity Points"], "value" : 0 },
+      "hp_max" : { "name" : ["Max Hit Points", "Max Hit Points"], "value" : 0 },
+      "magic_max" : { "name" : ["Max Magic Points", "Max Magic Points"], "value" : 0 },
+      "dmg_bonus" : { "name" : ["Damage Bonus", "Damage Bonus"], "value" : "" }
+
+    }
+  }
+}
