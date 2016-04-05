@@ -48,7 +48,7 @@
 		$http.get('./assets/json/data.json')
 			.then(function(res){
 				$scope.data = res.data;
-				console.log($scope.data.abilities);
+				initCalculations();
 			});
 
 		/* Tabs */
@@ -96,6 +96,12 @@
 					catch (err){}
 				}
 			});
+		}
+
+		function initCalculations() {
+			Object.keys($scope.data.player.stats_base).forEach(function(key,index) {
+				$scope.calculateDependencies(key, $scope.data.player.stats_base[key]);
+			})
 		}
 
 		$scope.calculateDependencies = function(key, stat){

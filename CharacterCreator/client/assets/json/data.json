@@ -21,13 +21,13 @@
       {"name": ["Handgun", "Handgun"], "value_base" : 20, "value_added" : 0, "value_total" : 0, "skilled" : false},
       {"name": ["Machine Gun", "Machine Gun"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "skilled" : false},
       {"name": ["Rifle", "Rifle"], "value_base" : 25, "value_added" : 0, "value_total" : 0, "skilled" : false},
-      {"name": ["Shotgun", "Shotgun"], "value_base" : 30, "value_added" : 0, "value_total" : 0, "skilled" : false},
-      {"name": ["Submachine Gun", "Submachine Gun"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "skilled" : false, "time" : "1890", "time_mod" : "not"}
+      {"name": ["Shotgun", "Shotgun"], "value_base" : 30, "value_added" : 0, "value_total" : 0, "skilled" : false}
     ],
     "other" : [
       {"name": ["Art", "Art"], "value_base" : 5, "skillable" : false, "time" : "any"},
       {"name": ["Computer Use", "Computer Use"], "value_base" : 0, "skillable" : false, "time" : "1990"},
-      {"name": ["Drive Carriage", "Drive Carriage"], "value_base" : 0, "skillable" : false, "time" : "1890"}
+      {"name": ["Drive Carriage", "Drive Carriage"], "value_base" : 0, "skillable" : false, "time" : "1890"},
+      {"name": ["Submachine Gun", "Submachine Gun"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "skilled" : false, "time" : "1890", "time_mod" : "not"}
     ],
     "custom" : [
 
@@ -35,14 +35,14 @@
   },
   "player" : {
     "stats_base" : {
-      "dex" : { "name" : ["DEX", "GE"], "value" : 0 },
-      "edu" : { "name" : ["EDU", "BI"], "value" : 0 },
-      "str" : { "name" : ["STR", "STR"], "value" : 0 },
-      "con" : { "name" : ["CON", "CON"], "value" : 0 },
-      "siz" : { "name" : ["SIZ", "SIZ"], "value" : 0 },
-      "int" : { "name" : ["INT", "INT"], "value" : 0 },
-      "pow" : { "name" : ["POW", "MA"], "value" : 0 },
-      "app" : { "name" : ["APP", "CHA"], "value" : 0 }
+      "str" : { "name" : ["STR", "STR"], "value" : 13 },
+      "dex" : { "name" : ["DEX", "GE"], "value" : 12 },
+      "int" : { "name" : ["INT", "INT"], "value" : 11 },
+      "con" : { "name" : ["CON", "CON"], "value" : 8 },
+      "app" : { "name" : ["APP", "CHA"], "value" : 13 },
+      "pow" : { "name" : ["POW", "MA"], "value" : 14 },
+      "siz" : { "name" : ["SIZ", "SIZ"], "value" : 12 },
+      "edu" : { "name" : ["EDU", "BI"], "value" : 15 }
     },
     "stats_calc" : {
       "san" : { "name" : ["SAN", "SAN"], "value" : 0 },

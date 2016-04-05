@@ -52,13 +52,13 @@
 <div class="grid-block abilities large-up-3 medium-up-2 small-up-1">
 	<div class="grid-block list">
 		<table>
-			<tr ng-repeat="(key, ability) in data.abilities.common | limitTo:getLength(data)" ability2>
+			<tr ng-repeat="(key, ability) in data.abilities.common | limitTo:getLength(data)" ability>
 			</tr>
 		</table>
 	</div>
 	<div class="grid-block list">
 		<table>
-			<tr ng-repeat="(key, ability) in data.abilities.common | limitTo:-getLength(data)" ability2>
+			<tr ng-repeat="(key, ability) in data.abilities.common | limitTo:-getLength(data)" ability>
 			</tr>
 		</table>
 	</div>
@@ -71,7 +71,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="(key, ability) in data.abilities.firearms" ability2>
+				<tr ng-repeat="(key, ability) in data.abilities.firearms" ability>
 				</tr>
 			</tbody>
 		</table>
@@ -83,7 +83,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="(key, ability) in data.abilities.other" ability2>
+				<tr ng-repeat="(key, ability) in data.abilities.other" ability>
 				</tr>
 			</tbody>
 		</table>
@@ -94,7 +94,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="(key, ability) in data.abilities.custom" ability2>
+				<tr ng-repeat="(key, ability) in data.abilities.custom" ability>
 				</tr>
 
 				<tr class="controls">
@@ -108,27 +108,4 @@
 			</tbody>
 		</table>
 	</div>
-
-	<!--<div class="grid-block list">
-		<div class="grid-block" ng-repeat="ability in data.abilities.common | limitTo:getLength(data)">
-			<div ability></div>
-		</div>
-	</div>
-	<div class="grid-block list">
-		<div class="grid-block" ng-repeat="ability in data.abilities.common | limitTo:-(getLength(data))">
-			<div ability></div>
-		</div>
-	</div>
-	<div class="grid-block list">
-		<div class="grid-block" ng-repeat="ability in data.abilities.firearms">
-			<div ability></div>
-		</div>
-		<div class="grid-block" ng-repeat="ability in data.abilities.other">
-			<div ability></div>
-		</div>
-		<div class="grid-block" ng-repeat="ability in data.abilities.custom">
-			<div ability></div>
-		</div>
-	</div>-->
-
 </div>
