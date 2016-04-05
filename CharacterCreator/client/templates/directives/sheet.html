@@ -2,7 +2,7 @@
 	<div class="base grid-block">
 		<label ng-repeat="(key, stat) in data.player.stats_base">
 			<span class="inline-label">
-				<span class="form-label">{{stat.name[languageIndex]}}</span>
+				<span class="form-label">{{stat.name[data.options.languageIndex]}}</span>
 				<input type="number" ng-change="calculateDependencies(key, stat)" ng-model="stat.value">
 			</span>
 		</label>
@@ -10,27 +10,46 @@
 	<div class="calculated grid-block">
 		<label ng-repeat="(key, stat) in data.player.stats_calc">
 			<span class="inline-label">
-				<span class="form-label">{{stat.name[languageIndex]}}</span>
+				<span class="form-label">{{stat.name[data.options.languageIndex]}}</span>
 				<input type="text" ng-model="stat.value" disabled ng-class="{text:(key=='dmg_bonus')}">
 			</span>
 		</label>
 	</div>
 </div>
 
-<div class="grid-block options">
-	<label>Show unskilled</label>
-	<div class="switch small">
-		<input type="checkbox" id="showUnskilled" ng-model="showUnskilled" ng-change="">
-		<label for="showUnskilled"></label>
-	</div>
-	<label>Show base value</label>
-	<div class="switch small">
-		<input type="checkbox" id="showValueBase" ng-model="showValueBase" ng-change="">
-		<label for="showValueBase"></label>
-	</div>
+<div class="grid-block options clearfix">
+	<ul>
+		<li>
+			<label>Show unskilled</label>
+			<div class="switch small">
+				<input type="checkbox" id="showUnskilled" ng-model="showUnskilled" ng-change="">
+				<label for="showUnskilled"></label>
+			</div>
+		</li>
+		<li>
+			<label>Show base value</label>
+			<div class="switch small">
+				<input type="checkbox" id="showValueBase" ng-model="showValueBase" ng-change="">
+				<label for="showValueBase"></label>
+			</div>
+		</li>
+		<li class="with-dropdown">
+			<label>Select Time Period</label>
+			<select name="" ng-model="data.options.timeSelect.value" id="option-time"
+					ng-options="v for v in data.options.timeSelect.options">
+			</select>
+		</li>
+
+		<li class="with-dropdown">
+			<label>Select Language</label>
+			<select name="" ng-model="data.options.languageSelect.value" id="option-language"
+					ng-options="v for v in data.options.languageSelect.options" ng-change="changeLanguage()">
+			</select>
+		</li>
+	</ul>
 </div>
 
-<div class="grid-block abilities medium-up-3 small-up-1">
+<div class="grid-block abilities large-up-3 medium-up-2 small-up-1">
 	<div class="grid-block list">
 		<table>
 			<tr ng-repeat="(key, ability) in data.abilities.common | limitTo:getLength(data)" ability2>
@@ -76,6 +95,15 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="(key, ability) in data.abilities.custom" ability2>
+				</tr>
+
+				<tr class="controls">
+					<td colspan="2">
+						<a class="button small hollow" href="#" ng-click="addCustomAbility()">+ Add</a>
+					</td>
+					<td colspan="2" ng-show="data.abilities.custom.length">
+						<a class="button small alert hollow" href="#" ng-click="removeCustomAbility()">- unskilled</a>
+					</td>
 				</tr>
 			</tbody>
 		</table>

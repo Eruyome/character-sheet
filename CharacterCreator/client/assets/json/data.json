@@ -14,7 +14,8 @@
       {"name": ["Cthulhu Mythos", "Cthulhu Mythos"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "skilled" : false, "skillable" : false},
       {"name": ["Dodge", "Ausweichen"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "skilled" : false, "calc_desc" : ["DEX * 2", "GE * 2"], "value_calc" : 0, "calc" : { "stat" : "dex", "operator" : "*", "modifier" : 2}},
       {"name": ["Electrical Repair", "Electrical Repair"], "value_base" : 10, "value_added" : 0, "value_total" : 0, "skilled" : false},
-      {"name": ["Own Language", "Muttersprache"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "skilled" : false, "custom_input" : "", "calc_desc" : ["EDU * 5", "BI * 5"], "value_calc" : 0, "calc" : { "stat" : "edu", "operator" : "*", "modifier" : 5}}
+      {"name": ["Own Language", "Muttersprache"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "skilled" : false, "custom_input" : "", "calc_desc" : ["EDU * 5", "BI * 5"], "value_calc" : 0, "calc" : { "stat" : "edu", "operator" : "*", "modifier" : 5}},
+      {"name": ["Electrical Repair", "Electrical Repair"], "value_base" : 10, "value_added" : 0, "value_total" : 0, "skilled" : false}
     ],
     "firearms" : [
       {"name": ["Handgun", "Handgun"], "value_base" : 20, "value_added" : 0, "value_total" : 0, "skilled" : false},
@@ -24,12 +25,12 @@
       {"name": ["Submachine Gun", "Submachine Gun"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "skilled" : false, "time" : "1890", "time_mod" : "not"}
     ],
     "other" : [
-      {"name": ["Art", "Art"], "value_base" : 5, "skillable" : false},
+      {"name": ["Art", "Art"], "value_base" : 5, "skillable" : false, "time" : "any"},
       {"name": ["Computer Use", "Computer Use"], "value_base" : 0, "skillable" : false, "time" : "1990"},
       {"name": ["Drive Carriage", "Drive Carriage"], "value_base" : 0, "skillable" : false, "time" : "1890"}
     ],
     "custom" : [
-      {"name": [""], "value_base" : 0, "custom_input" :""}
+
     ]
   },
   "player" : {
@@ -54,5 +55,10 @@
       "dmg_bonus" : { "name" : ["Damage Bonus", "Damage Bonus"], "value" : "" }
 
     }
+  },
+  "options" : {
+    "timeSelect" : { "type" : "select", "name" : "Time Period", "value" : "anytime", "options" : ["anytime", "1890", "1990"] },
+    "languageSelect" : { "type" : "select", "name" : "Language", "value" : "English", "options" : ["English", "Deutsch"] },
+    "languageIndex" : 0
   }
 }

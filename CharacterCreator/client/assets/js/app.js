@@ -89,7 +89,8 @@
 							modifier = obj[key][i].calc.modifier;
 							currentStatValue = $scope.data.player.stats_base[stat].value;
 
-							obj[key][i].value_calc = operators[operator](currentStatValue, modifier);
+							var v = operators[operator](currentStatValue, modifier);
+							obj[key][i].value_calc = v < 99 ? v : 99;
 						}
 					}
 					catch (err){}
@@ -98,7 +99,6 @@
 		}
 
 		$scope.calculateDependencies = function(key, stat){
-
 			// calcualte ability base values
 			calculateAbilityValues($scope.data.abilities);
 
@@ -132,10 +132,64 @@
 			}
 		};
 
+		$scope.validTimePeriod = function(time) {
+			if (typeof time === "undefined") return true;
+			else if ($scope.data.options.timeSelect.value == "anytime" || time == $scope.data.options.timeSelect.value) return true;
+			else return false;
+		};
+
+		$scope.changeLanguage = function(){
+			if ($scope.data.options.languageSelect.value == "English") {
+				$scope.data.options.languageIndex = 0;
+			}
+			else if ($scope.data.options.languageSelect.value == "Deutsch") {
+				$scope.data.options.languageIndex = 1;
+			}
+		};
+
+		$scope.addCustomAbility = function() {
+			var obj = {
+				"name": [],
+				"value_added" : 0,
+				"value_total" : 0,
+				"skilled" : false,
+				"custom_name" : ""
+			};
+
+			$scope.data.abilities.custom.push(obj);
+		};
+
+		$scope.removeCustomAbility = function() {
+			for (var i = 0; i < $scope.data.abilities.custom.length; i++) {
+				if(!$scope.data.abilities.custom[i].skilled) {
+					$scope.data.abilities.custom.splice(i, 1);
+				}
+			}
+		};
+
 
 		/* Helper */
 		$scope.isUndefined = function(e){
 			return typeof e === 'undefined';
+		};
+		$scope.isEmpty = function(e){
+			return e.length;
+		};
+
+		$scope.calculateColspan = function(showValueBase){
+			var count = 0;
+			if(showValueBase) {
+				count++;
+			}
+			return count;
+		};
+	}]);
+
+	/* Filters */
+
+	appModule.filter("max99", [function() {
+		return function(v) {
+			return v < 99 ? v : 99;
 		};
 	}]);
 

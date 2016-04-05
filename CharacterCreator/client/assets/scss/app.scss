@@ -10,6 +10,12 @@ body {
 .grid-container {
 	max-width: 60rem;
 }
+.grid-content .grid-block {
+	margin: 0;
+}
+.tab-contents {
+	padding: 1rem 0;
+}
 
 table {
 	td {
@@ -38,6 +44,9 @@ table {
 	.fullWidth {
 		display: inline-block;
 		width: 100%;
+	}
+	.list {
+		padding: 0 0.5rem;
 	}
 }
 
@@ -94,10 +103,17 @@ table {
 			input[type="checkbox"] {
 				height: 1rem;
 				width: 1rem;
-				margin: 0.25rem 0 0 0;
+				margin: 0;
 			}
 			label {
 				margin: 0;
+
+				span + span {
+					padding-left: 0 !important;
+				}
+				.noRightPadding {
+					padding-right: 0;
+				}
 			}
 			span.valueBase, span.valueTotal {
 				padding:0;
@@ -109,6 +125,16 @@ table {
 			&.values {
 				width: 40px;
 				text-align: center;
+				span {
+					background: #eee;
+					border: 1px solid #ccc;
+					display: inline-block;
+					width: 100%;
+
+					&.valueTotal {
+						background: #9EDC9E;
+					}
+				}
 			}
 		}
 		tr.customText {
@@ -120,6 +146,7 @@ table {
 				}
 				input[type="text"] {
 					margin-left: 0.5rem;
+					max-width: 100%;
 				}
 				&.numberInput, &.values {
 					vertical-align: bottom;
@@ -127,30 +154,31 @@ table {
 				}
 			}
 		}
+		tr.customName {
+			td {
+				input[type="text"] {
+					margin-left: 0.5rem;
+					max-width: 100%;
+				}
+				&.numberInput, &.values {
+					vertical-align: bottom;
+				}
+			}
+		}
+		.controls {
+			text-align: right;
+			td:first-of-type {
+				text-align: left;
+			}
+			.button {
+				margin: 0;
+				padding: 0.7em 0.85em;
+			}
+		}
 	}
 	.list {
-		span, input[type="text"], input[type="number"] {
-			font-size: rem-calc(12px);
-			padding-top: 0;
-			padding-bottom: 0;
-		}
-		input[type="number"] {
-			padding-right: 0;
-			max-width: 50px;
-		}
-		input[type="checkbox"] {
-			max-width: 1rem;
-			margin: 0.25rem 0 0 0;
-		}
-		label {
-			width: 100%;
-		}
 		span {
 			padding: 0 0.5rem;
-
-			&.container {
-				padding: 0;
-			}
 		}
 	}
 }
@@ -186,5 +214,22 @@ table {
 				height: 1rem;
 			}
 		}
+	}
+}
+
+.options {
+	ul, ol {
+		list-style-type: none;
+		width: 100%;
+		li {
+			float: left;
+			padding: 0.5rem;
+		}
+	}
+	select {
+		height: 1.5rem;
+		font-size: rem-calc(12px);
+		padding: 0.2rem 0.5rem;
+		line-height: 1rem;
 	}
 }
