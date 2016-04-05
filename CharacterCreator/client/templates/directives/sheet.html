@@ -2,22 +2,27 @@
 	<div class="base grid-block">
 		<label ng-repeat="(key, stat) in data.player.stats_base">
 			<span class="inline-label">
-				<span class="form-label">{{stat.name[data.options.languageIndex]}}</span>
+				<span class="form-label stat-base">{{stat.name[data.options.languageIndex]}}</span>
 				<input type="number" ng-change="calculateDependencies(key, stat)" ng-model="stat.value">
 			</span>
 		</label>
 	</div>
 	<div class="calculated grid-block">
-		<label ng-repeat="(key, stat) in data.player.stats_calc">
+		<label ng-repeat="(key, stat) in data.player.stats_calc" ng-class="{isCombined:isVariableStat(key)}">
 			<span class="inline-label">
-				<span class="form-label">{{stat.name[data.options.languageIndex]}}</span>
-				<input type="text" ng-model="stat.value" disabled ng-class="{text:(key=='dmg_bonus')}">
+				<span class="form-label" ng-if="isMaxStatValue(key)" title="{{stat.name[data.options.languageIndex]}}">
+					{{stat.abbrev[data.options.languageIndex]}}
+				</span>
+				<!--<span class="form-label" ng-if="isVariableStat(key)">{{stat.value}} / {{data.player.stats_calc[key +"_max"].value}}</span>-->
+
+				<input type="text" ng-model="stat.value" disabled
+					   ng-class="{text:(key=='dmg_bonus')}" title="{{stat.name[data.options.languageIndex]}}">
 			</span>
 		</label>
 	</div>
 </div>
 
-<div class="grid-block points large-up-3 medium-up-3">
+<div class="grid-block points large-up-3 medium-up-3 small-up-1">
 	<div class="sanity clearfix">
 		<h6>Sanity Points</h6>
 		<div class="status">
@@ -69,6 +74,7 @@
 
 
 <div class="grid-block options clearfix">
+	<h6>Options</h6>
 	<ul>
 		<li>
 			<label>Show unskilled</label>
@@ -101,6 +107,7 @@
 </div>
 
 <div class="grid-block abilities large-up-3 medium-up-2 small-up-1">
+	<h6>Skills</h6>
 	<div class="grid-block list">
 		<table>
 			<tr ng-repeat="(key, ability) in data.abilities.common | limitTo:getLength(data, 0)" ability>

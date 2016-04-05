@@ -132,28 +132,52 @@
 			}
 
 			if(key == 'con' || key == 'siz') {
+				// calculate max hp
 				var v = $scope.data.player.stats_base.con.value + $scope.data.player.stats_base.siz.value;
 				if (v > 0) {
+					// calculate current hp if not set
 					$scope.data.player.stats_calc.hp_max.value = Math.ceil(v / 2);
 					if ($scope.isUndefined($scope.data.player.stats_calc.hp.value)) {
 						$scope.data.player.stats_calc.hp.value = Math.ceil(v / 2);
+					}
+					// reduce current hp if max hp is reduced too much
+					if ($scope.data.player.stats_calc.hp.value > $scope.data.player.stats_calc.hp_max.value) {
+						$scope.data.player.stats_calc.hp.value = $scope.data.player.stats_calc.hp_max.value;
 					}
 				}
 			}
 
 			if (key == 'pow') {
+				// calculate max sanity
 				var v = (stat.value * 5) < 99 ? (stat.value * 5) : 99;
 				$scope.data.player.stats_calc.san_max.value = v;
+				// calculate current sanity if not set
 				if ($scope.isUndefined($scope.data.player.stats_calc.san.value)) {
 					$scope.data.player.stats_calc.san.value = v;
 				}
+				// reduce current sanity if max sanity is reduced too much
+				if ($scope.data.player.stats_calc.san.value > $scope.data.player.stats_calc.san_max.value) {
+					console.log($scope.data.player.stats_calc.san.value);
+					$scope.data.player.stats_calc.san.value = $scope.data.player.stats_calc.san_max.value;
+					console.log($scope.data.player.stats_calc.san.value);
+				}
 
+				// calculate luck
 				v = (stat.value * 5) < 99 ? (stat.value * 5) : 99;
 				$scope.data.player.stats_calc.luck.value = v;
 
+				//calculate max magic
 				$scope.data.player.stats_calc.magic_max.value = stat.value;
 				if ($scope.isUndefined($scope.data.player.stats_calc.magic.value)) {
 					$scope.data.player.stats_calc.magic.value = stat.value;
+				}
+				// calculate current sanits if not set
+				if ($scope.isUndefined($scope.data.player.stats_calc.magic.value)) {
+					$scope.data.player.stats_calc.magic.value = v;
+				}
+				// reduce current magic if max magic is reduced too much
+				if ($scope.data.player.stats_calc.magic.value > $scope.data.player.stats_calc.magic_max.value) {
+					$scope.data.player.stats_calc.magic.value = $scope.data.player.stats_calc.magic_max.value;
 				}
 			}
 			if (key == 'int') {
@@ -182,11 +206,18 @@
 			return status;
 		};
 
-		$scope.validTimePeriod = function(time) {
+		$scope.validTimePeriod = function(time, mod) {
+			mod = (mod == "not") ? false : true;
+
 			if (typeof time === "undefined") return true;
-			else if ($scope.data.options.timeSelect.value == "anytime" || time == $scope.data.options.timeSelect.value) return true;
+			else if (time === "anytime") return true;
+			else if ($scope.data.options.timeSelect.value == "anytime" || negateMaybe(time == $scope.data.options.timeSelect.value, mod)) return true;
 			else return false;
 		};
+
+		function negateMaybe(v, check) {
+			return check ? v : !v;
+		}
 
 		$scope.changeLanguage = function(){
 			if ($scope.data.options.languageSelect.value == "English") {
@@ -240,6 +271,18 @@
 				range.push(i)
 			}
 			return range;
+		};
+
+		$scope.isMaxStatValue = function(key){
+			return key.indexOf('_max') < 1;
+		}
+
+		$scope.isVariableStat = function(key){
+			switch (key) {
+				case "hp" : return true;
+				case "san" : return true;
+				case "magic" : return true;
+			}
 		}
 	}]);
 

@@ -17,6 +17,10 @@ body {
 	padding: 1rem 0;
 }
 
+.uiview {
+	padding: 0 !important;
+}
+
 table {
 	td {
 		padding: 0.2rem;
@@ -51,18 +55,70 @@ table {
 }
 
 .stats {
+	padding: 0 1rem;
 	.base, .calculated {
+		span, input {
+			font-size: rem-calc(12px);
+			height: 1.5rem;
+			line-height: 1.5rem;
+		}
+		span.form-label {
+			padding: 0 0.35rem;
+			margin: 0;
+		}
+		span.inline-label {
+			margin: 0;
+		}
+
 		input {
-			max-width: 60px;
+			max-width: 45px;
+			padding: 0 0.35rem;
 			&:disabled {
-				cursor: not-allowed;
+				cursor: default;
+				text-align: center;
+				&:hover {
+					background: #f2f2f2;
+					color: inherit;
+				}
 			}
 		}
+		input[type="number"]{
+			padding-right: 0;
+		}
+		.stat-base {
+			display: inline-block;
+			width: 40px;
+			text-align: center;
+		}
+		label {
+			margin-right: 6px;
+		}
+		.isCombined {
+			margin-right: 0;
+			span.form-label {
+				border-color: grey;
+				border-right: none;
+			}
+			input {
+				border-bottom-color: grey;
+				border-top-color: grey;
+				border-left-color: grey;
+			}
+
+			& + label {
+				input {
+					border-bottom-color: grey;
+					border-top-color: grey;
+					border-right-color: grey;
+				}
+			}
+		}
+
 	}
 }
 
 .abilities, .stats, .options {
-	//padding: 1rem;
+	padding: 0 1rem;
 	.grid-block {
 		margin-left: 0;
 		margin-right: 0;
@@ -74,7 +130,7 @@ table {
 			font-size: rem-calc(12px);
 			font-weight: 700;
 			td {
-				padding: 4px 0;
+				padding: 2px 0;
 				line-height: 1.5rem;
 				&.small {
 					text-align: right;
@@ -83,7 +139,7 @@ table {
 			}
 		}
 		td {
-			padding: 4px 0;
+			padding: 2px 0;
 			&:first-of-type {
 				width: 1rem;
 			}
@@ -121,6 +177,31 @@ table {
 
 			&.numberInput {
 				width: 50px;
+				position: relative;
+				span {
+					display: inline-block;
+					width: 100%;
+					text-align: center;
+					position: relative;
+				}
+				span.not {
+					display: none;
+					position: absolute;
+					top: 10px;
+					left: 10px;
+					width: 50px;
+					height: 24px;
+					border-top: 1px solid rgba(255, 0, 0, .4);
+					-webkit-transform: rotate(-25deg);
+					transform: rotate(-25deg);
+					-webkit-backface-visibility: hidden;
+					backface-visibility: hidden;
+					background: transparent;
+
+					&.visible {
+						display: block;
+					}
+				}
 			}
 			&.values {
 				width: 40px;
@@ -138,9 +219,9 @@ table {
 			}
 		}
 		tr.customText {
-			height: 72px;
+			height: 66px;
 			td {
-				height: 72px;
+				height: 66px;
 				input[type="checkbox"] {
 					margin-top: 26px;
 				}
@@ -218,12 +299,17 @@ table {
 }
 
 .options {
+	padding: 0 1rem;
 	ul, ol {
 		list-style-type: none;
 		width: 100%;
+		margin: 0;
 		li {
 			float: left;
-			padding: 0.5rem;
+			padding: 0 0.5rem;
+		}
+		label {
+			margin-bottom: 0;
 		}
 	}
 	select {
@@ -234,9 +320,20 @@ table {
 	}
 }
 
+
+h6 {
+	width: 100%;
+	color: white;
+	background-color: #00558b;
+	padding: 0.1rem 0.4rem;
+	margin-bottom: 5px;
+}
+
 .points {
-	h6 {
-		width: 100%;
+	.status {
+		font-size: rem-calc(12px);
+		color: #999;
+		padding: 0 0.5rem 0.5rem 0.5rem;
 	}
 	.radio-container {
 		position: relative;
