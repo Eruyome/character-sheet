@@ -17,6 +17,57 @@
 	</div>
 </div>
 
+<div class="grid-block points large-up-3 medium-up-3">
+	<div class="sanity clearfix">
+		<h6>Sanity Points</h6>
+		<div class="status">
+			<span>Status: </span>
+			<span>{{getStatus('sanity', data.player.stats_calc.san.value_min, data.player.stats_calc.san.value)}}</span>
+		</div>
+		<div class="float-left radio-container"
+			 ng-repeat="n in range(data.player.stats_calc.san_max.value, 1, data.player.stats_calc.san.value_min)">
+			<label for="san-{{n}}" ng-class="{checked:data.player.stats_calc.san.value==n}">
+				{{n}}
+				<a class="close-button ng-scope">×</a>
+			</label>
+			<input type="radio" name="san_max" value="{{n}}" id="san-{{n}}" ng-model="data.player.stats_calc.san.value">
+		</div>
+	</div>
+
+	<div class="magic clearfix">
+		<h6>Magic Points</h6>
+		<div class="status">
+			<span>Status: </span>
+			<span>{{getStatus('magic', data.player.stats_calc.magic.value_min, data.player.stats_calc.magic.value)}}</span>
+		</div>
+		<div class="float-left radio-container"
+			 ng-repeat="n in range(data.player.stats_calc.magic_max.value, 1, data.player.stats_calc.magic.value_min)">
+			<label for="magic-{{n}}" ng-class="{checked:data.player.stats_calc.magic.value==n}">
+				{{n}}
+				<a class="close-button ng-scope">×</a>
+			</label>
+			<input type="radio" name="magic_max" value="{{n}}" id="magic-{{n}}" ng-model="data.player.stats_calc.magic.value">
+		</div>
+	</div>
+
+	<div class="hitpoints clearfix">
+		<h6>Hit Points</h6>
+		<div class="status">
+			<span>Status: </span>
+			<span>{{getStatus('hitpoints', data.player.stats_calc.hp.value_min, data.player.stats_calc.hp.value)}}</span>
+		</div>
+		<div class="float-left radio-container"
+			 ng-repeat="n in range(data.player.stats_calc.hp_max.value, 1, data.player.stats_calc.hp.value_min)">
+			<label for="hp-{{n}}" ng-class="{checked:data.player.stats_calc.hp.value==n}">
+				{{n}}
+				<a class="close-button ng-scope">×</a>
+			</label>
+			<input type="radio" name="hp_max" value="{{n}}" id="hp-{{n}}" ng-model="data.player.stats_calc.hp.value">
+		</div>
+	</div>
+</div>
+
+
 <div class="grid-block options clearfix">
 	<ul>
 		<li>
@@ -52,13 +103,13 @@
 <div class="grid-block abilities large-up-3 medium-up-2 small-up-1">
 	<div class="grid-block list">
 		<table>
-			<tr ng-repeat="(key, ability) in data.abilities.common | limitTo:getLength(data)" ability>
+			<tr ng-repeat="(key, ability) in data.abilities.common | limitTo:getLength(data, 0)" ability>
 			</tr>
 		</table>
 	</div>
 	<div class="grid-block list">
 		<table>
-			<tr ng-repeat="(key, ability) in data.abilities.common | limitTo:-getLength(data)" ability>
+			<tr ng-repeat="(key, ability) in data.abilities.common | limitTo:-getLength(data, 1)" ability>
 			</tr>
 		</table>
 	</div>

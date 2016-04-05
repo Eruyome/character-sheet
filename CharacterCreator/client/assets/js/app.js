@@ -60,9 +60,13 @@
 		};
 
 		/* Ability  Lists*/
-		$scope.getLength = function(data){
+		$scope.getLength = function(data, offset){
 			try {
-				return Math.floor(data.abilities.common.length/2)
+				var l = Math.ceil(data.abilities.common.length/2);
+				if (data.abilities.common.length % 2) {
+					l = l - offset;
+				}
+				return l;
 			}
 			catch(err){
 				console.info('Data not ready yet.')
@@ -87,6 +91,11 @@
 							stat = obj[key][i].calc.stat;
 							operator = obj[key][i].calc.operator;
 							modifier = obj[key][i].calc.modifier;
+
+							if(typeof obj[key][i].calc.modifier === "string") {
+								modifier = $scope.data.player.stats_base[modifier].value;
+							}
+
 							currentStatValue = $scope.data.player.stats_base[stat].value;
 
 							var v = operators[operator](currentStatValue, modifier);
@@ -122,11 +131,30 @@
 				$scope.data.player.stats_calc.dmg_bonus.value = result;
 			}
 
+			if(key == 'con' || key == 'siz') {
+				var v = $scope.data.player.stats_base.con.value + $scope.data.player.stats_base.siz.value;
+				if (v > 0) {
+					$scope.data.player.stats_calc.hp_max.value = Math.ceil(v / 2);
+					if ($scope.isUndefined($scope.data.player.stats_calc.hp.value)) {
+						$scope.data.player.stats_calc.hp.value = Math.ceil(v / 2);
+					}
+				}
+			}
+
 			if (key == 'pow') {
 				var v = (stat.value * 5) < 99 ? (stat.value * 5) : 99;
-				$scope.data.player.stats_calc.san.value = v;
+				$scope.data.player.stats_calc.san_max.value = v;
+				if ($scope.isUndefined($scope.data.player.stats_calc.san.value)) {
+					$scope.data.player.stats_calc.san.value = v;
+				}
+
 				v = (stat.value * 5) < 99 ? (stat.value * 5) : 99;
 				$scope.data.player.stats_calc.luck.value = v;
+
+				$scope.data.player.stats_calc.magic_max.value = stat.value;
+				if ($scope.isUndefined($scope.data.player.stats_calc.magic.value)) {
+					$scope.data.player.stats_calc.magic.value = stat.value;
+				}
 			}
 			if (key == 'int') {
 				var v = (stat.value * 5) < 99 ? (stat.value * 5) : 99;
@@ -136,6 +164,22 @@
 				var v = (stat.value * 5) < 99 ? (stat.value * 5) : 99;
 				$scope.data.player.stats_calc.know.value = v;
 			}
+		};
+
+		$scope.getStatus = function(stat, minValue, value) {
+			var status = '';
+
+			if (stat == 'magic') {
+				status = (value >= minValue && value < 1) ? 'unconscious' : 'normal';
+			}
+			if (stat == 'hitpoints') {
+				status = (value >= minValue && value < 1) ? 'unconscious' : 'normal';
+			}
+			if (stat == 'sanity') {
+				status = (value >= minValue && value < 1) ? 'hopelessly insane' : 'normal';
+			}
+
+			return status;
 		};
 
 		$scope.validTimePeriod = function(time) {
@@ -189,6 +233,14 @@
 			}
 			return count;
 		};
+
+		$scope.range = function(count, added, offset){
+			var range = [];
+			for (var i = offset; i < (count + added); i++) {
+				range.push(i)
+			}
+			return range;
+		}
 	}]);
 
 	/* Filters */

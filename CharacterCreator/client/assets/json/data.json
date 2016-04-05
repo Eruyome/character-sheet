@@ -8,7 +8,7 @@
       {"name": ["Bargain", "Bargain"], "value_base" : 5, "value_added" : 0, "value_total" : 0, "skilled" : false},
       {"name": ["Biology", "Biology"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "skilled" : false},
       {"name": ["Chemistry", "Chemistry"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "skilled" : false},
-      {"name": ["Climb", "Climb"], "value_base" : 40, "value_added" : 0, "value_total" : 0, "skilled" : false},
+      {"name": ["Climb", "Climb"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "skilled" : false, "calc_desc" : ["STR + DEX", "ST + GE"], "value_calc" : 0, "calc" : { "stat" : "str", "operator" : "+", "modifier" : "dex"}},
       {"name": ["Conceal", "Conceal"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "skilled" : false},
       {"name": ["Credit Rating", "Credit Rating"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "skilled" : false},
       {"name": ["Cthulhu Mythos", "Cthulhu Mythos"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "skilled" : false, "skillable" : false},
@@ -45,15 +45,16 @@
       "edu" : { "name" : ["EDU", "BI"], "value" : 15 }
     },
     "stats_calc" : {
-      "san" : { "name" : ["SAN", "SAN"], "value" : 0 },
       "idea" : { "name" : ["Idea", "Idea"], "value" : 0 },
       "luck" : { "name" : ["Luck", "Glück"], "value" : 0 },
       "know" : { "name" : ["Know", "Know"], "value" : 0 },
-      "san_max" : { "name" : ["Max Sanity Points", "Max Sanity Points"], "value" : 0 },
+      "san" : { "name" : ["Current Sanity", "Current Sanity"], "value_min" : 0},
+      "san_max" : { "name" : ["Max Sanity", "Max Sanity"], "value" : 0 },
+      "hp" : { "name" : ["Current Hit Points", "Current Hit Points"], "value_min" : -2},
       "hp_max" : { "name" : ["Max Hit Points", "Max Hit Points"], "value" : 0 },
+      "magic" : { "name" : ["Current Magic Points", "Current Magic Points"], "value_min" : 0},
       "magic_max" : { "name" : ["Max Magic Points", "Max Magic Points"], "value" : 0 },
       "dmg_bonus" : { "name" : ["Damage Bonus", "Damage Bonus"], "value" : "" }
-
     }
   },
   "options" : {
