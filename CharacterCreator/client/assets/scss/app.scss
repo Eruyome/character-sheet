@@ -124,6 +124,16 @@ table {
 		margin-right: 0;
 	}
 
+	.skillpoints {
+		width: 100%;
+		font-size: rem-calc(12px);
+		padding: 0 0.5rem 0.5rem 0.5rem;
+		span {
+			width: 100%;
+			display: inline-block;
+		}
+	}
+
 	table {
 		width: 100%;
 		thead {
@@ -142,6 +152,9 @@ table {
 			padding: 2px 0;
 			&:first-of-type {
 				width: 1rem;
+			}
+			&.time span {
+				padding: 0;
 			}
 
 			span, label, input[type="text"], input[type="number"] {
@@ -221,13 +234,23 @@ table {
 		tr.customText {
 			height: 66px;
 			td {
+				&:nth-of-type(2) {
+					padding-left: 0.5rem;
+				}
 				height: 66px;
 				input[type="checkbox"] {
-					margin-top: 26px;
+					margin-top: 22px;
 				}
 				input[type="text"] {
-					margin-left: 0.5rem;
+					margin: 10px 0 10px 0 !important;
 					max-width: 100%;
+				}
+				label {
+					height: 1.2rem;
+					line-height: 1.2rem;
+					span {
+						padding-left: 0;
+					}
 				}
 				&.numberInput, &.values {
 					vertical-align: bottom;

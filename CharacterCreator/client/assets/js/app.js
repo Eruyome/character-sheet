@@ -33,23 +33,16 @@
 
 	appModule.controller('characterController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
 		$scope.data = {};
-		$scope.showUnskilled = true;
-		$scope.showValueBase = true;
-		$scope.languageIndex = 0;
 		$scope.currentTab = 0;
-		$scope.player = {
-			"stats_base" : {
-				"dex" : { "name" : ["DEX", "GE"], "value" : 10 },
-				"edu" : { "name" : ["EDU", "BI"], "value" : 15 }
-			}
+
+		var operators = {
+			'+': function(a, b){ return a+b},
+			'*': function(a, b){ return a*b},
+			'/': function(a, b){ return a/b},
+			'-': function(a, b){ return a-b}
 		};
 
-		/* Load JSON */
-		$http.get('./assets/json/data.json')
-			.then(function(res){
-				$scope.data = res.data;
-				initCalculations();
-			});
+		loadJSON('./assets/json/data.json');
 
 		/* Tabs */
 		$scope.onClickTab = function (tabId) {
@@ -73,46 +66,7 @@
 			}
 		};
 
-		var operators = {
-			'+': function(a, b){ return a+b},
-			'*': function(a, b){ return a*b},
-			'/': function(a, b){ return a/b},
-			'-': function(a, b){ return a-b}
-		};
-
-		function calculateAbilityValues(obj) {
-			Object.keys(obj).forEach(function(key,index) {
-				var length = obj[key].length;
-				var stat, operator, modifier, currentStatValue;
-
-				for (var i = 0; i <= length; i++) {
-					try {
-						if (typeof obj[key][i].calc !== "undefined") {
-							stat = obj[key][i].calc.stat;
-							operator = obj[key][i].calc.operator;
-							modifier = obj[key][i].calc.modifier;
-
-							if(typeof obj[key][i].calc.modifier === "string") {
-								modifier = $scope.data.player.stats_base[modifier].value;
-							}
-
-							currentStatValue = $scope.data.player.stats_base[stat].value;
-
-							var v = operators[operator](currentStatValue, modifier);
-							obj[key][i].value_calc = v < 99 ? v : 99;
-						}
-					}
-					catch (err){}
-				}
-			});
-		}
-
-		function initCalculations() {
-			Object.keys($scope.data.player.stats_base).forEach(function(key,index) {
-				$scope.calculateDependencies(key, $scope.data.player.stats_base[key]);
-			})
-		}
-
+		// Calculate all values dependend on base stats
 		$scope.calculateDependencies = function(key, stat){
 			// calcualte ability base values
 			calculateAbilityValues($scope.data.abilities);
@@ -190,6 +144,34 @@
 			}
 		};
 
+		function calculateAbilityValues(obj) {
+			Object.keys(obj).forEach(function(key,index) {
+				var length = obj[key].length;
+				var stat, operator, modifier, currentStatValue;
+
+				for (var i = 0; i <= length; i++) {
+					try {
+						if (typeof obj[key][i].calc !== "undefined") {
+							stat = obj[key][i].calc.stat;
+							operator = obj[key][i].calc.operator;
+							modifier = obj[key][i].calc.modifier;
+
+							if(typeof obj[key][i].calc.modifier === "string") {
+								modifier = $scope.data.player.stats_base[modifier].value;
+							}
+
+							currentStatValue = $scope.data.player.stats_base[stat].value;
+
+							var v = operators[operator](currentStatValue, modifier);
+							obj[key][i].value_calc = v < 99 ? v : 99;
+						}
+					}
+					catch (err){}
+				}
+			});
+		}
+
+		// Get player status (hp, magic, sanity)
 		$scope.getStatus = function(stat, minValue, value) {
 			var status = '';
 
@@ -206,6 +188,7 @@
 			return status;
 		};
 
+		// check if time period is vaild (display)
 		$scope.validTimePeriod = function(time, mod) {
 			mod = (mod == "not") ? false : true;
 
@@ -214,10 +197,6 @@
 			else if ($scope.data.options.timeSelect.value == "anytime" || negateMaybe(time == $scope.data.options.timeSelect.value, mod)) return true;
 			else return false;
 		};
-
-		function negateMaybe(v, check) {
-			return check ? v : !v;
-		}
 
 		$scope.changeLanguage = function(){
 			if ($scope.data.options.languageSelect.value == "English") {
@@ -248,8 +227,36 @@
 			}
 		};
 
+		$scope.checkAvailableSkillPoints = function() {
+			var obj = $scope.data.abilities;
+			var v = 0;
 
-		/* Helper */
+			Object.keys($scope.data.abilities).forEach(function(key,index) {
+				for (var i = 0; i < obj[key].length; i++){
+					if (!$scope.isUndefined(obj[key][i].value_added)) {
+						v += obj[key][i].value_added;
+					}
+				}
+			});
+			$scope.data.player.skillPoints_used = v;
+		};
+
+		/* Load JSON */
+		function loadJSON(url){
+			$http.get(url)
+				.then(function(res){
+					$scope.data = res.data;
+					initCalculations();
+				});
+		}
+
+		function initCalculations() {
+			Object.keys($scope.data.player.stats_base).forEach(function(key,index) {
+				$scope.calculateDependencies(key, $scope.data.player.stats_base[key]);
+			})
+		}
+
+		/* Helpers */
 		$scope.isUndefined = function(e){
 			return typeof e === 'undefined';
 		};
@@ -275,7 +282,7 @@
 
 		$scope.isMaxStatValue = function(key){
 			return key.indexOf('_max') < 1;
-		}
+		};
 
 		$scope.isVariableStat = function(key){
 			switch (key) {
@@ -283,6 +290,10 @@
 				case "san" : return true;
 				case "magic" : return true;
 			}
+		};
+
+		function negateMaybe(v, check) {
+			return check ? v : !v;
 		}
 	}]);
 

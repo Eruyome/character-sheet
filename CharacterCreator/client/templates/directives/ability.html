@@ -1,12 +1,12 @@
-<tr ng-show="(showUnskilled || ability.skilled) && validTimePeriod(ability.time, ability.time_mod)"
+<tr ng-show="(data.options.showUnskilled || ability.skilled || (ability.skillable==false)) && validTimePeriod(ability.time, ability.time_mod)"
 	ng-class="{customText:!isUndefined(ability.custom_input), customName:!isUndefined(ability.custom_name)}">
 	<td>
 		<input id="check-{{ability.name[0]}}" ng-model="ability.skilled" type="checkbox" ng-if="ability.skillable!==false">
 	</td>
-	<td colspan="{{calculateColspan(showValueBase)}}">
+	<td colspan="{{calculateColspan(data.options.showValueBase)}}">
 		<label for="check-{{ability.name[0]}}" ng-if="isUndefined(ability.custom_name)">
 			<span ng-class="{noRightPadding:!isUndefined(ability.calc_desc)}">{{ability.name[data.options.languageIndex]}}</span>
-			<span ng-if="!isUndefined(ability.calc_desc) && showValueBase">
+			<span ng-if="!isUndefined(ability.calc_desc) && data.options.showValueBase">
 				({{ability.calc_desc[data.options.languageIndex]}})
 			</span>
 		</label>
@@ -14,11 +14,11 @@
 			   type="text" ng-model="ability.custom_input"
 			   ng-class="{text:!isUndefined(ability.custom_input || !isUndefined(ability.custom_name))}">
 	</td>
-	<td class="values" ng-if="showValueBase && !isUndefined(ability.value_base)">
-		<span ng-show="showValueBase" class="valueBase form-label" ng-if="isUndefined(ability.calc)" title="Default">
+	<td class="values" ng-if="data.options.showValueBase && !isUndefined(ability.value_base)">
+		<span ng-show="data.options.showValueBase" class="valueBase form-label" ng-if="isUndefined(ability.calc)" title="Default">
 			({{ability.value_base}}%)
 		</span>
-		<span ng-show="showValueBase" class="valueBase form-label" ng-model="ability.value_calc" ng-if="!isUndefined(ability.calc)" title="Default">
+		<span ng-show="data.options.showValueBase" class="valueBase form-label" ng-model="ability.value_calc" ng-if="!isUndefined(ability.calc)" title="Default">
 			({{ability.value_calc}}%)
 		</span>
 	</td>
@@ -27,8 +27,8 @@
 			({{ability.value_base + ability.value_calc + ability.value_added | max99}}%)
 		</span>
 	</td>
-	<td class="numberInput">
-		<input ng-if="isUndefined(ability.time)" type="number" ng-model="ability.value_added" min="0" max="{{99 - ability.value_base}}">
+	<td class="numberInput" ng-class="{time:!isUndefined(ability.time)}">
+		<input ng-if="isUndefined(ability.time)" type="number" ng-model="ability.value_added" min="0" max="{{99 - ability.value_base}}" ng-change="checkAvailableSkillPoints()">
 		<span ng-if="!isUndefined(ability.time)"><span class="not" ng-class="{visible:ability.time_mod=='not'}"></span>{{ability.time}}</span>
 	</td>
 </tr>

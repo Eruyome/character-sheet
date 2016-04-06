@@ -55,11 +55,14 @@
       "magic" : { "name" : ["Magic Points", "Magie Punkte"], "abbrev" : ["MP", "MP"], "value_min" : 0},
       "magic_max" : { "name" : ["Max Magic Points", "Max Magie Punkte"], "abbrev" : ["Max MP", "Max MP"], "value" : 0 },
       "dmg_bonus" : { "name" : ["Damage Bonus", "Schadens Bonus"], "abbrev" : ["Damage Bonus", "Schadens Bonus"], "value" : "" }
-    }
+    },
+    "skillPoints_used" : 0
   },
   "options" : {
     "timeSelect" : { "type" : "select", "name" : "Time Period", "value" : "anytime", "options" : ["anytime", "1890", "1920", "1990"] },
     "languageSelect" : { "type" : "select", "name" : "Language", "value" : "English", "options" : ["English", "Deutsch"] },
-    "languageIndex" : 0
+    "languageIndex" : 0,
+    "showUnskilled" : true,
+    "showValueBase" : true
   }
 }

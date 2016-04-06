@@ -79,14 +79,14 @@
 		<li>
 			<label>Show unskilled</label>
 			<div class="switch small">
-				<input type="checkbox" id="showUnskilled" ng-model="showUnskilled" ng-change="">
+				<input type="checkbox" id="showUnskilled" ng-model="data.options.showUnskilled" ng-change="">
 				<label for="showUnskilled"></label>
 			</div>
 		</li>
 		<li>
 			<label>Show base value</label>
 			<div class="switch small">
-				<input type="checkbox" id="showValueBase" ng-model="showValueBase" ng-change="">
+				<input type="checkbox" id="showValueBase" ng-model="data.options.showValueBase" ng-change="">
 				<label for="showValueBase"></label>
 			</div>
 		</li>
@@ -108,6 +108,15 @@
 
 <div class="grid-block abilities large-up-3 medium-up-2 small-up-1">
 	<h6>Skills</h6>
+	<span class="skillpoints">
+		<span>
+			Skill Points: {{(data.player.stats_base.edu.value * 20) + (data.player.stats_base.int.value * 10)}}
+			({{data.player.stats_base.edu.value * 20}} for Jobs and {{data.player.stats_base.int.value * 10}} for Hobbies.)
+		</span>
+		<span>
+			Skill Points used: {{ data.player.skillPoints_used }} / {{ (data.player.stats_base.edu.value * 20) + (data.player.stats_base.int.value * 10) }}
+		</span>
+	</span>
 	<div class="grid-block list">
 		<table>
 			<tr ng-repeat="(key, ability) in data.abilities.common | limitTo:getLength(data, 0)" ability>
