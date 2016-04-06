@@ -2,7 +2,9 @@
 	<div class="base grid-block">
 		<label ng-repeat="(key, stat) in data.player.stats_base">
 			<span class="inline-label">
-				<span class="form-label stat-base">{{stat.name[data.options.languageIndex]}}</span>
+				<span class="form-label stat-base" title="{{stat.name[data.options.languageIndex]}}">
+					{{stat.abbrev[data.options.languageIndex]}}
+				</span>
 				<input type="number" ng-change="calculateDependencies(key, stat)" ng-model="stat.value">
 			</span>
 		</label>
@@ -10,13 +12,13 @@
 	<div class="calculated grid-block">
 		<label ng-repeat="(key, stat) in data.player.stats_calc" ng-class="{isCombined:isVariableStat(key)}">
 			<span class="inline-label">
-				<span class="form-label" ng-if="isMaxStatValue(key)" title="{{stat.name[data.options.languageIndex]}}">
+				<span class="form-label" ng-if="isMaxStatValue(key)" title="{{stat.abbrev[data.options.languageIndex]}}">
 					{{stat.abbrev[data.options.languageIndex]}}
 				</span>
 				<!--<span class="form-label" ng-if="isVariableStat(key)">{{stat.value}} / {{data.player.stats_calc[key +"_max"].value}}</span>-->
 
 				<input type="text" ng-model="stat.value" disabled
-					   ng-class="{text:(key=='dmg_bonus')}" title="{{stat.name[data.options.languageIndex]}}">
+					   ng-class="{text:(key=='dmg_bonus')}" title="{{stat.abbrev[data.options.languageIndex]}}">
 			</span>
 		</label>
 	</div>
@@ -77,10 +79,10 @@
 	<h6>Options</h6>
 	<ul>
 		<li>
-			<label>Show unskilled</label>
+			<label>Show all Skillchecks (failure/success)</label>
 			<div class="switch small">
-				<input type="checkbox" id="showUnskilled" ng-model="data.options.showUnskilled" ng-change="">
-				<label for="showUnskilled"></label>
+				<input type="checkbox" id="showSuccesses" ng-model="data.options.showSuccesses" ng-change="">
+				<label for="showSuccesses"></label>
 			</div>
 		</li>
 		<li>

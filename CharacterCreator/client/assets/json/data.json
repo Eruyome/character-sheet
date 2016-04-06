@@ -1,33 +1,33 @@
 {
   "abilities" : {
     "common" : [
-      {"name": ["Accounting", "Buchhaltung"], "value_base" : 10, "value_added" : 0, "value_total" : 0, "skilled" : false},
-      {"name": ["Anthropology", "Anthropology"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "skilled" : false},
-      {"name": ["Archeology", "Archeology"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "skilled" : false},
-      {"name": ["Astronomy", "Astronomy"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "skilled" : false},
-      {"name": ["Bargain", "Bargain"], "value_base" : 5, "value_added" : 0, "value_total" : 0, "skilled" : false},
-      {"name": ["Biology", "Biology"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "skilled" : false},
-      {"name": ["Chemistry", "Chemistry"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "skilled" : false},
-      {"name": ["Climb", "Climb"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "skilled" : false, "calc_desc" : ["STR + DEX", "ST + GE"], "value_calc" : 0, "calc" : { "stat" : "str", "operator" : "+", "modifier" : "dex"}},
-      {"name": ["Conceal", "Conceal"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "skilled" : false},
-      {"name": ["Credit Rating", "Credit Rating"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "skilled" : false},
-      {"name": ["Cthulhu Mythos", "Cthulhu Mythos"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "skilled" : false, "skillable" : false},
-      {"name": ["Dodge", "Ausweichen"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "skilled" : false, "calc_desc" : ["DEX * 2", "GE * 2"], "value_calc" : 0, "calc" : { "stat" : "dex", "operator" : "*", "modifier" : 2}},
-      {"name": ["Electrical Repair", "Electrical Repair"], "value_base" : 10, "value_added" : 0, "value_total" : 0, "skilled" : false},
-      {"name": ["Own Language", "Muttersprache"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "skilled" : false, "custom_input" : "", "calc_desc" : ["EDU * 5", "BI * 5"], "value_calc" : 0, "calc" : { "stat" : "edu", "operator" : "*", "modifier" : 5}},
-      {"name": ["Electrical Repair", "Electrical Repair"], "value_base" : 10, "value_added" : 0, "value_total" : 0, "skilled" : false}
+      {"name": ["Accounting", "Buchhaltung"], "value_base" : 10, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Anthropology", "Anthropology"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Archeology", "Archeology"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Astronomy", "Astronomy"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Bargain", "Bargain"], "value_base" : 5, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Biology", "Biology"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Chemistry", "Chemistry"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Climb", "Climb"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "success" : false, "calc_desc" : ["STR + DEX", "ST + GE"], "value_calc" : 0, "calc" : { "stat" : "str", "operator" : "+", "modifier" : "dex"}},
+      {"name": ["Conceal", "Conceal"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Credit Rating", "Credit Rating"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Cthulhu Mythos", "Cthulhu Mythos"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "success" : false, "skillable" : false, "cthulhu_mythos" : true},
+      {"name": ["Dodge", "Ausweichen"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "success" : false, "calc_desc" : ["DEX * 2", "GE * 2"], "value_calc" : 0, "calc" : { "stat" : "dex", "operator" : "*", "modifier" : 2}},
+      {"name": ["Electrical Repair", "Electrical Repair"], "value_base" : 10, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Own Language", "Muttersprache"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "success" : false, "custom_input" : "", "calc_desc" : ["EDU * 5", "BI * 5"], "value_calc" : 0, "calc" : { "stat" : "edu", "operator" : "*", "modifier" : 5}},
+      {"name": ["Electrical Repair", "Electrical Repair"], "value_base" : 10, "value_added" : 0, "value_total" : 0, "success" : false}
     ],
     "firearms" : [
-      {"name": ["Handgun", "Handgun"], "value_base" : 20, "value_added" : 0, "value_total" : 0, "skilled" : false},
-      {"name": ["Machine Gun", "Machine Gun"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "skilled" : false},
-      {"name": ["Rifle", "Rifle"], "value_base" : 25, "value_added" : 0, "value_total" : 0, "skilled" : false},
-      {"name": ["Shotgun", "Shotgun"], "value_base" : 30, "value_added" : 0, "value_total" : 0, "skilled" : false}
+      {"name": ["Handgun", "Handgun"], "value_base" : 20, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Machine Gun", "Machine Gun"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Rifle", "Rifle"], "value_base" : 25, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Shotgun", "Shotgun"], "value_base" : 30, "value_added" : 0, "value_total" : 0, "success" : false}
     ],
     "other" : [
       {"name": ["Art", "Art"], "value_base" : 5, "skillable" : false, "time" : "anytime"},
       {"name": ["Computer Use", "Computer Use"], "value_base" : 0, "skillable" : false, "time" : "1990"},
       {"name": ["Drive Carriage", "Drive Carriage"], "value_base" : 0, "skillable" : false, "time" : "1890"},
-      {"name": ["Submachine Gun", "Submachine Gun"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "skilled" : false, "time" : "1890", "time_mod" : "not"}
+      {"name": ["Submachine Gun", "Submachine Gun"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "success" : false, "time" : "1890", "time_mod" : "not"}
     ],
     "custom" : [
 
@@ -35,26 +35,26 @@
   },
   "player" : {
     "stats_base" : {
-      "str" : { "name" : ["STR", "STR"], "value" : 13 },
-      "dex" : { "name" : ["DEX", "GE"], "value" : 12 },
-      "int" : { "name" : ["INT", "INT"], "value" : 11 },
-      "con" : { "name" : ["CON", "CON"], "value" : 8 },
-      "app" : { "name" : ["APP", "CHA"], "value" : 13 },
-      "pow" : { "name" : ["POW", "MA"], "value" : 14 },
-      "siz" : { "name" : ["SIZ", "SIZ"], "value" : 12 },
-      "edu" : { "name" : ["EDU", "BI"], "value" : 15 }
+      "str" : { "name" : ["Strength", "Stärke"], "abbrev" : ["STR", "STR"], "value" : 13 },
+      "dex" : { "name" : ["Dexterity", "Geschicklichkeit"], "abbrev" : ["DEX", "GE"], "value" : 12 },
+      "int" : { "name" : ["Intelligence", "Intelligenz"], "abbrev" : ["INT", "INT"], "value" : 11 },
+      "con" : { "name" : ["Constitution", "Constitution"], "abbrev" : ["CON", "CON"],"value" : 8 },
+      "app" : { "name" : ["Appearance", "Appearance"], "abbrev" : ["APP", "CHA"], "value" : 13 },
+      "pow" : { "name" : ["Power", "Magie"], "abbrev" : ["POW", "MA"], "value" : 14 },
+      "siz" : { "name" : ["Size", "Größe"], "abbrev" : ["SIZ", "SIZ"], "value" : 12 },
+      "edu" : { "name" : ["Education", "Bildung"], "abbrev" : ["EDU", "BI"], "value" : 15 }
     },
     "stats_calc" : {
       "idea" : { "name" : ["Idea", "Idea"], "abbrev" : ["Idea", "Idea"], "value" : 0 },
       "luck" : { "name" : ["Luck", "Glück"], "abbrev" : ["Luck", "Glück"], "value" : 0 },
       "know" : { "name" : ["Know", "Know"], "abbrev" : ["Know", "Know"], "value" : 0 },
       "san" : { "name" : ["Sanity", "Sanity"], "abbrev" : ["SAN", "GES"], "value_min" : 0},
-      "san_max" : { "name" : ["Max Sanity", "Max Geistige Gesundheit"], "abbrev" : ["Max SAN", "Max GES"], "value" : 0 },
+      "san_max" : { "name" : ["Max Sanity", "Max Geistige Gesundheit"], "abbrev" : ["Max SAN", "Max GES"], "value" : 99 },
       "hp" : { "name" : ["Hit Points", "Trefferpunkte"], "abbrev" : ["HP", "TP"], "value_min" : -2},
       "hp_max" : { "name" : ["Max Hit Points", "Max Trefferpunkte"], "abbrev" : ["Max HP", "Max TP"],"value" : 0 },
       "magic" : { "name" : ["Magic Points", "Magie Punkte"], "abbrev" : ["MP", "MP"], "value_min" : 0},
       "magic_max" : { "name" : ["Max Magic Points", "Max Magie Punkte"], "abbrev" : ["Max MP", "Max MP"], "value" : 0 },
-      "dmg_bonus" : { "name" : ["Damage Bonus", "Schadens Bonus"], "abbrev" : ["Damage Bonus", "Schadens Bonus"], "value" : "" }
+      "dmg_bonus" : { "name" : ["Melee Damage Bonus", "Nahkampf Schadens Bonus"], "abbrev" : ["Damage Bonus", "Schadens Bonus"], "value" : "" }
     },
     "skillPoints_used" : 0
   },
@@ -62,7 +62,7 @@
     "timeSelect" : { "type" : "select", "name" : "Time Period", "value" : "anytime", "options" : ["anytime", "1890", "1920", "1990"] },
     "languageSelect" : { "type" : "select", "name" : "Language", "value" : "English", "options" : ["English", "Deutsch"] },
     "languageIndex" : 0,
-    "showUnskilled" : true,
+    "showSuccesses" : true,
     "showValueBase" : true
   }
 }

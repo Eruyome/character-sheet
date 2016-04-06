@@ -95,26 +95,22 @@
 						$scope.data.player.stats_calc.hp.value = Math.ceil(v / 2);
 					}
 					// reduce current hp if max hp is reduced too much
-					if ($scope.data.player.stats_calc.hp.value > $scope.data.player.stats_calc.hp_max.value) {
-						$scope.data.player.stats_calc.hp.value = $scope.data.player.stats_calc.hp_max.value;
-					}
+					$scope.reducePointsIfHigherThanMaxValue("hp","hp_max");
 				}
 			}
 
 			if (key == 'pow') {
 				// calculate max sanity
 				var v = (stat.value * 5) < 99 ? (stat.value * 5) : 99;
-				$scope.data.player.stats_calc.san_max.value = v;
+
+				$scope.calculateMaxSanity();
+
 				// calculate current sanity if not set
 				if ($scope.isUndefined($scope.data.player.stats_calc.san.value)) {
 					$scope.data.player.stats_calc.san.value = v;
 				}
 				// reduce current sanity if max sanity is reduced too much
-				if ($scope.data.player.stats_calc.san.value > $scope.data.player.stats_calc.san_max.value) {
-					console.log($scope.data.player.stats_calc.san.value);
-					$scope.data.player.stats_calc.san.value = $scope.data.player.stats_calc.san_max.value;
-					console.log($scope.data.player.stats_calc.san.value);
-				}
+				$scope.reducePointsIfHigherThanMaxValue("san","san_max");
 
 				// calculate luck
 				v = (stat.value * 5) < 99 ? (stat.value * 5) : 99;
@@ -129,10 +125,9 @@
 				if ($scope.isUndefined($scope.data.player.stats_calc.magic.value)) {
 					$scope.data.player.stats_calc.magic.value = v;
 				}
+
 				// reduce current magic if max magic is reduced too much
-				if ($scope.data.player.stats_calc.magic.value > $scope.data.player.stats_calc.magic_max.value) {
-					$scope.data.player.stats_calc.magic.value = $scope.data.player.stats_calc.magic_max.value;
-				}
+				$scope.reducePointsIfHigherThanMaxValue("magic","magic_max");
 			}
 			if (key == 'int') {
 				var v = (stat.value * 5) < 99 ? (stat.value * 5) : 99;
@@ -171,6 +166,26 @@
 			});
 		}
 
+		$scope.reducePointsIfHigherThanMaxValue = function(current, max) {
+			if ($scope.data.player.stats_calc[current].value > $scope.data.player.stats_calc[max].value) {
+				$scope.data.player.stats_calc[current].value = $scope.data.player.stats_calc[max].value;
+			}
+		};
+
+		$scope.calculateMaxSanity = function() {
+			for (var i = 0; i < $scope.data.abilities.common.length; i++){
+				if (!$scope.isUndefined($scope.data.abilities.common[i].cthulhu_mythos)){
+					$scope.data.player.stats_calc.san_max.value = 99 - $scope.data.abilities.common[i].value_added;
+
+					$scope.reducePointsIfHigherThanMaxValue("san","san_max");
+					break;
+				}
+				else {
+					$scope.data.player.stats_calc.san_max.value = 99;
+				}
+			}
+		};
+
 		// Get player status (hp, magic, sanity)
 		$scope.getStatus = function(stat, minValue, value) {
 			var status = '';
@@ -178,10 +193,18 @@
 			if (stat == 'magic') {
 				status = (value >= minValue && value < 1) ? 'unconscious' : 'normal';
 			}
-			if (stat == 'hitpoints') {
-				status = (value >= minValue && value < 1) ? 'unconscious' : 'normal';
+			else if (stat == 'hitpoints') {
+				if (value >= (minValue+1) && value < 1){
+					status = 'unconscious';
+				}
+				else if (value == minValue) {
+					status = 'dead';
+				}
+				else {
+					status = 'normal';
+				}
 			}
-			if (stat == 'sanity') {
+			else if (stat == 'sanity') {
 				status = (value >= minValue && value < 1) ? 'hopelessly insane' : 'normal';
 			}
 
@@ -225,6 +248,11 @@
 					$scope.data.abilities.custom.splice(i, 1);
 				}
 			}
+		};
+
+		$scope.handleSkillChanges = function() {
+			$scope.calculateMaxSanity();
+			$scope.checkAvailableSkillPoints();
 		};
 
 		$scope.checkAvailableSkillPoints = function() {

@@ -1,7 +1,7 @@
-<tr ng-show="(data.options.showUnskilled || ability.skilled || (ability.skillable==false)) && validTimePeriod(ability.time, ability.time_mod)"
+<tr ng-show="(data.options.showSuccesses || ability.success || (ability.skillable==false)) && validTimePeriod(ability.time, ability.time_mod)"
 	ng-class="{customText:!isUndefined(ability.custom_input), customName:!isUndefined(ability.custom_name)}">
 	<td>
-		<input id="check-{{ability.name[0]}}" ng-model="ability.skilled" type="checkbox" ng-if="ability.skillable!==false">
+		<input id="check-{{ability.name[0]}}" ng-model="ability.success" type="checkbox" ng-if="ability.skillable!==false">
 	</td>
 	<td colspan="{{calculateColspan(data.options.showValueBase)}}">
 		<label for="check-{{ability.name[0]}}" ng-if="isUndefined(ability.custom_name)">
@@ -28,7 +28,7 @@
 		</span>
 	</td>
 	<td class="numberInput" ng-class="{time:!isUndefined(ability.time)}">
-		<input ng-if="isUndefined(ability.time)" type="number" ng-model="ability.value_added" min="0" max="{{99 - ability.value_base}}" ng-change="checkAvailableSkillPoints()">
+		<input ng-if="isUndefined(ability.time)" type="number" ng-model="ability.value_added" min="0" max="{{99 - ability.value_base}}" ng-change="handleSkillChanges()">
 		<span ng-if="!isUndefined(ability.time)"><span class="not" ng-class="{visible:ability.time_mod=='not'}"></span>{{ability.time}}</span>
 	</td>
 </tr>
