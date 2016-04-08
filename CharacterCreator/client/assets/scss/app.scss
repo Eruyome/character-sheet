@@ -8,7 +8,7 @@ body {
 }
 
 .grid-container {
-	max-width: 60rem;
+	max-width: 90rem;
 }
 .grid-content .grid-block {
 	margin: 0;
@@ -19,6 +19,37 @@ body {
 
 .uiview {
 	padding: 0 !important;
+}
+
+.accordion {
+	border: none;
+
+	.accordion-title::after {
+		content: "▼";
+		float: right;
+		font-size: 10px;
+	}
+	.is-active > .accordion-title::after {
+		content: "▲";
+	}
+
+}
+.accordion-content {
+	padding: 0;
+	margin-top: 0.4rem;
+	margin-bottom: 1rem;
+}
+
+.accordion-title, .is-active > .accordion-title {
+	color: white;
+	background-color: #00558b;
+	padding: 0.1rem 0.4rem;
+	line-height: 1.5rem;
+	margin-bottom: 0.2rem;
+
+	&:hover {
+		background-color: #00558b;
+	}
 }
 
 table {
@@ -55,7 +86,7 @@ table {
 }
 
 .stats {
-	padding: 0 1rem;
+	padding: 0 0.5rem !important;
 	.base, .calculated {
 		span, input {
 			font-size: rem-calc(12px);
@@ -118,7 +149,7 @@ table {
 }
 
 .abilities, .stats, .options {
-	padding: 0 1rem;
+	padding: 0;
 	.grid-block {
 		margin-left: 0;
 		margin-right: 0;
@@ -227,6 +258,12 @@ table {
 
 					&.valueTotal {
 						background: #9EDC9E;
+						.value {
+							display: inline;
+							background: inherit;
+							padding: 0;
+							border:none;
+						}
 					}
 				}
 			}
@@ -322,7 +359,7 @@ table {
 }
 
 .options {
-	padding: 0 1rem;
+	padding: 0;
 	ul, ol {
 		list-style-type: none;
 		width: 100%;
@@ -350,9 +387,13 @@ h6 {
 	background-color: #00558b;
 	padding: 0.1rem 0.4rem;
 	margin-bottom: 5px;
+	font-size: rem-calc(14px);
 }
 
 .points {
+	.sanity, .hitpoints, .magic {
+		padding: 0 0.5rem 0.5rem 0.5rem !important;
+	}
 	.status {
 		font-size: rem-calc(12px);
 		color: #999;
@@ -400,6 +441,21 @@ h6 {
 			visibility: hidden;
 			width: 20px;
 			height: 20px;
+		}
+	}
+}
+
+.items {
+	table {
+		//border: 1px solid #00558b;
+		td {
+			border: 1px solid #00558b;
+			&.input {
+				border-right: none;
+				& + td {
+					border-left: none;
+				}
+			}
 		}
 	}
 }

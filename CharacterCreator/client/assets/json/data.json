@@ -15,13 +15,14 @@
       {"name": ["Dodge", "Ausweichen"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "success" : false, "calc_desc" : ["DEX * 2", "GE * 2"], "value_calc" : 0, "calc" : { "stat" : "dex", "operator" : "*", "modifier" : 2}},
       {"name": ["Electrical Repair", "Electrical Repair"], "value_base" : 10, "value_added" : 0, "value_total" : 0, "success" : false},
       {"name": ["Own Language", "Muttersprache"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "success" : false, "custom_input" : "", "calc_desc" : ["EDU * 5", "BI * 5"], "value_calc" : 0, "calc" : { "stat" : "edu", "operator" : "*", "modifier" : 5}},
-      {"name": ["Electrical Repair", "Electrical Repair"], "value_base" : 10, "value_added" : 0, "value_total" : 0, "success" : false}
+      {"name": ["Electrical Repair", "Electrical Repair"], "value_base" : 10, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Throw", "Werfen"], "value_base" : 25, "value_added" : 0, "value_total" : 0, "success" : false, "sub_type" : "throw"}
     ],
     "firearms" : [
-      {"name": ["Handgun", "Handgun"], "value_base" : 20, "value_added" : 0, "value_total" : 0, "success" : false},
-      {"name": ["Machine Gun", "Machine Gun"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "success" : false},
-      {"name": ["Rifle", "Rifle"], "value_base" : 25, "value_added" : 0, "value_total" : 0, "success" : false},
-      {"name": ["Shotgun", "Shotgun"], "value_base" : 30, "value_added" : 0, "value_total" : 0, "success" : false}
+      {"name": ["Handgun", "Handgun"], "value_base" : 20, "value_added" : 0, "value_total" : 0, "success" : false, "sub_type" : "handgun"},
+      {"name": ["Machine Gun", "Machine Gun"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "success" : false, "sub_type" : "machinegun"},
+      {"name": ["Rifle", "Rifle"], "value_base" : 25, "value_added" : 0, "value_total" : 0, "success" : false, "sub_type" : "rifle"},
+      {"name": ["Shotgun", "Shotgun"], "value_base" : 30, "value_added" : 0, "value_total" : 0, "success" : false, "sub_type" : "shotgun"}
     ],
     "other" : [
       {"name": ["Art", "Art"], "value_base" : 5, "skillable" : false, "time" : "anytime"},
@@ -35,26 +36,65 @@
   },
   "player" : {
     "stats_base" : {
-      "str" : { "name" : ["Strength", "Stärke"], "abbrev" : ["STR", "STR"], "value" : 13 },
+      "str" : { "name" : ["Strength", "Stärke"], "abbrev" : ["STR", "ST"], "value" : 13 },
       "dex" : { "name" : ["Dexterity", "Geschicklichkeit"], "abbrev" : ["DEX", "GE"], "value" : 12 },
-      "int" : { "name" : ["Intelligence", "Intelligenz"], "abbrev" : ["INT", "INT"], "value" : 11 },
-      "con" : { "name" : ["Constitution", "Constitution"], "abbrev" : ["CON", "CON"],"value" : 8 },
-      "app" : { "name" : ["Appearance", "Appearance"], "abbrev" : ["APP", "CHA"], "value" : 13 },
+      "int" : { "name" : ["Intelligence", "Intelligenz"], "abbrev" : ["INT", "IN"], "value" : 11 },
+      "con" : { "name" : ["Constitution", "Constitution"], "abbrev" : ["CON", "KO"],"value" : 8 },
+      "app" : { "name" : ["Appearance", "Appearance"], "abbrev" : ["APP", "ER"], "value" : 13 },
       "pow" : { "name" : ["Power", "Magie"], "abbrev" : ["POW", "MA"], "value" : 14 },
-      "siz" : { "name" : ["Size", "Größe"], "abbrev" : ["SIZ", "SIZ"], "value" : 12 },
+      "siz" : { "name" : ["Size", "Größe"], "abbrev" : ["SIZ", "GR"], "value" : 12 },
       "edu" : { "name" : ["Education", "Bildung"], "abbrev" : ["EDU", "BI"], "value" : 15 }
     },
     "stats_calc" : {
-      "idea" : { "name" : ["Idea", "Idea"], "abbrev" : ["Idea", "Idea"], "value" : 0 },
+      "idea" : { "name" : ["Idea", "Idee"], "abbrev" : ["Idea", "Idee"], "value" : 0 },
       "luck" : { "name" : ["Luck", "Glück"], "abbrev" : ["Luck", "Glück"], "value" : 0 },
-      "know" : { "name" : ["Know", "Know"], "abbrev" : ["Know", "Know"], "value" : 0 },
-      "san" : { "name" : ["Sanity", "Sanity"], "abbrev" : ["SAN", "GES"], "value_min" : 0},
-      "san_max" : { "name" : ["Max Sanity", "Max Geistige Gesundheit"], "abbrev" : ["Max SAN", "Max GES"], "value" : 99 },
-      "hp" : { "name" : ["Hit Points", "Trefferpunkte"], "abbrev" : ["HP", "TP"], "value_min" : -2},
+      "know" : { "name" : ["Knowledge", "Wissen"], "abbrev" : ["Know", "Wissen"], "value" : 0 },
+      "san" : { "name" : ["Current Sanity", "Aktuelle Geistige Stabilität"], "abbrev" : ["SAN", "gS"], "value_min" : 0},
+      "san_max" : { "name" : ["Max Sanity", "Max Geistige Gesundheit"], "abbrev" : ["Max SAN", "Max gS"], "value" : 99 },
+      "hp" : { "name" : ["Current Hit Points", "Aktuelle Trefferpunkte"], "abbrev" : ["HP", "TP"], "value_min" : -2},
       "hp_max" : { "name" : ["Max Hit Points", "Max Trefferpunkte"], "abbrev" : ["Max HP", "Max TP"],"value" : 0 },
-      "magic" : { "name" : ["Magic Points", "Magie Punkte"], "abbrev" : ["MP", "MP"], "value_min" : 0},
+      "magic" : { "name" : ["Current Magic Points", "Aktuelle Magie Punkte"], "abbrev" : ["MP", "MP"], "value_min" : 0},
       "magic_max" : { "name" : ["Max Magic Points", "Max Magie Punkte"], "abbrev" : ["Max MP", "Max MP"], "value" : 0 },
-      "dmg_bonus" : { "name" : ["Melee Damage Bonus", "Nahkampf Schadens Bonus"], "abbrev" : ["Damage Bonus", "Schadens Bonus"], "value" : "" }
+      "dmg_bonus" : { "name" : ["Melee Damage Bonus", "Nahkampf Schadens Bonus"], "abbrev" : ["Damage Bonus", "Schadens Bonus"], "value" : "" },
+      "range" : { "name" : ["Core Fire Range", "Kernschussweite"], "abbrev" : ["Core Fire Range", "Kern-Schussw."], "value" : "" }
+    },
+    "items" : {
+      "armour" : [],
+      "weapons_available" : {
+        "melee": [
+          {"name": ["Florett, sharpened","Florett, geschärft"], "sub_type" : "melee", "sub_type_display" : ["Melee Weapons", "Nahkampfwaffen"], "crit" : true, "equip" : true, "success" : false, "value_base" : 20, "value_added" : 0, "dmg_display" : ["1D6+db", "1W6+Sb"], "dmg_dice" : 1, "dmg_diceType" : 6, "dmg_operator" : "+", "dmg_modifier" : ["dmgb"], "hands" : 0, "range" : ["Touch" , "Berührung"], "attacks" : "1", "hp" : 10, "time" : "anytime"},
+          {"name": ["Sword","Schwert"], "sub_type" : "melee", "sub_type_display" : ["Melee Weapons", "Nahkampfwaffen"], "crit" : true,"equip" : true, "success" : false, "value_base" : 10, "value_added" : 0, "dmg_display" : ["1D8+1+db", "1W8+1+Sb"], "dmg_dice" : 1, "dmg_diceType" : 8, "dmg_operator" : "+", "dmg_modifier" : [1,"dmgb"], "hands" : 0, "range" : ["Touch" , "Berührung"], "attacks" : "1", "hp" : 20, "time" : "anytime"},
+          {"name": ["Small Knife","Small Knife"], "sub_type" : "melee", "sub_type_display" : ["Melee Weapons", "Nahkampfwaffen"], "crit" : true, "equip" : true, "success" : false, "value_base" : 25, "value_added" : 0, "dmg_display" : ["1D4+db", "1W4+Sb"], "dmg_dice" : 1, "dmg_diceType" : 4, "dmg_operator" : "+", "dmg_modifier" : ["dmgb"], "hands" : 0, "range" : ["Touch" , "Berührung"], "attacks" : "1", "hp" : 9, "time" : "anytime"},
+          {"name": ["Small Knife","Small Knife"], "sub_type" : "melee", "sub_type_display" : ["Melee Weapons", "Nahkampfwaffen"], "crit" : true, "equip" : true, "success" : false, "value_base" : 25, "value_added" : 0, "dmg_display" : ["1D4+2+db", "1W4+2+Sb"], "dmg_dice" : 1, "dmg_diceType" : 4, "dmg_operator" : "+", "dmg_modifier" : [2,"dmgb"], "hands" : 0, "range" : ["Touch" , "Berührung"], "attacks" : "1", "hp" : 9, "time" : "anytime"},
+          {"name": ["Stone, thrown","Stein, geworfen"], "sub_type" : "throw", "sub_type_display" : ["Throwing Weapons", "Wurfwaffen"], "crit" : true, "equip" : true, "success" : false, "value_base" : 0, "value_added" : 0, "dmg_display" : ["1D4+1/2 db", "1W4+1/2 Sb"], "dmg_dice" : 1, "dmg_diceType" : 4, "dmg_operator" : "+", "dmg_modifier" : ["dmgb"], "dmgb_multiplier" : 0.5 , "hands" : 0, "range" : ["Throw" , "Werfen"], "attacks" : "1", "time" : "anytime"}
+        ],
+        "firearms": [          
+          {"name": [".22 Automatic",".22er Automatik"], "sub_type" : "handgun", "sub_type_display" : ["Handguns", "Faustfeuerwaffen"], "crit" : true, "equip" : true, "success" : false, "value_base" : 20, "value_added" : 0, "dmg_display" : ["1D6", "1W6"], "dmg_dice" : 1, "dmg_diceType" : 6, "dmg_operator" : "", "dmg_modifier" : [""], "hands" : 0, "range" : ["10 m" , "10 m"], "attacks" : "3", "hp" : 6, "ammo_cap" : 6, "error" : 99, "time" : "anytime"},
+          {"name": [".22 Pump-Action Rifle",".22er Repetiergewehr"], "sub_type" : "rifle", "sub_type_display" : ["Rifles", "Gewehre"], "crit" : true, "equip" : true, "success" : false, "value_base" : 25, "value_added" : 0, "dmg_display" : ["1D6+2", "1W6+2"], "dmg_dice" : 1, "dmg_diceType" : 6, "dmg_operator" : "+", "dmg_modifier" : [2], "hands" : 0, "range" : ["30 m" , "30 m"], "attacks" : "1", "hp" : 9,  "ammo_cap" : 6, "error" : 99, "time" : "anytime"},
+          {"name": [".22 Pump-Action Rifle",".22er Repetiergewehr"], "sub_type" : "rifle", "sub_type_display" : ["Rifles", "Gewehre"], "crit" : true, "equip" : true, "success" : false, "value_base" : 25, "value_added" : 0, "dmg_display" : ["1D6+2", "1W6+2"], "dmg_dice" : 1, "dmg_diceType" : 6, "dmg_operator" : "+", "dmg_modifier" : [2], "hands" : 0, "range" : ["30 m" , "30 m"], "attacks" : "1", "hp" : 9,  "ammo_cap" : 6, "error" : 99, "time" : "anytime"},
+          {"name": ["Double-Barrel cal. 10","Doppelflinte Kal. 10"], "sub_type" : "shotgun", "sub_type_display" : ["Shotguns", "Schrotgewehre"], "crit" : true, "equip" : true, "success" : false, "value_base" : 30, "value_added" : 0, "dmg_display" : ["4D6+2 / 2D6+1 / 1D6", "4W6+2 / 2W6+1 / 1W6"], "dmg_dice" : 1, "dmg_diceType" : 6, "dmg_operator" : "+", "dmg_modifier" : [0], "dmg_stages": 3, "hands" : 0, "range" : ["30 m" , "30 m"], "attacks" : "1", "hp" : 9,  "ammo_cap" : 6, "error" : 99, "time" : "anytime"},
+          {"name": ["Browning M1917","Browning M1917"], "sub_type" : "machinegun", "sub_type_display" : ["Machineguns", "Machinengewehre"], "crit" : true, "equip" : true, "success" : false, "value_base" : 15, "value_added" : 0, "dmg_display" : ["2D6+4", "2w6+4"], "dmg_dice" : 2, "dmg_diceType" : 6, "dmg_operator" : "+", "dmg_modifier" : [4], "hands" : 0, "range" : ["150 m" , "150 m"], "attacks" : "15", "hp" : 15,  "ammo_cap" : 250, "error" : 98, "time" : "anytime"}
+        ]
+      },
+      "weapons_equipped" : {
+        "melee": [
+          {"name": ["Punch","Faustschlag"], "sub_type" : "melee", "sub_type_display" : ["Melee Weapons", "Nahkampfwaffen"], "crit" : true, "equip" : false, "success" : false, "value_base" : 50, "value_added" : 0, "dmg_display" : ["1D3+db", "1W3+Sb"], "dmg_dice" : 1, "dmg_diceType" : 3, "dmg_operator" : "+", "dmg_modifier" : ["dmgb"], "hands" : 1, "range" : ["Touch" , "Berührung"], "attacks" : "1"},
+          {"name": ["Headbutt","Kopfstoß"], "sub_type" : "melee", "sub_type_display" : ["Melee Weapons", "Nahkampfwaffen"], "crit" : true, "equip" : false, "success" : false, "value_base" : 10, "value_added" : 0, "dmg_display" : ["1D4+db", "1W4+Sb"], "dmg_dice" : 1, "dmg_diceType" : 4, "dmg_operator" : "+", "dmg_modifier" : ["dmgb"], "hands" : 2, "range" : ["Touch" , "Berührung"], "attacks" : "1"},
+          {"name": ["Kick","Fußtritt"], "sub_type" : "melee", "sub_type_display" : ["Melee Weapons", "Nahkampfwaffen"], "crit" : true, "equip" : false, "success" : false, "value_base" : 25, "value_added" : 0, "dmg_display" : ["1D6+db", "1W6+Sb"], "dmg_dice" : 1, "dmg_diceType" : 6, "dmg_operator" : "+", "dmg_modifier" : ["dmgb"], "hands" : 0, "range" : ["Touch" , "Berührung"], "attacks" : "1"},
+          {"name": ["Wrestle","Ringen"], "sub_type" : "melee", "sub_type_display" : ["Melee Weapons", "Nahkampfwaffen"], "crit" : true, "equip" : false, "success" : false, "value_base" : 25, "value_added" : 0, "dmg_display" : ["special", "spezial"], "dmg_dice" : 0, "dmg_diceType" : 0, "dmg_operator" : "", "dmg_modifier" : [""], "hands" : 2, "range" : ["Touch" , "Berührung"], "attacks" : "1"}
+        ],
+        "firearms": [
+        ]
+      },
+      "weapon_stat_desc" : {
+        "melee" : {
+          "desc_0" : ["%","%"], "desc_1" : ["Damage","Schaden"], "desc_2" : ["Hands","Hände"], "desc_3" : ["Range","Reichweite"], "desc_4" : ["#Attacks","#Attacks"], "desc_6" : ["Ammo Capacity","Ladekapazität"], "desc_5" : ["HP","TP"], "desc_x" : ["Melee","Nahkampf"]
+        },
+        "firearms" : {
+          "desc_0" : ["%","%"], "desc_1" : ["Damage","Schaden"], "desc_2" : ["Malf.","Fehlf."], "desc_3" : ["Range","Reichweite"], "desc_4" : ["#Attacks","#Attacks"], "desc_6" : ["Ammo Capacity","Ladekapazität"], "desc_5" : ["HP","TP"], "desc_x" : ["Firearms","Schusswaffe"]
+        }
+
+      }
     },
     "skillPoints_used" : 0
   },
@@ -63,6 +103,7 @@
     "languageSelect" : { "type" : "select", "name" : "Language", "value" : "English", "options" : ["English", "Deutsch"] },
     "languageIndex" : 0,
     "showSuccesses" : true,
-    "showValueBase" : true
+    "showValueBase" : true,
+    "showWeaponDamage" : true
   }
 }

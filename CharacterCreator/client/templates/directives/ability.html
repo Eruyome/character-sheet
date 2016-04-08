@@ -1,7 +1,8 @@
 <tr ng-show="(data.options.showSuccesses || ability.success || (ability.skillable==false)) && validTimePeriod(ability.time, ability.time_mod)"
 	ng-class="{customText:!isUndefined(ability.custom_input), customName:!isUndefined(ability.custom_name)}">
 	<td>
-		<input id="check-{{ability.name[0]}}" ng-model="ability.success" type="checkbox" ng-if="ability.skillable!==false">
+		<input id="check-{{ability.name[0]}}" ng-model="ability.success" type="checkbox"
+			   ng-if="ability.skillable!==false" ng-change="synchSuccessStates(ability.success, ability.sub_type)">
 	</td>
 	<td colspan="{{calculateColspan(data.options.showValueBase)}}">
 		<label for="check-{{ability.name[0]}}" ng-if="isUndefined(ability.custom_name)">
@@ -11,8 +12,8 @@
 			</span>
 		</label>
 		<input ng-if="!isUndefined(ability.custom_input) || !isUndefined(ability.custom_name)"
-			   type="text" ng-model="ability.custom_input"
-			   ng-class="{text:!isUndefined(ability.custom_input || !isUndefined(ability.custom_name))}">
+			   type="text" ng-model="ability.custom_name"
+			   ng-class="{text:!isUndefined(ability.custom_name || !isUndefined(ability.custom_name))}">
 	</td>
 	<td class="values" ng-if="data.options.showValueBase && !isUndefined(ability.value_base)">
 		<span ng-show="data.options.showValueBase" class="valueBase form-label" ng-if="isUndefined(ability.calc)" title="Default">
@@ -23,8 +24,8 @@
 		</span>
 	</td>
 	<td class="values">
-		<span class="valueTotal form-label" ng-model="ability.value_total" title="Total">
-			({{ability.value_base + ability.value_calc + ability.value_added | max99}}%)
+		<span class="valueTotal form-label" title="Total">
+			(<span ng-bind="ability.value_total" class="value">{{ability.value_base + ability.value_added + ability.value_calc}}</span>%)
 		</span>
 	</td>
 	<td class="numberInput" ng-class="{time:!isUndefined(ability.time)}">
@@ -32,4 +33,3 @@
 		<span ng-if="!isUndefined(ability.time)"><span class="not" ng-class="{visible:ability.time_mod=='not'}"></span>{{ability.time}}</span>
 	</td>
 </tr>
-

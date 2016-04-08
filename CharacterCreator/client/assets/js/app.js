@@ -34,6 +34,10 @@
 	appModule.controller('characterController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
 		$scope.data = {};
 		$scope.currentTab = 0;
+		$scope.armourRating = 0;
+		$scope.constructedDamageBonus = {
+			"dmg_dice" : 0, "dmg_diceType" : 0, "dmg_operator" : "", "dmg_display" : ""
+		};
 
 		var operators = {
 			'+': function(a, b){ return a+b},
@@ -75,14 +79,7 @@
 			if(key == 'str' || key == 'siz') {
 				var v = $scope.data.player.stats_base.str.value + $scope.data.player.stats_base.siz.value;
 				var result = 0;
-
-				if (v >= 2 && v <= 12 ) { result = '-1D6' }
-				else if (v >= 13 && v <= 16 ) { result = '-1D4' }
-				else if (v >= 17 && v <= 24 ) { result = '+0' }
-				else if (v >= 25 && v <= 32 ) { result = '+1D4' }
-				else if (v >= 33) { result = '+1D6' }
-
-				$scope.data.player.stats_calc.dmg_bonus.value = result;
+				$scope.data.player.stats_calc.dmg_bonus.value = constructDamageBonus(v);
 			}
 
 			if(key == 'con' || key == 'siz') {
@@ -137,7 +134,34 @@
 				var v = (stat.value * 5) < 99 ? (stat.value * 5) : 99;
 				$scope.data.player.stats_calc.know.value = v;
 			}
+			if (key == 'dex') {
+				var v = Math.round((stat.value * 0.3 * 100)) / 100 ;
+				$scope.data.player.stats_calc.range.value = v + "m";
+			}
 		};
+
+		function constructDamageBonus(v) {
+			var dmg_dice = 1, dmg_diceType = 6, dmg_operator = "+", result = "";
+
+			if (v >= 2 && v <= 12 ) { dmg_operator = "-"; }
+			else if (v >= 13 && v <= 16 ) { dmg_operator = "-"; dmg_diceType = 4;  }
+			else if (v >= 17 && v <= 24 ) { dmg_dice = 0; dmg_diceType = 0; }
+			else if (v >= 25 && v <= 32 ) { dmg_diceType = 4; }
+			else if (v >= 33 && v <= 40 ) {  }
+			else if (v >= 41 && v <= 56 ) { dmg_dice = 2; }
+			else if (v >= 57 && v <= 72 ) { dmg_dice = 3; }
+			else if (v >= 73 && v <= 88 ) { dmg_dice = 4; }
+			else if (v >= 89) { dmg_dice = 5; }
+
+			result = dmg_operator + dmg_dice;
+			if (dmg_diceType > 0) result += 'D' + dmg_diceType;
+
+			$scope.constructedDamageBonus.dmg_dice = dmg_dice;
+			$scope.constructedDamageBonus.dmg_diceType = dmg_diceType;
+			$scope.constructedDamageBonus.dmg_operator = dmg_operator;
+			$scope.constructedDamageBonus.dmg_display = result;
+			return result;
+		}
 
 		function calculateAbilityValues(obj) {
 			Object.keys(obj).forEach(function(key,index) {
@@ -185,6 +209,44 @@
 				}
 			}
 		};
+
+		$scope.calculateDamageRolls = function(item) {
+			var damageRolls = [];
+
+			for (var i = 0; i < item.dmg_modifier.length; i++) {
+				if(item.dmg_modifier[i].toString().indexOf("dmgb") >= 0){
+					var temp = {"dmg_dice" : 0, "dmg_diceType" : 0, "dmg_operator" : "", "dmg_modifier" : [0], "dmg_flat" : 0, "dmgb_multiplier" : 1};
+
+					if (($scope.constructedDamageBonus.dmg_diceType == item.dmg_diceType) && ($scope.isUndefined(item.dmgb_multiplier))) {
+						temp.dmg_dice = $scope.constructedDamageBonus.dmg_dice + item.dmg_dice;
+						temp.dmg_diceType = item.dmg_diceType;
+						temp.dmg_operator = item.dmg_operator;
+						temp.dmg_flat = getFlatDamage(item);
+						damageRolls.push(temp);
+					}
+					else {
+						temp.dmg_dice = $scope.constructedDamageBonus.dmg_dice + item.dmg_dice;
+						temp.dmg_diceType = item.dmg_diceType;
+						temp.dmg_operator = item.dmg_operator;
+						temp.dmg_flat = getFlatDamage(item);
+						damageRolls.push(temp);
+					}
+
+					for (var j = 0; j < item.dmg_modifier.length; j++) {
+
+					}
+				}
+			}
+		};
+
+		function getFlatDamage(item){
+			var flatDamage = 0;
+			for (var i = 0; i < item.dmg_modifier.length; i++) {
+				if (flatDamage > 0) break;
+				flatDamage = (typeof item.dmg_modifier[i] === "number") ? item.dmg_modifier[i] : 0
+			}
+			return flatDamage;
+		}
 
 		// Get player status (hp, magic, sanity)
 		$scope.getStatus = function(stat, minValue, value) {
@@ -244,13 +306,14 @@
 
 		$scope.removeCustomAbility = function() {
 			for (var i = 0; i < $scope.data.abilities.custom.length; i++) {
-				if(!$scope.data.abilities.custom[i].skilled) {
+				console.log($scope.data.abilities.custom[i].custom_name);
+				if($scope.data.abilities.custom[i].custom_name == "") {
 					$scope.data.abilities.custom.splice(i, 1);
 				}
 			}
 		};
 
-		$scope.handleSkillChanges = function() {
+		$scope.handleSkillChanges = function(success, sub_type) {
 			$scope.calculateMaxSanity();
 			$scope.checkAvailableSkillPoints();
 		};
@@ -267,6 +330,78 @@
 				}
 			});
 			$scope.data.player.skillPoints_used = v;
+		};
+
+		$scope.playerHasArmour = function() {
+			var v = 0;
+			try {
+				for (var i = 0; i < $scope.data.player.items.armour.length; i++ ) {
+					v += $scope.data.player.items.armour[i].value
+				}
+				$scope.armourRating = v;
+			}
+			catch(err){}
+
+			return ( v > 0 );
+		};
+
+		$scope.getWeaponSubTypeSkillChance = function(item) {
+			var type = item.sub_type;
+			var obj = $scope.data.abilities;
+			var v = 0;
+
+			Object.keys($scope.data.abilities).forEach(function(key,index) {
+				for (var i = 0; i < obj[key].length; i++){
+					if ( key != "custom") {
+						//var skillName = obj[key][i].name[0].toLowerCase().replace(/ /g, '');
+						var skillName = obj[key][i].sub_type;
+
+						if (skillName == type) {
+							v = obj[key][i].value_base + obj[key][i].value_added;
+							obj[key][i].value_total = v;
+						}
+					}
+				}
+			});
+			return (v > 0) ? v : item.value_base;
+		};
+
+		// synch success states between weapon skills and equipped weapons
+		$scope.synchSuccessStates = function(state, type){
+			if(typeof type === "undefined") return;
+			var obj = $scope.data.abilities;
+			var items = $scope.data.player.items.weapons_available;
+			var group = [];
+			var v = 0;
+
+			Object.keys(items).forEach(function(key,index) {
+				for (var i = 0; i < items[key].length; i++){
+					if(items[key][i].sub_type == type){
+						group.push(items[key][i]);
+					}
+				}
+			});
+
+			Object.keys(obj).forEach(function(key,index) {
+				for (var i = 0; i < obj[key].length; i++){
+					if (key != "custom") {
+						var skillName = obj[key][i].sub_type;
+						if (skillName == type) {
+							if (obj[key][i].success) {
+								for (var j = 0; j < group.length; j++){
+									group[j].success = obj[key][i].success;
+								}
+							}
+							if (!obj[key][i].success && state) {
+								for (var j = 0; j < group.length; j++){
+									group[j].success = true;
+								}
+								obj[key][i].success = state;
+							}
+						}
+					}
+				}
+			});
 		};
 
 		/* Load JSON */

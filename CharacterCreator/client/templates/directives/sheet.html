@@ -1,180 +1,255 @@
-<div class="grid-block stats">
-	<div class="base grid-block">
-		<label ng-repeat="(key, stat) in data.player.stats_base">
-			<span class="inline-label">
-				<span class="form-label stat-base" title="{{stat.name[data.options.languageIndex]}}">
-					{{stat.abbrev[data.options.languageIndex]}}
-				</span>
-				<input type="number" ng-change="calculateDependencies(key, stat)" ng-model="stat.value">
-			</span>
-		</label>
-	</div>
-	<div class="calculated grid-block">
-		<label ng-repeat="(key, stat) in data.player.stats_calc" ng-class="{isCombined:isVariableStat(key)}">
-			<span class="inline-label">
-				<span class="form-label" ng-if="isMaxStatValue(key)" title="{{stat.abbrev[data.options.languageIndex]}}">
-					{{stat.abbrev[data.options.languageIndex]}}
-				</span>
-				<!--<span class="form-label" ng-if="isVariableStat(key)">{{stat.value}} / {{data.player.stats_calc[key +"_max"].value}}</span>-->
-
-				<input type="text" ng-model="stat.value" disabled
-					   ng-class="{text:(key=='dmg_bonus')}" title="{{stat.abbrev[data.options.languageIndex]}}">
-			</span>
-		</label>
-	</div>
-</div>
-
-<div class="grid-block points large-up-3 medium-up-3 small-up-1">
-	<div class="sanity clearfix">
-		<h6>Sanity Points</h6>
-		<div class="status">
-			<span>Status: </span>
-			<span>{{getStatus('sanity', data.player.stats_calc.san.value_min, data.player.stats_calc.san.value)}}</span>
-		</div>
-		<div class="float-left radio-container"
-			 ng-repeat="n in range(data.player.stats_calc.san_max.value, 1, data.player.stats_calc.san.value_min)">
-			<label for="san-{{n}}" ng-class="{checked:data.player.stats_calc.san.value==n}">
-				{{n}}
-				<a class="close-button ng-scope">×</a>
-			</label>
-			<input type="radio" name="san_max" value="{{n}}" id="san-{{n}}" ng-model="data.player.stats_calc.san.value">
-		</div>
-	</div>
-
-	<div class="magic clearfix">
-		<h6>Magic Points</h6>
-		<div class="status">
-			<span>Status: </span>
-			<span>{{getStatus('magic', data.player.stats_calc.magic.value_min, data.player.stats_calc.magic.value)}}</span>
-		</div>
-		<div class="float-left radio-container"
-			 ng-repeat="n in range(data.player.stats_calc.magic_max.value, 1, data.player.stats_calc.magic.value_min)">
-			<label for="magic-{{n}}" ng-class="{checked:data.player.stats_calc.magic.value==n}">
-				{{n}}
-				<a class="close-button ng-scope">×</a>
-			</label>
-			<input type="radio" name="magic_max" value="{{n}}" id="magic-{{n}}" ng-model="data.player.stats_calc.magic.value">
-		</div>
-	</div>
-
-	<div class="hitpoints clearfix">
-		<h6>Hit Points</h6>
-		<div class="status">
-			<span>Status: </span>
-			<span>{{getStatus('hitpoints', data.player.stats_calc.hp.value_min, data.player.stats_calc.hp.value)}}</span>
-		</div>
-		<div class="float-left radio-container"
-			 ng-repeat="n in range(data.player.stats_calc.hp_max.value, 1, data.player.stats_calc.hp.value_min)">
-			<label for="hp-{{n}}" ng-class="{checked:data.player.stats_calc.hp.value==n}">
-				{{n}}
-				<a class="close-button ng-scope">×</a>
-			</label>
-			<input type="radio" name="hp_max" value="{{n}}" id="hp-{{n}}" ng-model="data.player.stats_calc.hp.value">
-		</div>
-	</div>
-</div>
-
-
-<div class="grid-block options clearfix">
-	<h6>Options</h6>
-	<ul>
-		<li>
-			<label>Show all Skillchecks (failure/success)</label>
-			<div class="switch small">
-				<input type="checkbox" id="showSuccesses" ng-model="data.options.showSuccesses" ng-change="">
-				<label for="showSuccesses"></label>
+<zf-accordion>
+	<zf-accordion-item title="Characteristics">
+		<div class="grid-block stats">
+			<div class="base grid-block">
+				<label ng-repeat="(key, stat) in data.player.stats_base">
+					<span class="inline-label">
+						<span class="form-label stat-base" title="{{stat.name[data.options.languageIndex]}}">
+							{{stat.abbrev[data.options.languageIndex]}}
+						</span>
+						<input type="number" ng-change="calculateDependencies(key, stat)" ng-model="stat.value">
+					</span>
+				</label>
 			</div>
-		</li>
-		<li>
-			<label>Show base value</label>
-			<div class="switch small">
-				<input type="checkbox" id="showValueBase" ng-model="data.options.showValueBase" ng-change="">
-				<label for="showValueBase"></label>
+			<div class="calculated grid-block">
+				<label ng-repeat="(key, stat) in data.player.stats_calc" ng-class="{isCombined:isVariableStat(key)}">
+					<span class="inline-label">
+						<span class="form-label" ng-if="isMaxStatValue(key)" title="{{stat.name[data.options.languageIndex]}}">
+							{{stat.abbrev[data.options.languageIndex]}}
+						</span>
+						<!--<span class="form-label" ng-if="isVariableStat(key)">{{stat.value}} / {{data.player.stats_calc[key +"_max"].value}}</span>-->
+
+						<input type="text" ng-model="stat.value" disabled
+							   ng-class="{text:(key=='dmg_bonus')}" title="{{stat.name[data.options.languageIndex]}}">
+					</span>
+				</label>
+				<label ng-if="playerHasArmour()" class="armourRating">
+					<span class="inline-label">
+						<span class="form-label" title="Armour">
+							Armour
+						</span>
+						<input type="text" ng-model="armourRating" disabled title="Armour value">
+					</span>
+				</label>
 			</div>
-		</li>
-		<li class="with-dropdown">
-			<label>Select Time Period</label>
-			<select name="" ng-model="data.options.timeSelect.value" id="option-time"
-					ng-options="v for v in data.options.timeSelect.options">
-			</select>
-		</li>
+		</div>
 
-		<li class="with-dropdown">
-			<label>Select Language</label>
-			<select name="" ng-model="data.options.languageSelect.value" id="option-language"
-					ng-options="v for v in data.options.languageSelect.options" ng-change="changeLanguage()">
-			</select>
-		</li>
-	</ul>
-</div>
 
-<div class="grid-block abilities large-up-3 medium-up-2 small-up-1">
-	<h6>Skills</h6>
-	<span class="skillpoints">
-		<span>
-			Skill Points: {{(data.player.stats_base.edu.value * 20) + (data.player.stats_base.int.value * 10)}}
-			({{data.player.stats_base.edu.value * 20}} for Jobs and {{data.player.stats_base.int.value * 10}} for Hobbies.)
-		</span>
-		<span>
-			Skill Points used: {{ data.player.skillPoints_used }} / {{ (data.player.stats_base.edu.value * 20) + (data.player.stats_base.int.value * 10) }}
-		</span>
-	</span>
-	<div class="grid-block list">
-		<table>
-			<tr ng-repeat="(key, ability) in data.abilities.common | limitTo:getLength(data, 0)" ability>
-			</tr>
-		</table>
-	</div>
-	<div class="grid-block list">
-		<table>
-			<tr ng-repeat="(key, ability) in data.abilities.common | limitTo:-getLength(data, 1)" ability>
-			</tr>
-		</table>
-	</div>
+		<div class="grid-block points large-up-3 medium-up-3 small-up-1">
+			<div class="sanity clearfix">
+				<h6>Sanity Points</h6>
+				<div class="status">
+					<span>Status: </span>
+					<span>{{getStatus('sanity', data.player.stats_calc.san.value_min, data.player.stats_calc.san.value)}}</span>
+				</div>
+				<div class="float-left radio-container"
+					 ng-repeat="n in range(data.player.stats_calc.san_max.value, 1, data.player.stats_calc.san.value_min)">
+					<label for="san-{{n}}" ng-class="{checked:data.player.stats_calc.san.value==n}">
+						{{n}}
+						<a class="close-button ng-scope">×</a>
+					</label>
+					<input type="radio" name="san_max" value="{{n}}" id="san-{{n}}" ng-model="data.player.stats_calc.san.value">
+				</div>
+			</div>
 
-	<div class="grid-block list">
-		<table>
-			<thead>
-				<tr>
-					<td colspan="5">Firearms</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="(key, ability) in data.abilities.firearms" ability>
-				</tr>
-			</tbody>
-		</table>
-		<table>
-			<thead>
-				<tr>
-					<td colspan="2">Other Skills</td>
-					<td colspan="3" class="small">Time Period</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="(key, ability) in data.abilities.other" ability>
-				</tr>
-			</tbody>
-		</table>
-		<table>
-			<thead>
-				<tr>
-					<td colspan="5">Custom Skills</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="(key, ability) in data.abilities.custom" ability>
-				</tr>
+			<div class="magic clearfix">
+				<h6>Magic Points</h6>
+				<div class="status">
+					<span>Status: </span>
+					<span>{{getStatus('magic', data.player.stats_calc.magic.value_min, data.player.stats_calc.magic.value)}}</span>
+				</div>
+				<div class="float-left radio-container"
+					 ng-repeat="n in range(data.player.stats_calc.magic_max.value, 1, data.player.stats_calc.magic.value_min)">
+					<label for="magic-{{n}}" ng-class="{checked:data.player.stats_calc.magic.value==n}">
+						{{n}}
+						<a class="close-button ng-scope">×</a>
+					</label>
+					<input type="radio" name="magic_max" value="{{n}}" id="magic-{{n}}" ng-model="data.player.stats_calc.magic.value">
+				</div>
+			</div>
 
-				<tr class="controls">
-					<td colspan="2">
-						<a class="button small hollow" href="#" ng-click="addCustomAbility()">+ Add</a>
-					</td>
-					<td colspan="2" ng-show="data.abilities.custom.length">
-						<a class="button small alert hollow" href="#" ng-click="removeCustomAbility()">- unskilled</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-</div>
+			<div class="hitpoints clearfix">
+				<h6>Hit Points</h6>
+				<div class="status">
+					<span>Status: </span>
+					<span>{{getStatus('hitpoints', data.player.stats_calc.hp.value_min, data.player.stats_calc.hp.value)}}</span>
+				</div>
+				<div class="float-left radio-container"
+					 ng-repeat="n in range(data.player.stats_calc.hp_max.value, 1, data.player.stats_calc.hp.value_min)">
+					<label for="hp-{{n}}" ng-class="{checked:data.player.stats_calc.hp.value==n}">
+						{{n}}
+						<a class="close-button ng-scope">×</a>
+					</label>
+					<input type="radio" name="hp_max" value="{{n}}" id="hp-{{n}}" ng-model="data.player.stats_calc.hp.value">
+				</div>
+			</div>
+		</div>
+	</zf-accordion-item>
+</zf-accordion>
+
+
+<zf-accordion>
+	<zf-accordion-item title="Options">
+		<div class="grid-block options clearfix">
+			<ul>
+				<li>
+					<label>Show all Skillchecks (failure/success)</label>
+					<div class="switch small">
+						<input type="checkbox" id="showSuccesses" ng-model="data.options.showSuccesses" ng-change="">
+						<label for="showSuccesses"></label>
+					</div>
+				</li>
+				<li>
+					<label>Show base value</label>
+					<div class="switch small">
+						<input type="checkbox" id="showValueBase" ng-model="data.options.showValueBase" ng-change="">
+						<label for="showValueBase"></label>
+					</div>
+				</li>
+				<!--<li>
+					<label>Show calculated Weapon Damages</label>
+					<div class="switch small">
+						<input type="checkbox" id="showWeaponDamage" ng-model="data.options.showWeaponDamage" ng-change="">
+						<label for="showWeaponDamage"></label>
+					</div>
+				</li>-->
+				<li class="with-dropdown">
+					<label>Select Time Period</label>
+					<select name="" ng-model="data.options.timeSelect.value" id="option-time"
+							ng-options="v for v in data.options.timeSelect.options">
+					</select>
+				</li>
+
+				<li class="with-dropdown">
+					<label>Select Language</label>
+					<select name="" ng-model="data.options.languageSelect.value" id="option-language"
+							ng-options="v for v in data.options.languageSelect.options" ng-change="changeLanguage()">
+					</select>
+				</li>
+			</ul>
+		</div>
+	</zf-accordion-item>
+</zf-accordion>
+
+
+<zf-accordion>
+	<zf-accordion-item title="Skills">
+		<div class="grid-block abilities large-up-3 medium-up-2 small-up-1">
+			<span class="skillpoints">
+				<span>
+					Skill Points: {{(data.player.stats_base.edu.value * 20) + (data.player.stats_base.int.value * 10)}}
+					({{data.player.stats_base.edu.value * 20}} for Jobs and {{data.player.stats_base.int.value * 10}} for Hobbies.)
+				</span>
+				<span>
+					Skill Points used: {{ data.player.skillPoints_used }} / {{ (data.player.stats_base.edu.value * 20) + (data.player.stats_base.int.value * 10) }}
+				</span>
+			</span>
+			<div class="grid-block list">
+				<table>
+					<tr ng-repeat="(key, ability) in data.abilities.common | limitTo:getLength(data, 0)" ability>
+					</tr>
+				</table>
+			</div>
+			<div class="grid-block list">
+				<table>
+					<tr ng-repeat="(key, ability) in data.abilities.common | limitTo:-getLength(data, 1)" ability>
+					</tr>
+				</table>
+			</div>
+
+			<div class="grid-block list">
+				<table>
+					<thead>
+						<tr>
+							<td colspan="5">Firearms</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="(key, ability) in data.abilities.firearms" ability>
+						</tr>
+					</tbody>
+				</table>
+				<table>
+					<thead>
+						<tr>
+							<td colspan="2">Other Skills</td>
+							<td colspan="3" class="small">Time Period</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="(key, ability) in data.abilities.other" ability>
+						</tr>
+					</tbody>
+				</table>
+				<table>
+					<thead>
+						<tr>
+							<td colspan="5">Custom Skills</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="(key, ability) in data.abilities.custom" ability>
+						</tr>
+
+						<tr class="controls">
+							<td colspan="2">
+								<a class="button small hollow" href="#" ng-click="addCustomAbility()">+ Add</a>
+							</td>
+							<td colspan="2" ng-show="data.abilities.custom.length">
+								<a class="button small alert hollow" href="#" ng-click="removeCustomAbility()">- empty</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</zf-accordion-item>
+</zf-accordion>
+
+<zf-accordion>
+	<zf-accordion-item title="Weapons">
+		<div class="grid-block items weapons xxlarge-up2 xlarge-up2 large-up-2 medium-up-1 small-up-1">
+			<div class="" ng-repeat="(key, type) in data.player.items.weapons_available">
+				<table>
+					<thead>
+						<tr>
+							<td colspan="2">{{data.player.items.weapon_stat_desc[key]["desc_x"][data.options.languageIndex]}}</td>
+							<td ng-repeat="i in range(6,0,0)">
+								{{ data.player.items.weapon_stat_desc[key]["desc_"+i][data.options.languageIndex]}}
+							</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in type">
+							<td class="input">
+								<input type="checkbox" ng-model="item.success" ng-change="synchSuccessStates(item.success, item.sub_type)">
+							</td>
+							<td>{{item.name[data.options.languageIndex]}}</td>
+							<td ng-if="item.sub_type=='melee'">{{item.value_base}}</td>
+							<td ng-if="item.sub_type!='melee'">{{getWeaponSubTypeSkillChance(item)}}</td>
+							<td ng-show="!showWeaponDamage">{{item.dmg_display[data.options.languageIndex]}}</td>
+							<td ng-show="showWeaponDamage">{{calculateDamageRolls(item)}}</td>
+							<td ng-if="key=='melee'">{{item.hands}}</td>
+							<td ng-if="key=='firearms'">{{item.error}}</td>
+							<td>{{item.range[data.options.languageIndex]}}</td>
+							<td>{{item.attacks}}</td>
+							<td>{{item.hp}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="ranged">
+
+			</div>
+		</div>
+	</zf-accordion-item>
+</zf-accordion>
+
+<zf-accordion>
+	<zf-accordion-item title="Armour">
+		<div class="grid-block items armour">
+			bla
+		</div>
+	</zf-accordion-item>
+</zf-accordion>
