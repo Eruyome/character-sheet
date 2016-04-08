@@ -367,10 +367,10 @@
 		};
 
 		// synch success states between weapon skills and equipped weapons
-		$scope.synchSuccessStates = function(state, type){
+		$scope.synchSuccessStates = function(state, type, triggeredBySkill){
 			if(typeof type === "undefined") return;
 			var obj = $scope.data.abilities;
-			var items = $scope.data.player.items.weapons_available;
+			var items = $scope.data.player.items.weapons_equipped;
 			var group = [];
 			var v = 0;
 
@@ -392,11 +392,16 @@
 									group[j].success = obj[key][i].success;
 								}
 							}
-							if (!obj[key][i].success && state) {
+							if (!triggeredBySkill && state) {
 								for (var j = 0; j < group.length; j++){
 									group[j].success = true;
 								}
-								obj[key][i].success = state;
+								obj[key][i].success = true;
+							}
+							if (triggeredBySkill) {
+								for (var j = 0; j < group.length; j++){
+									group[j].success = obj[key][i].success;
+								}
 							}
 						}
 					}

@@ -447,14 +447,51 @@ h6 {
 
 .items {
 	table {
-		//border: 1px solid #00558b;
+		width: 100%;
+		thead {
+			td {
+				text-align: center;
+				&:first-of-type, &:nth-of-type(3) {
+					text-align: left;
+				}
+			}
+		}
 		td {
 			border: 1px solid #00558b;
 			&.input {
 				border-right: none;
+				width: 20px;
 				& + td {
 					border-left: none;
 				}
+				input {
+					vertical-align: bottom;
+					position: relative;
+					top: 1px;
+				}
+			}
+			&.checkbox {
+				input {
+					vertical-align: bottom;
+					position: relative;
+					top: 1px;
+					margin-right: 4px;
+				}
+			}
+			&.hp {
+				padding: 0;
+				input {
+					padding-top: 0;
+					padding-bottom: 0;
+					padding-right:0;
+					height:1.5rem;
+					width:100%;
+					margin: 0;
+				}
+			}
+			&.hp, &.hp_max, &.malfunction, &.hands, &.attacks, &.chance, &.range {
+				width: 60px;
+				text-align: center;
 			}
 		}
 	}

@@ -2,7 +2,7 @@
 	ng-class="{customText:!isUndefined(ability.custom_input), customName:!isUndefined(ability.custom_name)}">
 	<td>
 		<input id="check-{{ability.name[0]}}" ng-model="ability.success" type="checkbox"
-			   ng-if="ability.skillable!==false" ng-change="synchSuccessStates(ability.success, ability.sub_type)">
+			   ng-if="ability.skillable!==false" ng-change="synchSuccessStates(ability.success, ability.sub_type, true)">
 	</td>
 	<td colspan="{{calculateColspan(data.options.showValueBase)}}">
 		<label for="check-{{ability.name[0]}}" ng-if="isUndefined(ability.custom_name)">
