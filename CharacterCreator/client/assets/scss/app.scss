@@ -445,9 +445,16 @@ h6 {
 	}
 }
 
+.modal {
+	width: 100%;
+	max-width: 700px;
+}
+
 .items {
 	table {
 		width: 100%;
+		font-size: rem-calc(12px);
+		margin-bottom: 15px;
 		thead {
 			td {
 				text-align: center;
@@ -489,10 +496,19 @@ h6 {
 					margin: 0;
 				}
 			}
-			&.hp, &.hp_max, &.malfunction, &.hands, &.attacks, &.chance, &.range {
-				width: 60px;
+			&.hp, &.hp_max, &.malfunction, &.hands, &.attacks, &.chance, &.range, &.price {
+				width: 50px;
+				text-align: center;
+			}
+			&.malfunction {
 				text-align: center;
 			}
 		}
+	}
+	.button {
+		font-size: rem-calc(12px);
+		padding-top:0;
+		padding-bottom:0;
+		line-height: 1.5rem;
 	}
 }

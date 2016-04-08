@@ -35,6 +35,7 @@
 		$scope.data = {};
 		$scope.currentTab = 0;
 		$scope.armourRating = 0;
+		$scope.selectedItemList = {};
 		$scope.constructedDamageBonus = {
 			"dmg_dice" : 0, "dmg_diceType" : 0, "dmg_operator" : "", "dmg_display" : ""
 		};
@@ -368,9 +369,9 @@
 
 		// synch success states between weapon skills and equipped weapons
 		$scope.synchSuccessStates = function(state, type, triggeredBySkill){
-			if(typeof type === "undefined") return;
+			if(typeof type === "undefined" || type == "armour") return;
 			var obj = $scope.data.abilities;
-			var items = $scope.data.player.items.weapons_equipped;
+			var items = $scope.data.player.items.equipped;
 			var group = [];
 			var v = 0;
 
@@ -407,6 +408,19 @@
 					}
 				}
 			});
+		};
+
+		$scope.selectItemGroup = function(){
+			var select = $scope.data.options.itemSelect;
+			var index = select.options.indexOf(select.value);
+			var key = select.types[index];
+			var obj = {};
+			obj[key] = $scope.data.player.items.available[key];
+			$scope.selectedItemList = obj;
+		};
+
+		$scope.resetItemSelect = function() {
+			$scope.data.options.itemSelect.value = "";
 		};
 
 		/* Load JSON */
@@ -491,12 +505,20 @@
 			replace: true
 		};
 	});
-	appModule.directive('ability2', function () {
+	appModule.directive('weapontable', function () {
 		return {
 			restrict: 'A',
-			templateUrl: 'templates/directives/ability2.html',
+			templateUrl: 'templates/directives/weaponTable.html',
 			scope: true,
 			replace: true
 		};
-	})
+	});
+	appModule.directive('weapontableavailable', function () {
+		return {
+			restrict: 'A',
+			templateUrl: 'templates/directives/weaponTableAvailable.html',
+			scope: true,
+			replace: true
+		};
+	});
 })();

@@ -59,47 +59,52 @@
       "range" : { "name" : ["Core Fire Range", "Kernschussweite"], "abbrev" : ["Core Fire Range", "Kern-Schussw."], "value" : "" }
     },
     "items" : {
-      "armour" : [],
-      "weapons_available" : {
+      "available" : {
         "melee": [
-          {"name": ["Florett, sharpened","Florett, geschärft"], "sub_type" : "melee", "sub_type_display" : ["Melee Weapons", "Nahkampfwaffen"], "crit" : true, "equip" : true, "success" : false, "value_base" : 20, "value_added" : 0, "dmg_display" : ["1D6+db", "1W6+Sb"], "dmg_dice" : 1, "dmg_diceType" : 6, "dmg_operator" : "+", "dmg_modifier" : ["dmgb"], "hands" : 0, "range" : ["Touch" , "Berührung"], "attacks" : "1", "hp" : 10, "hp_max" : 10, "time" : "anytime"},
-          {"name": ["Sword","Schwert"], "sub_type" : "melee", "sub_type_display" : ["Melee Weapons", "Nahkampfwaffen"], "crit" : true,"equip" : true, "success" : false, "value_base" : 10, "value_added" : 0, "dmg_display" : ["1D8+1+db", "1W8+1+Sb"], "dmg_dice" : 1, "dmg_diceType" : 8, "dmg_operator" : "+", "dmg_modifier" : [1,"dmgb"], "hands" : 0, "range" : ["Touch" , "Berührung"], "attacks" : "1", "hp" : 20, "hp_max" : 20, "time" : "anytime"},
-          {"name": ["Small Knife","Small Knife"], "sub_type" : "melee", "sub_type_display" : ["Melee Weapons", "Nahkampfwaffen"], "crit" : true, "equip" : true, "success" : false, "value_base" : 25, "value_added" : 0, "dmg_display" : ["1D4+db", "1W4+Sb"], "dmg_dice" : 1, "dmg_diceType" : 4, "dmg_operator" : "+", "dmg_modifier" : ["dmgb"], "hands" : 0, "range" : ["Touch" , "Berührung"], "attacks" : "1", "hp" : 9, "hp_max" : 9, "time" : "anytime"},
-          {"name": ["Small Knife","Small Knife"], "sub_type" : "melee", "sub_type_display" : ["Melee Weapons", "Nahkampfwaffen"], "crit" : true, "equip" : true, "success" : false, "value_base" : 25, "value_added" : 0, "dmg_display" : ["1D4+2+db", "1W4+2+Sb"], "dmg_dice" : 1, "dmg_diceType" : 4, "dmg_operator" : "+", "dmg_modifier" : [2,"dmgb"], "hands" : 0, "range" : ["Touch" , "Berührung"], "attacks" : "1", "hp" : 9, "hp_max" : 9, "time" : "anytime"},
-          {"name": ["Stone, thrown","Stein, geworfen"], "sub_type" : "throw", "sub_type_display" : ["Throwing Weapons", "Wurfwaffen"], "crit" : true, "equip" : true, "success" : false, "value_base" : 0, "value_added" : 0, "dmg_display" : ["1D4+1/2 db", "1W4+1/2 Sb"], "dmg_dice" : 1, "dmg_diceType" : 4, "dmg_operator" : "+", "dmg_modifier" : ["dmgb"], "dmgb_multiplier" : 0.5 , "hands" : 0, "range" : ["Throw" , "Werfen"], "attacks" : "1", "time" : "anytime"}
+          {"name": ["Florett, sharpened","Florett, geschärft"], "sub_type" : "melee", "sub_type_display" : ["Melee Weapons", "Nahkampfwaffen"], "crit" : true, "equip" : true, "success" : false, "value_base" : 20, "value_added" : 0, "dmg_display" : ["1D6+db", "1W6+Sb"], "dmg_dice" : 1, "dmg_diceType" : 6, "dmg_operator" : "+", "dmg_modifier" : ["dmgb"], "hands" : 0, "range" : ["Touch" , "Berührung"], "attacks" : "1", "hp" : 10, "hp_max" : 10, "time" : "anytime", "price" : 10},
+          {"name": ["Sword","Schwert"], "sub_type" : "melee", "sub_type_display" : ["Melee Weapons", "Nahkampfwaffen"], "crit" : true,"equip" : true, "success" : false, "value_base" : 10, "value_added" : 0, "dmg_display" : ["1D8+1+db", "1W8+1+Sb"], "dmg_dice" : 1, "dmg_diceType" : 8, "dmg_operator" : "+", "dmg_modifier" : [1,"dmgb"], "hands" : 0, "range" : ["Touch" , "Berührung"], "attacks" : "1", "hp" : 20, "hp_max" : 20, "time" : "anytime", "price" : 10},
+          {"name": ["Small Knife","Small Knife"], "sub_type" : "melee", "sub_type_display" : ["Melee Weapons", "Nahkampfwaffen"], "crit" : true, "equip" : true, "success" : false, "value_base" : 25, "value_added" : 0, "dmg_display" : ["1D4+db", "1W4+Sb"], "dmg_dice" : 1, "dmg_diceType" : 4, "dmg_operator" : "+", "dmg_modifier" : ["dmgb"], "hands" : 0, "range" : ["Touch" , "Berührung"], "attacks" : "1", "hp" : 9, "hp_max" : 9, "time" : "anytime", "price" : 10},
+          {"name": ["Stone, thrown","Stein, geworfen"], "sub_type" : "throw", "sub_type_display" : ["Throwing Weapons", "Wurfwaffen"], "crit" : true, "equip" : true, "success" : false, "value_base" : 0, "value_added" : 0, "dmg_display" : ["1D4+1/2 db", "1W4+1/2 Sb"], "dmg_dice" : 1, "dmg_diceType" : 4, "dmg_operator" : "+", "dmg_modifier" : ["dmgb"], "dmgb_multiplier" : 0.5 , "hands" : 0, "range" : ["Throw" , "Werfen"], "attacks" : "1", "time" : "anytime", "price" : 10}
         ],
         "firearms": [          
-          {"name": [".22 Automatic",".22er Automatik"], "sub_type" : "handgun", "sub_type_display" : ["Handguns", "Faustfeuerwaffen"], "crit" : true, "equip" : true, "success" : false, "value_base" : 20, "value_added" : 0, "dmg_display" : ["1D6", "1W6"], "dmg_dice" : 1, "dmg_diceType" : 6, "dmg_operator" : "", "dmg_modifier" : [""], "hands" : 0, "range" : ["10 m" , "10 m"], "attacks" : "3", "hp" : 6, "hp_max" : 6, "ammo_cap" : 6, "malfunction" : 99, "hasMalfunction" : false, "time" : "anytime"},
-          {"name": [".22 Pump-Action Rifle",".22er Repetiergewehr"], "sub_type" : "rifle", "sub_type_display" : ["Rifles", "Gewehre"], "crit" : true, "equip" : true, "success" : false, "value_base" : 25, "value_added" : 0, "dmg_display" : ["1D6+2", "1W6+2"], "dmg_dice" : 1, "dmg_diceType" : 6, "dmg_operator" : "+", "dmg_modifier" : [2], "hands" : 0, "range" : ["30 m" , "30 m"], "attacks" : "1", "hp" : 9, "hp_max" : 9,  "ammo_cap" : 6, "malfunction" : 99, "hasMalfunction" : false, "time" : "anytime"},
-          {"name": [".22 Pump-Action Rifle",".22er Repetiergewehr"], "sub_type" : "rifle", "sub_type_display" : ["Rifles", "Gewehre"], "crit" : true, "equip" : true, "success" : false, "value_base" : 25, "value_added" : 0, "dmg_display" : ["1D6+2", "1W6+2"], "dmg_dice" : 1, "dmg_diceType" : 6, "dmg_operator" : "+", "dmg_modifier" : [2], "hands" : 0, "range" : ["30 m" , "30 m"], "attacks" : "1", "hp" : 9, "hp_max" : 9,  "ammo_cap" : 6, "malfunction" : 99, "hasMalfunction" : false, "time" : "anytime"},
-          {"name": ["Double-Barrel cal. 10","Doppelflinte Kal. 10"], "sub_type" : "shotgun", "sub_type_display" : ["Shotguns", "Schrotgewehre"], "crit" : true, "equip" : true, "success" : false, "value_base" : 30, "value_added" : 0, "dmg_display" : ["4D6+2 / 2D6+1 / 1D6", "4W6+2 / 2W6+1 / 1W6"], "dmg_dice" : 1, "dmg_diceType" : 6, "dmg_operator" : "+", "dmg_modifier" : [0], "dmg_stages": 3, "hands" : 0, "range" : ["30 m" , "30 m"], "attacks" : "1", "hp" : 9, "hp_max" : 9, "ammo_cap" : 6, "malfunction" : 99, "hasMalfunction" : false, "time" : "anytime"},
-          {"name": ["Browning M1917","Browning M1917"], "sub_type" : "machinegun", "sub_type_display" : ["Machineguns", "Machinengewehre"], "crit" : true, "equip" : true, "success" : false, "value_base" : 15, "value_added" : 0, "dmg_display" : ["2D6+4", "2w6+4"], "dmg_dice" : 2, "dmg_diceType" : 6, "dmg_operator" : "+", "dmg_modifier" : [4], "hands" : 0, "range" : ["150 m" , "150 m"], "attacks" : "15", "hp" : 15, "hp_max" : 15,  "ammo_cap" : 250, "malfunction" : 98, "hasMalfunction" : false, "time" : "anytime"}
+          {"name": [".22 Automatic",".22er Automatik"], "sub_type" : "handgun", "sub_type_display" : ["Handguns", "Faustfeuerwaffen"], "crit" : true, "equip" : true, "success" : false, "value_base" : 20, "value_added" : 0, "dmg_display" : ["1D6", "1W6"], "dmg_dice" : 1, "dmg_diceType" : 6, "dmg_operator" : "", "dmg_modifier" : [""], "hands" : 0, "range" : ["10 m" , "10 m"], "attacks" : "3", "hp" : 6, "hp_max" : 6, "ammo_cap" : 6, "malfunction" : 99, "hasMalfunction" : false, "time" : "anytime", "price" : 10},
+          {"name": [".22 Pump-Action Rifle",".22er Repetiergewehr"], "sub_type" : "rifle", "sub_type_display" : ["Rifles", "Gewehre"], "crit" : true, "equip" : true, "success" : false, "value_base" : 25, "value_added" : 0, "dmg_display" : ["1D6+2", "1W6+2"], "dmg_dice" : 1, "dmg_diceType" : 6, "dmg_operator" : "+", "dmg_modifier" : [2], "hands" : 0, "range" : ["30 m" , "30 m"], "attacks" : "1", "hp" : 9, "hp_max" : 9,  "ammo_cap" : 6, "malfunction" : 99, "hasMalfunction" : false, "time" : "anytime", "price" : 10},
+          {"name": [".22 Pump-Action Rifle",".22er Repetiergewehr"], "sub_type" : "rifle", "sub_type_display" : ["Rifles", "Gewehre"], "crit" : true, "equip" : true, "success" : false, "value_base" : 25, "value_added" : 0, "dmg_display" : ["1D6+2", "1W6+2"], "dmg_dice" : 1, "dmg_diceType" : 6, "dmg_operator" : "+", "dmg_modifier" : [2], "hands" : 0, "range" : ["30 m" , "30 m"], "attacks" : "1", "hp" : 9, "hp_max" : 9,  "ammo_cap" : 6, "malfunction" : 99, "hasMalfunction" : false, "time" : "anytime", "price" : 10},
+          {"name": ["Double-Barrel cal. 10","Doppelflinte Kal. 10"], "sub_type" : "shotgun", "sub_type_display" : ["Shotguns", "Schrotgewehre"], "crit" : true, "equip" : true, "success" : false, "value_base" : 30, "value_added" : 0, "dmg_display" : ["4D6+2 / 2D6+1 / 1D6", "4W6+2 / 2W6+1 / 1W6"], "dmg_dice" : 1, "dmg_diceType" : 6, "dmg_operator" : "+", "dmg_modifier" : [0], "dmg_stages": 3, "hands" : 0, "range" : ["30 m" , "30 m"], "attacks" : "1", "hp" : 9, "hp_max" : 9, "ammo_cap" : 6, "malfunction" : 99, "hasMalfunction" : false, "time" : "anytime", "price" : 10},
+          {"name": ["Browning M1917","Browning M1917"], "sub_type" : "machinegun", "sub_type_display" : ["Machineguns", "Machinengewehre"], "crit" : true, "equip" : true, "success" : false, "value_base" : 15, "value_added" : 0, "dmg_display" : ["2D6+4", "2W6+4"], "dmg_dice" : 2, "dmg_diceType" : 6, "dmg_operator" : "+", "dmg_modifier" : [4], "hands" : 0, "range" : ["150 m" , "150 m"], "attacks" : "15", "hp" : 15, "hp_max" : 15,  "ammo_cap" : 250, "malfunction" : 98, "hasMalfunction" : false, "time" : "anytime", "price" : 10}
+        ],
+        "armour" : [
+          {"name": ["Heavy Leatherjacket","Schwere Lederjacke"], "sub_type" : "armour", "dmg_reduction" : 1, "weight" : 1, "success" : false},
+          {"name": ["World-War 1 Helmet","Helm aus 1. Weltkrieg"], "sub_type" : "armour", "dmg_reduction" : 2, "weight" : 2, "success" : false},
+          {"name": ["Large Sandbag","Großer Sandsack"], "sub_type" : "armour", "dmg_reduction" : 2, "weight" : 10, "success" : false}
         ]
       },
-      "weapons_equipped" : {
+      "equipped" : {
         "melee": [
           {"name": ["Punch","Faustschlag"], "sub_type" : "melee", "sub_type_display" : ["Melee Weapons", "Nahkampfwaffen"], "crit" : true, "equip" : false, "success" : false, "value_base" : 50, "value_added" : 0, "dmg_display" : ["1D3+db", "1W3+Sb"], "dmg_dice" : 1, "dmg_diceType" : 3, "dmg_operator" : "+", "dmg_modifier" : ["dmgb"], "hands" : 1, "range" : ["Touch" , "Berührung"], "attacks" : "1"},
           {"name": ["Headbutt","Kopfstoß"], "sub_type" : "melee", "sub_type_display" : ["Melee Weapons", "Nahkampfwaffen"], "crit" : true, "equip" : false, "success" : false, "value_base" : 10, "value_added" : 0, "dmg_display" : ["1D4+db", "1W4+Sb"], "dmg_dice" : 1, "dmg_diceType" : 4, "dmg_operator" : "+", "dmg_modifier" : ["dmgb"], "hands" : 2, "range" : ["Touch" , "Berührung"], "attacks" : "1"},
           {"name": ["Kick","Fußtritt"], "sub_type" : "melee", "sub_type_display" : ["Melee Weapons", "Nahkampfwaffen"], "crit" : true, "equip" : false, "success" : false, "value_base" : 25, "value_added" : 0, "dmg_display" : ["1D6+db", "1W6+Sb"], "dmg_dice" : 1, "dmg_diceType" : 6, "dmg_operator" : "+", "dmg_modifier" : ["dmgb"], "hands" : 0, "range" : ["Touch" , "Berührung"], "attacks" : "1"},
           {"name": ["Wrestle","Ringen"], "sub_type" : "melee", "sub_type_display" : ["Melee Weapons", "Nahkampfwaffen"], "crit" : true, "equip" : false, "success" : false, "value_base" : 25, "value_added" : 0, "dmg_display" : ["special", "spezial"], "dmg_dice" : 0, "dmg_diceType" : 0, "dmg_operator" : "", "dmg_modifier" : [""], "hands" : 2, "range" : ["Touch" , "Berührung"], "attacks" : "1"}
         ],
-        "firearms": [
-        ]
+        "firearms": [],
+        "armour" : []
       },
-      "weapon_stat_desc" : {
+      "stat_desc" : {
         "melee" : {
-          "desc_0" : ["%","%"], "desc_1" : ["Damage","Schaden"], "desc_2" : ["Hands","Hände"], "desc_3" : ["Range","Reichweite"], "desc_4" : ["#Attacks","#Attacks"], "desc_6" : ["Ammo Capacity","Ladekapazität"], "desc_5" : ["HP","TP"], "desc_6" : ["HP max","TP max"], "desc_x" : ["Melee","Nahkampf"]
+          "desc_0" : ["%","%"], "desc_1" : ["Damage","Schaden"], "desc_2" : ["Hands","Hände"], "desc_3" : ["Range","Reichweite"], "desc_4" : ["#Attacks","#Attacks"], "desc_6" : ["Ammo Capacity","Ladekapazität"], "desc_5" : ["HP","TP"], "desc_6" : ["HP max","TP max"], "desc_7" : ["Price","Preis"], "desc_x" : ["Melee","Nahkampf"]
         },
         "firearms" : {
-          "desc_0" : ["%","%"], "desc_1" : ["Damage","Schaden"], "desc_2" : ["Malf.","Fehlf."], "desc_3" : ["Range","Reichweite"], "desc_4" : ["#Attacks","#Attacks"], "desc_6" : ["Ammo Capacity","Ladekapazität"], "desc_5" : ["HP","TP"], "desc_6" : ["HP max","TP max"], "desc_x" : ["Firearms","Schusswaffe"]
-        }
-
+          "desc_0" : ["%","%"], "desc_1" : ["Damage","Schaden"], "desc_2" : ["Malf.","Fehlf."], "desc_3" : ["Range","Reichweite"], "desc_4" : ["#Attacks","#Attacks"], "desc_6" : ["Ammo Capacity","Ladekapazität"], "desc_5" : ["HP","TP"], "desc_6" : ["HP max","TP max"], "desc_7" : ["Price","Preis"], "desc_x" : ["Firearms","Schusswaffe"]
+        },
+        "armour" : {
+          "desc_0" : ["Reduces received damage by","Reduziert erhaltenen Schaden um"], "desc_1" : ["Weight","Gewicht"], "desc_2" : ["Price","Preis"], "desc_x" : ["Armour","Panzerung"]}
       }
     },
     "skillPoints_used" : 0
   },
   "options" : {
     "timeSelect" : { "type" : "select", "name" : "Time Period", "value" : "anytime", "options" : ["anytime", "1890", "1920", "1990"] },
+    "itemSelect" : { "type" : "select", "name" : "Items", "value" : "", "options" : ["Melee", "Firearms", "Armour"], "types" : ["melee", "firearms", "armour"] },
     "languageSelect" : { "type" : "select", "name" : "Language", "value" : "English", "options" : ["English", "Deutsch"] },
     "languageIndex" : 0,
     "showSuccesses" : true,
