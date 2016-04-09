@@ -423,6 +423,18 @@
 			$scope.data.options.itemSelect.value = "";
 		};
 
+		$scope.addNewItems = function(){
+			var items = $scope.data.player.items.available;
+			Object.keys(items).forEach(function(key,index) {
+				for (var i = 0; i < items[key].length; i++){
+					if(items[key][i].success){
+						$scope.data.player.items.equipped[key].push(items[key][i]);
+						items[key][i].success = false;
+					}
+				}
+			});
+		};
+
 		/* Load JSON */
 		function loadJSON(url){
 			$http.get(url)
@@ -517,6 +529,14 @@
 		return {
 			restrict: 'A',
 			templateUrl: 'templates/directives/weaponTableAvailable.html',
+			scope: true,
+			replace: true
+		};
+	});
+	appModule.directive('armourtable', function () {
+		return {
+			restrict: 'A',
+			templateUrl: 'templates/directives/armourtable.html',
 			scope: true,
 			replace: true
 		};

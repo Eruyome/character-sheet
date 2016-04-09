@@ -23,7 +23,7 @@
 		<td class="attacks">{{item.attacks}}</td>
 		<td class="hp" ng-if="false"><input type="number" min="0" max="{{item.hp}}" ng-model="item.hp" ng-if="item.hp"></td>
 		<td class="hp_max">{{item.hp_max}}</td>
-		<td class="price">{{item.price}}$</td>
+		<td class="price">{{item.price}}<span ng-if="item.price>0">$</span></td>
 	</tr>
 	</tbody>
 </table>

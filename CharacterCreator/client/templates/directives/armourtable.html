@@ -13,16 +13,9 @@
 			<input type="checkbox" ng-model="item.success">
 		</td>
 		<td>{{item.name[data.options.languageIndex]}}</td>
-		<td ng-if="item.sub_type=='melee'" class="chance">{{item.value_base}}</td>
-		<td ng-if="item.sub_type!='melee'" class="chance">{{getWeaponSubTypeSkillChance(item)}}</td>
-		<td ng-show="!showWeaponDamage">{{item.dmg_display[data.options.languageIndex]}}</td>
-		<td ng-show="showWeaponDamage">{{calculateDamageRolls(item)}}</td>
-		<td ng-if="key=='melee'" class="hands">{{item.hands}}</td>
-		<td ng-if="key=='firearms'" class="checkbox malfunction"><input type="checkbox" ng-model="item.hasMalfunction">{{item.malfunction}}</td>
-		<td class="range">{{item.range[data.options.languageIndex]}}</td>
-		<td class="attacks">{{item.attacks}}</td>
-		<td class="hp"><input type="number" min="0" max="{{item.hp}}" ng-model="item.hp" ng-if="item.hp"></td>
-		<td class="hp_max">{{item.hp_max}}</td>
+		<td>{{item.dmg_reduction}}</td>
+		<td>{{item.weight}}kg</td>
+		<td>{{item.price}}<span ng-if="item.price>0">$</span></td>
 	</tr>
 	</tbody>
 </table>
