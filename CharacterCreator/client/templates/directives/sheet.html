@@ -309,4 +309,22 @@
 
 	<a zf-close="" href="#" class="button">Ok</a>
 	<a href="#" class="button warning" ng-click="rollDice(diceRollResult.ability,diceRollResult.rollType)">Reroll</a>
+
+	<div ng-show="diceRollResult.canRollDamage">
+		<div class="result">
+			<span class="line">Damage: {{diceRollResult.weapon.dmg_display[data.options.languageIndex]}}</span>
+			<span class="line">#Attacks: {{diceRollResult.weapon.attacks}}</span>
+			<span class="line"><span
+					class="highlight">{{diceRollResult.name}}</span> ({{diceRollResult.chance}}% Chance).</span>
+			<span class="line">
+				Rolled <span class="highlight">{{diceRollResult.roll}}</span> against <span class="highlight">{{diceRollResult.chance}}</span>.
+			</span>
+			<span class="line">
+				Result: <span class="highlight">{{diceRollResult.resultText}}</span>
+				<img zf-iconic="" ng-show="diceRollResult.success" icon="Circle-check" class="iconic-color-success"
+					 size="small">
+				<img zf-iconic="" ng-show="!diceRollResult.success" icon="Circle-x" class="iconic-color-alert" size="small">
+			</span>
+		</div>
+	</div>
 </div>

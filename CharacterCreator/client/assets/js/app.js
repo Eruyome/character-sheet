@@ -515,8 +515,16 @@
 			var rollResult = getRandomInt(1, 100);
 			$scope.diceRollResult = {
 				"rollType": "", "rollTypeText": "", "chance": 0, "roll": 0, "diceType": 0, "name": "",
-				"resultText": "", "dmg": 0, "success": false, "ability": ability
+				"resultText": "", "dmg": 0, "success": false, "ability": ability, "canRollDamage" : false, "weapon" :{}
 			};
+
+
+			if (!$scope.isUndefined(ability.equip)) {
+				$scope.diceRollResult.canRollDamage = true;
+				$scope.diceRollResult.weapon = ability;
+				console.log(ability);
+				console.log($scope.constructedDamageBonus);
+			}
 
 			console.group('Rolling Dice...');
 			console.group(ability.value_base);
@@ -538,6 +546,9 @@
 						});
 						$scope.diceRollResult.chance = ability.value_total;
 					}
+				}
+				else {
+					$scope.diceRollResult.chance = ability.value_total;
 				}
 
 				console.log('Skill-Check: ', ability.name[0], ' ', $scope.diceRollResult.chance, '% Chance');
