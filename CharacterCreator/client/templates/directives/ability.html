@@ -1,4 +1,4 @@
-<tr ng-show="(data.options.showSuccesses || ability.success || (ability.skillable==false)) && validTimePeriod(ability.time, ability.time_mod)"
+<tr ng-show="(data.options.showSuccesses || ability.success || (ability.skillable==false)) && validTimePeriod(ability.time, ability.time_mod, data.options.timeSelect.value)"
 	ng-class="{customText:!isUndefined(ability.custom_input), customName:!isUndefined(ability.custom_name)}">
 	<td>
 		<input id="check-{{ability.name[0]}}" ng-model="ability.success" type="checkbox"
@@ -25,11 +25,11 @@
 	</td>
 	<td class="values">
 		<span class="valueTotal form-label" title="Total">
-			(<span ng-bind="ability.value_total" class="value">{{ability.value_base + ability.value_added + ability.value_calc}}</span>%)
+			(<span ng-bind="ability.value_total" class="value">{{ability.value_total}}</span>%)
 		</span>
 	</td>
 	<td class="numberInput" ng-class="{time:!isUndefined(ability.time)}">
-		<input ng-if="isUndefined(ability.time)" type="number" ng-model="ability.value_added" min="0" max="{{99 - ability.value_base}}" ng-change="handleSkillChanges()">
+		<input ng-if="isUndefined(ability.time)" type="number" ng-model="ability.value_added" min="0" max="{{99 - ability.value_base}}" ng-change="handleSkillChanges(ability)">
 		<span ng-if="!isUndefined(ability.time)"><span class="not" ng-class="{visible:ability.time_mod=='not'}"></span>{{ability.time}}</span>
 	</td>
 </tr>

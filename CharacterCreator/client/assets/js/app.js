@@ -36,6 +36,8 @@
 		$scope.currentTab = 0;
 		$scope.armourRating = 0;
 		$scope.selectedItemList = {};
+		$scope.selectedItemListTime = "anytime";
+		$scope.showRemovable = true;
 		$scope.constructedDamageBonus = {
 			"dmg_dice" : 0, "dmg_diceType" : 0, "dmg_operator" : "", "dmg_display" : ""
 		};
@@ -185,11 +187,22 @@
 							var v = operators[operator](currentStatValue, modifier);
 							obj[key][i].value_calc = v < 99 ? v : 99;
 						}
+						$scope.calculateSkillTotal(obj[key][i]);
 					}
 					catch (err){}
 				}
 			});
 		}
+
+		$scope.calculateSkillTotal = function(ability) {
+			ability.value_total = ability.value_base;
+			if (!$scope.isUndefined(ability.value_added)){
+				ability.value_total += ability.value_added;
+			}
+			if (!$scope.isUndefined(ability.value_calc)){
+				ability.value_total += ability.value_calc;
+			}
+		};
 
 		$scope.reducePointsIfHigherThanMaxValue = function(current, max) {
 			if ($scope.data.player.stats_calc[current].value > $scope.data.player.stats_calc[max].value) {
@@ -275,12 +288,12 @@
 		};
 
 		// check if time period is vaild (display)
-		$scope.validTimePeriod = function(time, mod) {
+		$scope.validTimePeriod = function(time, mod, selectValue) {
 			mod = (mod == "not") ? false : true;
 
 			if (typeof time === "undefined") return true;
 			else if (time === "anytime") return true;
-			else if ($scope.data.options.timeSelect.value == "anytime" || negateMaybe(time == $scope.data.options.timeSelect.value, mod)) return true;
+			else if (selectValue == "anytime" || negateMaybe(time == selectValue, mod)) return true;
 			else return false;
 		};
 
@@ -314,9 +327,10 @@
 			}
 		};
 
-		$scope.handleSkillChanges = function(success, sub_type) {
+		$scope.handleSkillChanges = function(ability) {
 			$scope.calculateMaxSanity();
 			$scope.checkAvailableSkillPoints();
+			$scope.calculateSkillTotal(ability);
 		};
 
 		$scope.checkAvailableSkillPoints = function() {
@@ -421,15 +435,40 @@
 
 		$scope.resetItemSelect = function() {
 			$scope.data.options.itemSelect.value = "";
+			$scope.selectedItemListTime = "anytime";
+			$scope.showRemovable = true;
+		};
+
+		$scope.hasRemovables = function(list) {
+			var l = list.length;
+
+			for (var i = 0; i < l; i++){
+				if (!$scope.isUndefined(list[i].removable)){
+					if (!list[i].removable) return false;
+				}
+			}
+
+			return l != 0;
 		};
 
 		$scope.addNewItems = function(){
 			var items = $scope.data.player.items.available;
 			Object.keys(items).forEach(function(key,index) {
 				for (var i = 0; i < items[key].length; i++){
-					if(items[key][i].success){
+					if(items[key][i].remove){
 						$scope.data.player.items.equipped[key].push(items[key][i]);
-						items[key][i].success = false;
+						items[key][i].remove = false;
+					}
+				}
+			});
+		};
+
+		$scope.removeItems = function(){
+			var items = $scope.data.player.items.equipped;
+			Object.keys(items).forEach(function(key,index) {
+				for (var i = 0; i < items[key].length; i++){
+					if(items[key][i].remove){
+						$scope.data.player.items.equipped[key].splice(i, 1);
 					}
 				}
 			});
@@ -537,6 +576,14 @@
 		return {
 			restrict: 'A',
 			templateUrl: 'templates/directives/armourtable.html',
+			scope: true,
+			replace: true
+		};
+	});
+	appModule.directive('armourtableremove', function () {
+		return {
+			restrict: 'A',
+			templateUrl: 'templates/directives/armourtableremove.html',
 			scope: true,
 			replace: true
 		};

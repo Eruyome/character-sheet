@@ -482,17 +482,23 @@ h6 {
 	table {
 		width: 100%;
 		font-size: rem-calc(12px);
-		margin-bottom: 15px;
+		margin-bottom: 0;
 		thead {
 			td {
 				text-align: center;
 				&:first-of-type, &:nth-of-type(3) {
 					text-align: left;
 				}
+				&.armour {
+					&:nth-of-type(3) {
+						text-align: center;
+					}
+				}
 			}
 		}
 		td {
 			border: 1px solid #00558b;
+			//position: relative;
 			&.input {
 				border-right: none;
 				width: 20px;
@@ -524,12 +530,41 @@ h6 {
 					margin: 0;
 				}
 			}
-			&.hp, &.hp_max, &.malfunction, &.hands, &.attacks, &.chance, &.range, &.price {
+			&.hp, &.hp_max, &.malfunction, &.hands, &.attacks, &.chance, &.range, &.price, &.weight {
 				width: 50px;
 				text-align: center;
 			}
-			&.malfunction {
-				vertical-align: initial;
+			&.reduction {
+				text-align: center;
+				width: 200px;
+			}
+			&.malfunction, &.time {
+				text-align: center;
+			}
+			span.not {
+				display: none;
+				position: absolute;
+				top: 6px;
+				left: -6px;
+				width: 50px;
+				height: 24px;
+				border-top: 1px solid rgba(255, 0, 0, .4);
+				-webkit-transform: rotate(-25deg);
+				transform: rotate(-25deg);
+				-webkit-backface-visibility: hidden;
+				backface-visibility: hidden;
+				background: transparent;
+
+				&.visible {
+					display: block;
+				}
+			}
+			&.time {
+				width: 58px;
+			}
+			.wrap {
+				position: relative;
+				padding: 0;
 			}
 		}
 	}
@@ -538,6 +573,7 @@ h6 {
 		padding-top:0;
 		padding-bottom:0;
 		line-height: 1.5rem;
+		margin-left: 1rem;
 	}
 }
 

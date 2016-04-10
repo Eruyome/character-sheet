@@ -207,26 +207,29 @@
 </zf-accordion>
 
 <zf-accordion>
-	<zf-accordion-item title="Weapons">
+	<zf-accordion-item title="Weapons" class="items">
 		<div class="grid-block items weapons xxlarge-up2 xlarge-up2 large-up-2 medium-up-1 small-up-1">
-			<div class="table-container">
-				<div class="" ng-repeat="(key, type) in data.player.items.equipped">
-					<div ng-if="key!='armour'" weapontable></div>
-				</div>
-				<a zf-open="itemModal" class="button hollow" href="#" ng-click="resetItemSelect()">+ Add</a>
+			<div class="" ng-repeat="(key, type) in data.player.items.equipped" ng-if="key!='armour'">
+				<div  weapontable></div>
 			</div>
 		</div>
+		<a zf-open="addItemModal" class="button hollow" href="#" ng-click="resetItemSelect()">+ Add</a>
 	</zf-accordion-item>
 </zf-accordion>
 
 
-<div zf-modal="" id="itemModal">
+<div zf-modal="" id="addItemModal">
 	<a zf-close="" class="close-button">×</a>
 
 	<label>Select Item Type</label>
 	<select name="" ng-model="data.options.itemSelect.value" id="option-item"
 			ng-options="v for v in data.options.itemSelect.options"
 			ng-change="selectItemGroup(data.options.itemSelect.value)">
+	</select>
+
+	<label>Select Time Period</label>
+	<select name="" ng-model="selectedItemListTime" id="option-itemTime"
+			ng-options="v for v in data.options.timeSelect.options">
 	</select>
 
 	<div class="items" ng-repeat="(key, type) in selectedItemList">
@@ -237,16 +240,28 @@
 	<a href="#" class="button hollow" ng-click="addNewItems()">+ Add selected</a>
 </div>
 
+<div zf-modal="" id="removeItemModal">
+	<a zf-close="" class="close-button">×</a>
+
+	<h5>Remove Items</h5>
+
+	<div class="items" ng-repeat="(key, type) in data.player.items.equipped">
+		<div ng-if="key != 'armour' && hasRemovables(data.player.items.equipped[key])" weapontableavailable></div>
+		<div ng-if="key == 'armour' && hasRemovables(data.player.items.equipped[key])" armourtableremove></div>
+	</div>
+
+	<a zf-close="" href="#" class="button hollow alert" ng-click="removeItems()">+ Remove selected</a>
+</div>
+
 
 <zf-accordion>
-	<zf-accordion-item title="Armour">
+	<zf-accordion-item title="Armour" class="items">
 		<div class="grid-block items armour xxlarge-up2 xlarge-up2 large-up-2 medium-up-1 small-up-1">
-			<div class="table-container">
-				<div class="" ng-repeat="(key, type) in data.player.items.equipped">
-					<div ng-if="key=='armour'" armourtable></div>
-				</div>
-				<a zf-open="itemModal" class="button hollow" href="#" ng-click="resetItemSelect()">+ Add</a>
+			<div class="" ng-repeat="(key, type) in data.player.items.equipped" ng-if="key=='armour'">
+				<div armourtable></div>
 			</div>
 		</div>
+		<a zf-open="addItemModal" class="button hollow" href="#" ng-click="resetItemSelect()">+ Add</a>
+		<a zf-open="removeItemModal" class="button hollow alert" ng-click="showRemovable = false" href="#" >- Remove</a>
 	</zf-accordion-item>
 </zf-accordion>
