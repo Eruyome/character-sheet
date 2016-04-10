@@ -3,7 +3,11 @@ name: home
 url: /
 ---
 
-<div class="grid-container" ng-controller="characterController">
+<div class="grid-container">
+	<div class="customDice">
+		<a zf-open="rollCustomDiceModal" class="diceLink" href="#" title="Roll Dice"></a>
+	</div>
+
 	<div class="content grid-block">
 		<div id="tabs">
 			<div class="tab-headers grid-block medium-up-3 small-up-1 text-center">
@@ -11,10 +15,10 @@ url: /
 					<span class="tab-title">Character Sheet</span>
 				</div>
 				<div ng-class="{active:isActiveTab(1)}" ng-click="onClickTab(1)" class="grid-block">
-					<span class="tab-title">Abilities</span>
+					<span class="tab-title">Bio & Info</span>
 				</div>
 				<div ng-class="{active:isActiveTab(2)}" ng-click="onClickTab(2)" class="grid-block">
-					<span class="tab-title">Bio & Info</span>
+					<span class="tab-title">Abilities</span>
 				</div>
 			</div>
 			<div class="tab-contents clearfix">
@@ -22,10 +26,13 @@ url: /
 					<div sheet></div>
 				</div>
 				<div class="grid-block tab"	ng-class="{active:isActiveTab(1)}" ng-show="currentTab==1">
-					uh
+					<div info></div>
 				</div>
 				<div class="grid-block tab"	ng-class="{active:isActiveTab(2)}" ng-show="currentTab==2">
-					uhh
+					<div ng-controller="DialogCtrl">
+						<input type="file" file-dialog />
+						<!-- <input type="button" value="open" ng-click="open()"/> -->
+					</div>
 				</div>
 			</div>
 		</div>

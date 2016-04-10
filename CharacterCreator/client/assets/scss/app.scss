@@ -497,6 +497,21 @@ tr.customText {
 	}
 }
 
+.customDice {
+	position: absolute;
+	background: white;
+	right: 9px;
+	top: 9px;
+	width: 28px;
+	height: 28px;
+	text-align: center;
+	a.diceLink {
+		width: 24px;
+		height: 24px;
+		margin-top: 2px;
+	}
+}
+
 .items {
 	table {
 		width: 100%;
@@ -599,7 +614,7 @@ tr.customText {
 	}
 }
 
-#rollDiceModal {
+#rollDiceModal, #rollCustomDiceModal {
 	.result {
 		margin-bottom: 15px;
 	}
@@ -610,6 +625,9 @@ tr.customText {
 	}
 	span.highlight {
 		font-weight: 600;
+	}
+	.malfunction {
+		color: #F04124;
 	}
 }
 

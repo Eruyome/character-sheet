@@ -4,6 +4,7 @@
 	var appModule = angular.module('application', [
 			'ui.router',
 			'ngAnimate',
+			'ui.bootstrap',
 
 			//foundation
 			'foundation',
@@ -39,6 +40,7 @@
 		$scope.selectedItemListTime = "anytime";
 		$scope.showRemovable = true;
 		$scope.diceRollResult = {};
+		$scope.tempDiceResults = [];
 		$scope.constructedDamageBonus = {
 			"dmg_dice": 0, "dmg_diceType": 0, "dmg_operator": "", "dmg_display": ""
 		};
@@ -515,19 +517,19 @@
 			var rollResult = getRandomInt(1, 100);
 			$scope.diceRollResult = {
 				"rollType": "", "rollTypeText": "", "chance": 0, "roll": 0, "diceType": 0, "name": "",
-				"resultText": "", "dmg": 0, "success": false, "ability": ability, "canRollDamage" : false, "weapon" :{}
+				"resultText": "", "dmg": 0, "success": false, "ability": ability, "canRollDamage" : false, "weapon" :{},
+				"isCrit" : false
 			};
-
 
 			if (!$scope.isUndefined(ability.equip)) {
 				$scope.diceRollResult.canRollDamage = true;
 				$scope.diceRollResult.weapon = ability;
-				console.log(ability);
-				console.log($scope.constructedDamageBonus);
+				//console.log(ability);
+				//console.log($scope.constructedDamageBonus);
 			}
 
-			console.group('Rolling Dice...');
-			console.group(ability.value_base);
+			//console.group('Rolling Dice...');
+			//console.group(ability.value_base);
 			if (type == 'skillCheck') {
 
 				if (!$scope.isUndefined(ability.sub_type)) {
@@ -551,38 +553,40 @@
 					$scope.diceRollResult.chance = ability.value_total;
 				}
 
-				console.log('Skill-Check: ', ability.name[0], ' ', $scope.diceRollResult.chance, '% Chance');
+				//console.log('Skill-Check: ', ability.name[0], ' ', $scope.diceRollResult.chance, '% Chance');
 				$scope.diceRollResult.rollTypeText = "Skill-Check";
 				$scope.diceRollResult.rollType = "skillCheck";
 				$scope.diceRollResult.name = ability.name[$scope.data.options.languageIndex];
 				$scope.diceRollResult.roll = rollResult;
 
-				console.log('Rolled ', rollResult, ' against ', $scope.diceRollResult.chance);
+				//console.log('Rolled ', rollResult, ' against ', $scope.diceRollResult.chance);
 				if (rollResult > $scope.diceRollResult.chance) {
 					if (rollResult >= 96) {
-						console.log('Critical Fail (Roll >= 96).');
+						//console.log('Critical Fail (Roll >= 96).');
 						$scope.diceRollResult.resultText = 'Critical Fail (Roll >= 96).';
 					}
 					else {
-						console.log('Fail.');
+						//console.log('Fail.');
 						$scope.diceRollResult.resultText = 'Fail.';
 					}
 				}
 				else {
 					if (rollResult == 1) {
-						console.log('Critical Success (Roll == 1).');
+						//console.log('Critical Success (Roll == 1).');
 						$scope.diceRollResult.resultText = 'Critical Success (Roll == 1).';
+						$scope.diceRollResult.isCrit = true;
 					}
 					else if (rollResult <= ( Math.ceil($scope.diceRollResult.chance * 0.20))) {
-						console.log('Extreme Success (Roll <= 1/5 of Ability).');
+						//console.log('Extreme Success (Roll <= 1/5 of Ability).');
 						$scope.diceRollResult.resultText = 'Extreme Success (Roll <= 1/5 of Ability).';
+						$scope.diceRollResult.isCrit = true;
 					}
 					else if (rollResult <= ( Math.ceil($scope.diceRollResult.chance * 0.5))) {
-						console.log('Difficult Success (Roll <= 1/2 of Ability).');
+						//console.log('Difficult Success (Roll <= 1/2 of Ability).');
 						$scope.diceRollResult.resultText = 'Difficult Success (Roll <= 1/2 of Ability).';
 					}
 					else {
-						console.log('Success.');
+						//console.log('Success.');
 						$scope.diceRollResult.resultText = 'Success.';
 					}
 					ability.success = true;
@@ -590,7 +594,23 @@
 				}
 			}
 
-			console.groupEnd();
+			if ($scope.diceRollResult.canRollDamage && !$scope.isUndefined($scope.diceRollResult.weapon.malfunction)){
+				if($scope.diceRollResult.weapon.malfunction <= $scope.diceRollResult.roll){
+					$scope.diceRollResult.weapon.hasMalfunction = true;
+				}
+			}
+
+			//console.groupEnd();
+		};
+
+		$scope.rollCustomDice = function (count, type) {
+			var results = [];
+			$scope.tempDiceResults = [];
+
+			for (var i = 0; i <= count; i++) {
+				results.push(getRandomInt(1, type));
+			}
+			$scope.tempDiceResults = results;
 		};
 
 		/* Load JSON */
@@ -607,6 +627,35 @@
 				$scope.calculateDependencies(key, $scope.data.player.stats_base[key]);
 			})
 		}
+
+		/* Save data */
+		$scope.saveDataToJSON = function (data, filename) {
+			if (!data) {
+				console.error('No data');
+				return;
+			}
+			filename = filename.toLowerCase().replace(/ /g, '_');
+			filename = filename.replace(/\W/g, '')+ '.json';
+
+			if (!filename) {
+				filename = 'character.json';
+			}
+
+			if (typeof data === 'object') {
+				data = JSON.stringify(data, undefined, 2);
+			}
+
+			var blob = new Blob([data], {type: 'text/json'}),
+				e = document.createEvent('MouseEvents'),
+				a = document.createElement('a');
+
+			a.download = filename;
+			a.href = window.URL.createObjectURL(blob);
+			a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
+			e.initEvent('click', true, false, window,
+				0, 0, 0, 0, 0, false, false, false, false, 0, null);
+			a.dispatchEvent(e);
+		};
 
 		/* Helpers */
 		$scope.isUndefined = function (e) {
@@ -673,6 +722,13 @@
 			scope: true
 		};
 	});
+	appModule.directive('info', function () {
+		return {
+			restrict: 'A',
+			templateUrl: 'templates/directives/info.html',
+			scope: true
+		};
+	});
 
 	appModule.directive('ability', function () {
 		return {
@@ -714,4 +770,59 @@
 			replace: true
 		};
 	});
+
+	appModule.controller('DialogCtrl', ['$scope', '$dialog', function($scope, $dialog) {
+		var t = '<div class="modal-header">'+
+			'<h1>This is the title</h1>'+
+			'</div>'+
+			'<div class="modal-body">'+
+			'<p>Enter a value to pass to <code>close</code> as the result: <input ng-model="result" /></p>'+
+			'</div>'+
+			'<div class="modal-footer">'+
+			'<button ng-click="close(result)" class="btn btn-primary" >Close</button>'+
+			'</div>';
+
+		var dialog = $dialog.dialog({
+			backdrop: true,
+			keyboard: true,
+			backdropClick: true,
+			template:  t, // OR: templateUrl: 'path/to/view.html',
+			controller: 'TestDialogController'
+		});
+
+		$scope.$on('fileAdded', function (evt, file) {
+			alert('opening dialog');
+			dialog.open().then(function(result){
+				if(result) {
+					alert('dialog closed with result: ' + result);
+				}
+			});
+		});
+
+		$scope.open = function(){
+			dialog.open().then(function(result){
+				if(result) {
+					alert('dialog closed with result: ' + result);
+				}
+			});
+		};
+	}]);
+
+	function TestDialogController($scope, dialog){
+		$scope.close = function(result){
+			dialog.close(result);
+		};
+	}
+
+	appModule.directive('fileDialog', [function() {
+		return {
+			restrict: 'A',
+			scope: true,
+			link: function (scope, element, attr) {
+				element.bind('change', function (evt) {
+					scope.$emit('fileAdded', evt.target.files[0]);
+				});
+			}
+		};
+	}]);
 })();

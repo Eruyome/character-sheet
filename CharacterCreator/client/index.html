@@ -4,6 +4,9 @@
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<title>Call of Cthulhu Character Manager</title>
+	<link href="//cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.4.0/css/ngDialog.min.css" rel="stylesheet" type="text/css">
+	<link href="//cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.4.0/css/ngDialog-theme-default.min.css" rel="stylesheet" type="text/css">
+	<link href="//cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.4.0/css/ngDialog-theme-plain.min.css" rel="stylesheet" type="text/css">
 	<link href="./assets/css/app.css" rel="stylesheet" type="text/css">
 	<script src="./assets/js/foundation.js"></script>
 	<script src="./assets/js/templates.js"></script>
@@ -11,7 +14,7 @@
 	<script src="./assets/js/app.js"></script>
 </head>
 <body>
-<div class="grid-frame vertical">
+<div class="grid-frame vertical"  ng-controller="characterController">
 	<div class="grid-content shrink" style="padding: 0;">
 		<ul class="primary condense menu-bar">
 			<li class="pageTitle desktop"><a><strong>Call of Cthulhu Character Creator / Manager</strong></a></li>
@@ -19,8 +22,8 @@
 		</ul>
 		<ul class="menu-bar">
 			<li><a href="#">New Character</a></li>
-			<li><a href="#">Load from JSON</a></li>
-			<li><a href="#">Save to JSON</a></li>
+			<li><a href="#" ng-click="">Load from JSON</a></li>
+			<li><a href="#" ng-click="saveDataToJSON(data, data.players.info.name)">Save to JSON</a></li>
 		</ul>
 	</div>
 	<div ui-view class="grid-content uiview">

@@ -35,7 +35,6 @@
 			</div>
 		</div>
 
-
 		<div class="grid-block points large-up-3 medium-up-3 small-up-1">
 			<div class="sanity clearfix">
 				<h6>Sanity Points</h6>
@@ -286,6 +285,35 @@
 	<a zf-close="" href="#" class="button hollow alert" ng-click="removeItems()">+ Remove selected</a>
 </div>
 
+<div zf-modal="" id="rollCustomDiceModal">
+	<a zf-close="" class="close-button">×</a>
+
+	<h5>Roll Dice.</h5>
+
+	<label>
+		Number of Dice
+		<span class="inline-label">
+			<span class="form-label">#</span>
+			<input type="number" ng-model="tempDiceCount">
+		</span>
+	</label>
+
+	<label>
+		Dice Type
+		<span class="inline-label">
+			<span class="form-label">D</span>
+			<input type="number" ng-model="tempDiceType">
+		</span>
+	</label>
+
+	<span class="line">Results</span>
+	<span class="line" ng-repeat="r in tempDiceResults track by $index">
+		{{r}}
+	</span>
+
+	<a href="#" class="button" ng-click="rollCustomDice(tempDiceCount, tempDiceType)">Roll</a>
+</div>
+
 
 <div zf-modal="" id="rollDiceModal">
 	<a zf-close="" class="close-button">×</a>
@@ -305,6 +333,9 @@
 				 size="small">
 			<img zf-iconic="" ng-show="!diceRollResult.success" icon="Circle-x" class="iconic-color-alert" size="small">
 		</span>
+		<span class="line" ng-if="diceRollResult.canRollDamage && !isUndefined(diceRollResult.weapon.malfunction)">
+			<span ng-if="diceRollResult.weapon.malfunction <= diceRollResult.roll" class="malfunction">Weapon has a Malfunction!</span>
+		</span>
 	</div>
 
 	<a zf-close="" href="#" class="button">Ok</a>
@@ -312,19 +343,14 @@
 
 	<div ng-show="diceRollResult.canRollDamage">
 		<div class="result">
-			<span class="line">Damage: {{diceRollResult.weapon.dmg_display[data.options.languageIndex]}}</span>
+
+			<span class="line" ng-if="diceRollResult.canRollDamage && !isUndefined(diceRollResult.weapon.crit)">
+				Damage: ( {{diceRollResult.weapon.dmg_display[data.options.languageIndex]}} )
+				<span ng-show="diceRollResult.isCrit && diceRollResult.weapon.crit"> roll x2 and add up [Crit Bonus]</span>
+				<span ng-if="diceRollResult.weapon.malfunction <= diceRollResult.roll" class="malfunction">Weapon has a Malfunction!</span>
+			</span>
 			<span class="line">#Attacks: {{diceRollResult.weapon.attacks}}</span>
-			<span class="line"><span
-					class="highlight">{{diceRollResult.name}}</span> ({{diceRollResult.chance}}% Chance).</span>
-			<span class="line">
-				Rolled <span class="highlight">{{diceRollResult.roll}}</span> against <span class="highlight">{{diceRollResult.chance}}</span>.
-			</span>
-			<span class="line">
-				Result: <span class="highlight">{{diceRollResult.resultText}}</span>
-				<img zf-iconic="" ng-show="diceRollResult.success" icon="Circle-check" class="iconic-color-success"
-					 size="small">
-				<img zf-iconic="" ng-show="!diceRollResult.success" icon="Circle-x" class="iconic-color-alert" size="small">
-			</span>
+
 		</div>
 	</div>
 </div>

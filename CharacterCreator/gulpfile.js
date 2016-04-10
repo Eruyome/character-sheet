@@ -36,6 +36,7 @@ var paths = {
     'bower_components/tether/tether.js',
     'bower_components/hammerjs/hammer.js',
     'bower_components/angular/angular.js',
+    'node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js',
     'bower_components/angular-animate/angular-animate.js',
     'bower_components/angular-ui-router/release/angular-ui-router.js',
     'bower_components/foundation-apps/js/vendor/**/*.js',
