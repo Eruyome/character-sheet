@@ -38,6 +38,7 @@
 		$scope.selectedItemList = {};
 		$scope.selectedItemListTime = "anytime";
 		$scope.showRemovable = true;
+		$scope.diceRollResult = {};
 		$scope.constructedDamageBonus = {
 			"dmg_dice" : 0, "dmg_diceType" : 0, "dmg_operator" : "", "dmg_display" : ""
 		};
@@ -474,6 +475,58 @@
 			});
 		};
 
+		$scope.rollDice = function(ability, type){
+			var rollResult = getRandomInt(1, 100);
+			$scope.diceRollResult = {
+				"rollType" : "", "rollTypeText" : "", "chance" : 0, "roll" : 0, "diceType" : 0, "name" : "",
+				"resultText" : "", "dmg" : 0, "success" : false, "ability" : ability
+			};
+
+			console.group('Rolling Dice...');
+			if(type == 'skillCheck'){
+				console.log('Skill-Check: ', ability.name[0], ' ', ability.value_total, '% Chance');
+				$scope.diceRollResult.rollTypeText = "Skill-Check";
+				$scope.diceRollResult.rollType = "skillCheck";
+				$scope.diceRollResult.name = ability.name[$scope.data.options.languageIndex];
+				$scope.diceRollResult.chance = ability.value_total;
+				$scope.diceRollResult.roll = rollResult;
+
+				console.log('Rolled ', rollResult, ' against ', ability.value_total);
+				if(rollResult > ability.value_total){
+					if(rollResult >= 96){
+						console.log('Critical Fail (Roll >= 96).');
+						$scope.diceRollResult.resultText = 'Critical Fail (Roll >= 96).';
+					}
+					else {
+						console.log('Fail.');
+						$scope.diceRollResult.resultText = 'Fail.';
+					}
+				}
+				else {
+					if (rollResult == 1) {
+						console.log('Critical Success (Roll == 1).');
+						$scope.diceRollResult.resultText = 'Critical Success (Roll == 1).';
+					}
+					else if (rollResult <= ( Math.ceil(ability.value_total * 0.25))) {
+						console.log('Extreme Success (Roll <= 1/5 of Ability).');
+						$scope.diceRollResult.resultText = 'Extreme Success (Roll <= 1/5 of Ability).';
+					}
+					else if (rollResult <= ( Math.ceil(ability.value_total * 0.5))) {
+						console.log('Difficult Success (Roll <= 1/2 of Ability).');
+						$scope.diceRollResult.resultText = 'Difficult Success (Roll <= 1/2 of Ability).';
+					}
+					else {
+						console.log('Success.');
+						$scope.diceRollResult.resultText = 'Success.';
+					}
+					ability.success = true;
+					$scope.diceRollResult.success = true;
+				}
+			}
+
+			console.groupEnd();
+		};
+
 		/* Load JSON */
 		function loadJSON(url){
 			$http.get(url)
@@ -527,6 +580,10 @@
 
 		function negateMaybe(v, check) {
 			return check ? v : !v;
+		}
+
+		function getRandomInt(min, max) {
+			return Math.floor(Math.random() * (max - min + 1)) + min;
 		}
 	}]);
 

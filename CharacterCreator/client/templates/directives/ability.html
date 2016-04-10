@@ -32,4 +32,7 @@
 		<input ng-if="isUndefined(ability.time)" type="number" ng-model="ability.value_added" min="0" max="{{99 - ability.value_base}}" ng-change="handleSkillChanges(ability)">
 		<span ng-if="!isUndefined(ability.time)"><span class="not" ng-class="{visible:ability.time_mod=='not'}"></span>{{ability.time}}</span>
 	</td>
+	<td class="dice">
+		<a zf-open="rollDiceModal" class="diceLink" href="#" ng-click="rollDice(ability,'skillCheck')" title="Roll Dice"></a>
+	</td>
 </tr>

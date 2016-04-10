@@ -478,6 +478,24 @@ h6 {
 	max-width: 700px;
 }
 
+a.diceLink {
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	background: url('../img/dice-24.png');
+	background-size: cover;
+	margin-top: 1px;
+}
+td.dice {
+	width: 15px;
+	padding: 0 0 0 5px !important;
+}
+tr.customText {
+	a.diceLink {
+		margin-top: 20px;
+	}
+}
+
 .items {
 	table {
 		width: 100%;
@@ -574,6 +592,20 @@ h6 {
 		padding-bottom:0;
 		line-height: 1.5rem;
 		margin-left: 1rem;
+	}
+}
+
+#rollDiceModal {
+	.result {
+		margin-bottom: 15px;
+	}
+	span.line {
+		display: inline-block;
+		width: 100%;
+		line-height: 1.5rem;
+	}
+	span.highlight {
+		font-weight: 600;
 	}
 }
 

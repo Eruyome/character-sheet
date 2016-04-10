@@ -267,3 +267,22 @@
 
 	<a zf-close="" href="#" class="button hollow alert" ng-click="removeItems()">+ Remove selected</a>
 </div>
+
+
+<div zf-modal="" id="rollDiceModal">
+	<a zf-close="" class="close-button">×</a>
+
+	<h5>Rolling Dice...</h5>
+
+	<div class="result">
+		<span class="line">{{diceRollResult.rollTypeText}}</span>
+		<span class="line">{{diceRollResult.name}} ({{diceRollResult.chance}}% Chance).</span>
+		<span class="line">
+			Rolled <span class="highlight">{{diceRollResult.roll}}</span> against <span class="highlight">{{diceRollResult.chance}}</span>.
+		</span>
+		<span class="line">Result: <span class="highlight">{{diceRollResult.resultText}}</span></span>
+
+		<a zf-close="" href="#" class="button">Ok</a>
+		<a href="#" class="button warning" ng-click="rollDice(diceRollResult.ability,diceRollResult.rollType)">Reroll</a>
+	</div>
+</div>
