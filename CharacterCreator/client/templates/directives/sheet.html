@@ -95,15 +95,22 @@
 				<li>
 					<label>Show all Skillchecks (failure/success)</label>
 					<div class="switch small">
-						<input type="checkbox" id="showSuccesses" ng-model="data.options.showSuccesses" ng-change="">
+						<input type="checkbox" id="showSuccesses" ng-model="data.options.showSuccesses">
 						<label for="showSuccesses"></label>
 					</div>
 				</li>
 				<li>
 					<label>Show base value</label>
 					<div class="switch small">
-						<input type="checkbox" id="showValueBase" ng-model="data.options.showValueBase" ng-change="">
+						<input type="checkbox" id="showValueBase" ng-model="data.options.showValueBase">
 						<label for="showValueBase"></label>
+					</div>
+				</li>
+				<li>
+					<label>Show dice</label>
+					<div class="switch small">
+						<input type="checkbox" id="showDice" ng-model="data.options.showDice">
+						<label for="showDice"></label>
 					</div>
 				</li>
 				<!--<li>
@@ -276,13 +283,17 @@
 
 	<div class="result">
 		<span class="line">{{diceRollResult.rollTypeText}}</span>
-		<span class="line">{{diceRollResult.name}} ({{diceRollResult.chance}}% Chance).</span>
+		<span class="line"><span class="highlight">{{diceRollResult.name}}</span> ({{diceRollResult.chance}}% Chance).</span>
 		<span class="line">
 			Rolled <span class="highlight">{{diceRollResult.roll}}</span> against <span class="highlight">{{diceRollResult.chance}}</span>.
 		</span>
-		<span class="line">Result: <span class="highlight">{{diceRollResult.resultText}}</span></span>
-
-		<a zf-close="" href="#" class="button">Ok</a>
-		<a href="#" class="button warning" ng-click="rollDice(diceRollResult.ability,diceRollResult.rollType)">Reroll</a>
+		<span class="line">
+			Result: <span class="highlight">{{diceRollResult.resultText}}</span>
+			<img zf-iconic="" ng-show="diceRollResult.success" icon="Circle-check" class="iconic-color-success" size="small">
+			<img zf-iconic="" ng-show="!diceRollResult.success" icon="Circle-x" class="iconic-color-alert" size="small">
+		</span>
 	</div>
+
+	<a zf-close="" href="#" class="button">Ok</a>
+	<a href="#" class="button warning" ng-click="rollDice(diceRollResult.ability,diceRollResult.rollType)">Reroll</a>
 </div>

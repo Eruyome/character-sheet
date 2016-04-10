@@ -483,16 +483,35 @@
 			};
 
 			console.group('Rolling Dice...');
+			console.group(ability.value_base);
 			if(type == 'skillCheck'){
-				console.log('Skill-Check: ', ability.name[0], ' ', ability.value_total, '% Chance');
+
+				if(!$scope.isUndefined(ability.sub_type)){
+					if(ability.sub_type == 'melee'){
+						$scope.diceRollResult.chance = ability.value_base;
+					}
+					else {
+						var obj = $scope.data.abilities;
+						Object.keys(obj).forEach(function(key,index) {
+							for (var i = 0; i < obj[key].length; i++){
+								if(obj[key][i].sub_type == ability.sub_type){
+									ability = obj[key][i];
+									break;
+								}
+							}
+						});
+						$scope.diceRollResult.chance = ability.value_total;
+					}
+				}
+
+				console.log('Skill-Check: ', ability.name[0], ' ', $scope.diceRollResult.chance, '% Chance');
 				$scope.diceRollResult.rollTypeText = "Skill-Check";
 				$scope.diceRollResult.rollType = "skillCheck";
 				$scope.diceRollResult.name = ability.name[$scope.data.options.languageIndex];
-				$scope.diceRollResult.chance = ability.value_total;
 				$scope.diceRollResult.roll = rollResult;
 
-				console.log('Rolled ', rollResult, ' against ', ability.value_total);
-				if(rollResult > ability.value_total){
+				console.log('Rolled ', rollResult, ' against ', $scope.diceRollResult.chance);
+				if(rollResult > $scope.diceRollResult.chance){
 					if(rollResult >= 96){
 						console.log('Critical Fail (Roll >= 96).');
 						$scope.diceRollResult.resultText = 'Critical Fail (Roll >= 96).';
@@ -507,11 +526,11 @@
 						console.log('Critical Success (Roll == 1).');
 						$scope.diceRollResult.resultText = 'Critical Success (Roll == 1).';
 					}
-					else if (rollResult <= ( Math.ceil(ability.value_total * 0.25))) {
+					else if (rollResult <= ( Math.ceil($scope.diceRollResult.chance * 0.20))) {
 						console.log('Extreme Success (Roll <= 1/5 of Ability).');
 						$scope.diceRollResult.resultText = 'Extreme Success (Roll <= 1/5 of Ability).';
 					}
-					else if (rollResult <= ( Math.ceil(ability.value_total * 0.5))) {
+					else if (rollResult <= ( Math.ceil($scope.diceRollResult.chance * 0.5))) {
 						console.log('Difficult Success (Roll <= 1/2 of Ability).');
 						$scope.diceRollResult.resultText = 'Difficult Success (Roll <= 1/2 of Ability).';
 					}

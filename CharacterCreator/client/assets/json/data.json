@@ -109,6 +109,7 @@
     "languageIndex" : 0,
     "showSuccesses" : true,
     "showValueBase" : true,
+    "showDice" : true,
     "showWeaponDamage" : true
   }
 }

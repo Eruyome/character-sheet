@@ -489,6 +489,7 @@ a.diceLink {
 td.dice {
 	width: 15px;
 	padding: 0 0 0 5px !important;
+	border: none !important;
 }
 tr.customText {
 	a.diceLink {
@@ -583,6 +584,9 @@ tr.customText {
 			.wrap {
 				position: relative;
 				padding: 0;
+			}
+			&.dice a {
+				margin-top: 4px;
 			}
 		}
 	}
