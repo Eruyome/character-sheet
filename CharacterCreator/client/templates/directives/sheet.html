@@ -14,7 +14,8 @@
 			<div class="calculated grid-block">
 				<label ng-repeat="(key, stat) in data.player.stats_calc" ng-class="{isCombined:isVariableStat(key)}">
 					<span class="inline-label">
-						<span class="form-label" ng-if="isMaxStatValue(key)" title="{{stat.name[data.options.languageIndex]}}">
+						<span class="form-label" ng-if="isMaxStatValue(key)"
+							  title="{{stat.name[data.options.languageIndex]}}">
 							{{stat.abbrev[data.options.languageIndex]}}
 						</span>
 						<!--<span class="form-label" ng-if="isVariableStat(key)">{{stat.value}} / {{data.player.stats_calc[key +"_max"].value}}</span>-->
@@ -38,6 +39,7 @@
 		<div class="grid-block points large-up-3 medium-up-3 small-up-1">
 			<div class="sanity clearfix">
 				<h6>Sanity Points</h6>
+
 				<div class="status">
 					<span>Status: </span>
 					<span>{{getStatus('sanity', data.player.stats_calc.san.value_min, data.player.stats_calc.san.value)}}</span>
@@ -48,12 +50,14 @@
 						{{n}}
 						<a class="close-button ng-scope">×</a>
 					</label>
-					<input type="radio" name="san_max" value="{{n}}" id="san-{{n}}" ng-model="data.player.stats_calc.san.value">
+					<input type="radio" name="san_max" value="{{n}}" id="san-{{n}}"
+						   ng-model="data.player.stats_calc.san.value">
 				</div>
 			</div>
 
 			<div class="magic clearfix">
 				<h6>Magic Points</h6>
+
 				<div class="status">
 					<span>Status: </span>
 					<span>{{getStatus('magic', data.player.stats_calc.magic.value_min, data.player.stats_calc.magic.value)}}</span>
@@ -64,12 +68,14 @@
 						{{n}}
 						<a class="close-button ng-scope">×</a>
 					</label>
-					<input type="radio" name="magic_max" value="{{n}}" id="magic-{{n}}" ng-model="data.player.stats_calc.magic.value">
+					<input type="radio" name="magic_max" value="{{n}}" id="magic-{{n}}"
+						   ng-model="data.player.stats_calc.magic.value">
 				</div>
 			</div>
 
 			<div class="hitpoints clearfix">
 				<h6>Hit Points</h6>
+
 				<div class="status">
 					<span>Status: </span>
 					<span>{{getStatus('hitpoints', data.player.stats_calc.hp.value_min, data.player.stats_calc.hp.value)}}</span>
@@ -80,7 +86,8 @@
 						{{n}}
 						<a class="close-button ng-scope">×</a>
 					</label>
-					<input type="radio" name="hp_max" value="{{n}}" id="hp-{{n}}" ng-model="data.player.stats_calc.hp.value">
+					<input type="radio" name="hp_max" value="{{n}}" id="hp-{{n}}"
+						   ng-model="data.player.stats_calc.hp.value">
 				</div>
 			</div>
 		</div>
@@ -94,6 +101,7 @@
 			<ul>
 				<li>
 					<label>Show all Skillchecks (failure/success)</label>
+
 					<div class="switch small">
 						<input type="checkbox" id="showSuccesses" ng-model="data.options.showSuccesses">
 						<label for="showSuccesses"></label>
@@ -101,6 +109,7 @@
 				</li>
 				<li>
 					<label>Show base value</label>
+
 					<div class="switch small">
 						<input type="checkbox" id="showValueBase" ng-model="data.options.showValueBase">
 						<label for="showValueBase"></label>
@@ -108,6 +117,7 @@
 				</li>
 				<li>
 					<label>Show dice</label>
+
 					<div class="switch small">
 						<input type="checkbox" id="showDice" ng-model="data.options.showDice">
 						<label for="showDice"></label>
@@ -151,6 +161,7 @@
 					Skill Points used: {{ data.player.skillPoints_used }} / {{ (data.player.stats_base.edu.value * 20) + (data.player.stats_base.int.value * 10) }}
 				</span>
 			</span>
+
 			<div class="grid-block list">
 				<table>
 					<tr ng-repeat="(key, ability) in data.abilities.common | limitTo:getLength(data, 0)" ability>
@@ -167,45 +178,45 @@
 			<div class="grid-block list">
 				<table>
 					<thead>
-						<tr>
-							<td colspan="5">Firearms</td>
-						</tr>
+					<tr>
+						<td colspan="5">Firearms</td>
+					</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="(key, ability) in data.abilities.firearms" ability>
-						</tr>
+					<tr ng-repeat="(key, ability) in data.abilities.firearms" ability>
+					</tr>
 					</tbody>
 				</table>
 				<table>
 					<thead>
-						<tr>
-							<td colspan="2">Other Skills</td>
-							<td colspan="3" class="small">Time Period</td>
-						</tr>
+					<tr>
+						<td colspan="2">Other Skills</td>
+						<td colspan="3" class="small">Time Period</td>
+					</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="(key, ability) in data.abilities.other" ability>
-						</tr>
+					<tr ng-repeat="(key, ability) in data.abilities.other" ability>
+					</tr>
 					</tbody>
 				</table>
 				<table>
 					<thead>
-						<tr>
-							<td colspan="5">Custom Skills</td>
-						</tr>
+					<tr>
+						<td colspan="5">Custom Skills</td>
+					</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="(key, ability) in data.abilities.custom" ability>
-						</tr>
+					<tr ng-repeat="(key, ability) in data.abilities.custom" ability>
+					</tr>
 
-						<tr class="controls">
-							<td colspan="2">
-								<a class="button small hollow" href="#" ng-click="addCustomAbility()">+ Add</a>
-							</td>
-							<td colspan="2" ng-show="data.abilities.custom.length">
-								<a class="button small alert hollow" href="#" ng-click="removeCustomAbility()">- empty</a>
-							</td>
-						</tr>
+					<tr class="controls">
+						<td colspan="2">
+							<a class="button small hollow" href="#" ng-click="addCustomAbility()">+ Add</a>
+						</td>
+						<td colspan="2" ng-show="data.abilities.custom.length">
+							<a class="button small alert hollow" href="#" ng-click="removeCustomAbility()">- empty</a>
+						</td>
+					</tr>
 					</tbody>
 				</table>
 			</div>
@@ -217,11 +228,11 @@
 	<zf-accordion-item title="Weapons" class="items">
 		<div class="grid-block items weapons xxlarge-up2 xlarge-up2 large-up-2 medium-up-1 small-up-1">
 			<div class="" ng-repeat="(key, type) in data.player.items.equipped" ng-if="key!='armour'">
-				<div  weapontable></div>
+				<div weapontable></div>
 			</div>
 		</div>
 		<a zf-open="addItemModal" class="button hollow" href="#" ng-click="resetItemSelect()">+ Add</a>
-		<a zf-open="removeItemModal" class="button hollow alert" ng-click="showRemovable = false" href="#" >- Remove</a>
+		<a zf-open="removeItemModal" class="button hollow alert" ng-click="showRemovable = false" href="#">- Remove</a>
 	</zf-accordion-item>
 </zf-accordion>
 
@@ -233,7 +244,7 @@
 			</div>
 		</div>
 		<a zf-open="addItemModal" class="button hollow" href="#" ng-click="resetItemSelect()">+ Add</a>
-		<a zf-open="removeItemModal" class="button hollow alert" ng-click="showRemovable = false" href="#" >- Remove</a>
+		<a zf-open="removeItemModal" class="button hollow alert" ng-click="showRemovable = false" href="#">- Remove</a>
 	</zf-accordion-item>
 </zf-accordion>
 
@@ -283,13 +294,15 @@
 
 	<div class="result">
 		<span class="line">{{diceRollResult.rollTypeText}}</span>
-		<span class="line"><span class="highlight">{{diceRollResult.name}}</span> ({{diceRollResult.chance}}% Chance).</span>
+		<span class="line"><span
+				class="highlight">{{diceRollResult.name}}</span> ({{diceRollResult.chance}}% Chance).</span>
 		<span class="line">
 			Rolled <span class="highlight">{{diceRollResult.roll}}</span> against <span class="highlight">{{diceRollResult.chance}}</span>.
 		</span>
 		<span class="line">
 			Result: <span class="highlight">{{diceRollResult.resultText}}</span>
-			<img zf-iconic="" ng-show="diceRollResult.success" icon="Circle-check" class="iconic-color-success" size="small">
+			<img zf-iconic="" ng-show="diceRollResult.success" icon="Circle-check" class="iconic-color-success"
+				 size="small">
 			<img zf-iconic="" ng-show="!diceRollResult.success" icon="Circle-x" class="iconic-color-alert" size="small">
 		</span>
 	</div>

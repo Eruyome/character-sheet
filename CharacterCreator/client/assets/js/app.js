@@ -2,17 +2,17 @@
 	'use strict';
 
 	var appModule = angular.module('application', [
-		'ui.router',
-		'ngAnimate',
+			'ui.router',
+			'ngAnimate',
 
-		//foundation
-		'foundation',
-		'foundation.dynamicRouting',
-		'foundation.dynamicRouting.animations'
-	])
-		.config(config)
-		.run(run)
-	;
+			//foundation
+			'foundation',
+			'foundation.dynamicRouting',
+			'foundation.dynamicRouting.animations'
+		])
+			.config(config)
+			.run(run)
+		;
 
 	config.$inject = ['$urlRouterProvider', '$locationProvider'];
 
@@ -40,14 +40,22 @@
 		$scope.showRemovable = true;
 		$scope.diceRollResult = {};
 		$scope.constructedDamageBonus = {
-			"dmg_dice" : 0, "dmg_diceType" : 0, "dmg_operator" : "", "dmg_display" : ""
+			"dmg_dice": 0, "dmg_diceType": 0, "dmg_operator": "", "dmg_display": ""
 		};
 
 		var operators = {
-			'+': function(a, b){ return a+b},
-			'*': function(a, b){ return a*b},
-			'/': function(a, b){ return a/b},
-			'-': function(a, b){ return a-b}
+			'+': function (a, b) {
+				return a + b
+			},
+			'*': function (a, b) {
+				return a * b
+			},
+			'/': function (a, b) {
+				return a / b
+			},
+			'-': function (a, b) {
+				return a - b
+			}
 		};
 
 		loadJSON('./assets/json/data.json');
@@ -56,37 +64,37 @@
 		$scope.onClickTab = function (tabId) {
 			$scope.currentTab = tabId;
 		};
-		$scope.isActiveTab = function(tabId) {
+		$scope.isActiveTab = function (tabId) {
 			return tabId == $scope.currentTab;
 		};
 
 		/* Ability  Lists*/
-		$scope.getLength = function(data, offset){
+		$scope.getLength = function (data, offset) {
 			try {
-				var l = Math.ceil(data.abilities.common.length/2);
+				var l = Math.ceil(data.abilities.common.length / 2);
 				if (data.abilities.common.length % 2) {
 					l = l - offset;
 				}
 				return l;
 			}
-			catch(err){
+			catch (err) {
 				console.info('Data not ready yet.')
 			}
 		};
 
 		// Calculate all values dependend on base stats
-		$scope.calculateDependencies = function(key, stat){
+		$scope.calculateDependencies = function (key, stat) {
 			// calcualte ability base values
 			calculateAbilityValues($scope.data.abilities);
 
 			// calculate dmg bonus
-			if(key == 'str' || key == 'siz') {
+			if (key == 'str' || key == 'siz') {
 				var v = $scope.data.player.stats_base.str.value + $scope.data.player.stats_base.siz.value;
 				var result = 0;
 				$scope.data.player.stats_calc.dmg_bonus.value = constructDamageBonus(v);
 			}
 
-			if(key == 'con' || key == 'siz') {
+			if (key == 'con' || key == 'siz') {
 				// calculate max hp
 				var v = $scope.data.player.stats_base.con.value + $scope.data.player.stats_base.siz.value;
 				if (v > 0) {
@@ -96,7 +104,7 @@
 						$scope.data.player.stats_calc.hp.value = Math.ceil(v / 2);
 					}
 					// reduce current hp if max hp is reduced too much
-					$scope.reducePointsIfHigherThanMaxValue("hp","hp_max");
+					$scope.reducePointsIfHigherThanMaxValue("hp", "hp_max");
 				}
 			}
 
@@ -111,7 +119,7 @@
 					$scope.data.player.stats_calc.san.value = v;
 				}
 				// reduce current sanity if max sanity is reduced too much
-				$scope.reducePointsIfHigherThanMaxValue("san","san_max");
+				$scope.reducePointsIfHigherThanMaxValue("san", "san_max");
 
 				// calculate luck
 				v = (stat.value * 5) < 99 ? (stat.value * 5) : 99;
@@ -128,7 +136,7 @@
 				}
 
 				// reduce current magic if max magic is reduced too much
-				$scope.reducePointsIfHigherThanMaxValue("magic","magic_max");
+				$scope.reducePointsIfHigherThanMaxValue("magic", "magic_max");
 			}
 			if (key == 'int') {
 				var v = (stat.value * 5) < 99 ? (stat.value * 5) : 99;
@@ -139,7 +147,7 @@
 				$scope.data.player.stats_calc.know.value = v;
 			}
 			if (key == 'dex') {
-				var v = Math.round((stat.value * 0.3 * 100)) / 100 ;
+				var v = Math.round((stat.value * 0.3 * 100)) / 100;
 				$scope.data.player.stats_calc.range.value = v + "m";
 			}
 		};
@@ -147,15 +155,34 @@
 		function constructDamageBonus(v) {
 			var dmg_dice = 1, dmg_diceType = 6, dmg_operator = "+", result = "";
 
-			if (v >= 2 && v <= 12 ) { dmg_operator = "-"; }
-			else if (v >= 13 && v <= 16 ) { dmg_operator = "-"; dmg_diceType = 4;  }
-			else if (v >= 17 && v <= 24 ) { dmg_dice = 0; dmg_diceType = 0; }
-			else if (v >= 25 && v <= 32 ) { dmg_diceType = 4; }
-			else if (v >= 33 && v <= 40 ) {  }
-			else if (v >= 41 && v <= 56 ) { dmg_dice = 2; }
-			else if (v >= 57 && v <= 72 ) { dmg_dice = 3; }
-			else if (v >= 73 && v <= 88 ) { dmg_dice = 4; }
-			else if (v >= 89) { dmg_dice = 5; }
+			if (v >= 2 && v <= 12) {
+				dmg_operator = "-";
+			}
+			else if (v >= 13 && v <= 16) {
+				dmg_operator = "-";
+				dmg_diceType = 4;
+			}
+			else if (v >= 17 && v <= 24) {
+				dmg_dice = 0;
+				dmg_diceType = 0;
+			}
+			else if (v >= 25 && v <= 32) {
+				dmg_diceType = 4;
+			}
+			else if (v >= 33 && v <= 40) {
+			}
+			else if (v >= 41 && v <= 56) {
+				dmg_dice = 2;
+			}
+			else if (v >= 57 && v <= 72) {
+				dmg_dice = 3;
+			}
+			else if (v >= 73 && v <= 88) {
+				dmg_dice = 4;
+			}
+			else if (v >= 89) {
+				dmg_dice = 5;
+			}
 
 			result = dmg_operator + dmg_dice;
 			if (dmg_diceType > 0) result += 'D' + dmg_diceType;
@@ -168,7 +195,7 @@
 		}
 
 		function calculateAbilityValues(obj) {
-			Object.keys(obj).forEach(function(key,index) {
+			Object.keys(obj).forEach(function (key, index) {
 				var length = obj[key].length;
 				var stat, operator, modifier, currentStatValue;
 
@@ -179,7 +206,7 @@
 							operator = obj[key][i].calc.operator;
 							modifier = obj[key][i].calc.modifier;
 
-							if(typeof obj[key][i].calc.modifier === "string") {
+							if (typeof obj[key][i].calc.modifier === "string") {
 								modifier = $scope.data.player.stats_base[modifier].value;
 							}
 
@@ -190,33 +217,34 @@
 						}
 						$scope.calculateSkillTotal(obj[key][i]);
 					}
-					catch (err){}
+					catch (err) {
+					}
 				}
 			});
 		}
 
-		$scope.calculateSkillTotal = function(ability) {
+		$scope.calculateSkillTotal = function (ability) {
 			ability.value_total = ability.value_base;
-			if (!$scope.isUndefined(ability.value_added)){
+			if (!$scope.isUndefined(ability.value_added)) {
 				ability.value_total += ability.value_added;
 			}
-			if (!$scope.isUndefined(ability.value_calc)){
+			if (!$scope.isUndefined(ability.value_calc)) {
 				ability.value_total += ability.value_calc;
 			}
 		};
 
-		$scope.reducePointsIfHigherThanMaxValue = function(current, max) {
+		$scope.reducePointsIfHigherThanMaxValue = function (current, max) {
 			if ($scope.data.player.stats_calc[current].value > $scope.data.player.stats_calc[max].value) {
 				$scope.data.player.stats_calc[current].value = $scope.data.player.stats_calc[max].value;
 			}
 		};
 
-		$scope.calculateMaxSanity = function() {
-			for (var i = 0; i < $scope.data.abilities.common.length; i++){
-				if (!$scope.isUndefined($scope.data.abilities.common[i].cthulhu_mythos)){
+		$scope.calculateMaxSanity = function () {
+			for (var i = 0; i < $scope.data.abilities.common.length; i++) {
+				if (!$scope.isUndefined($scope.data.abilities.common[i].cthulhu_mythos)) {
 					$scope.data.player.stats_calc.san_max.value = 99 - $scope.data.abilities.common[i].value_added;
 
-					$scope.reducePointsIfHigherThanMaxValue("san","san_max");
+					$scope.reducePointsIfHigherThanMaxValue("san", "san_max");
 					break;
 				}
 				else {
@@ -225,12 +253,19 @@
 			}
 		};
 
-		$scope.calculateDamageRolls = function(item) {
+		$scope.calculateDamageRolls = function (item) {
 			var damageRolls = [];
 
 			for (var i = 0; i < item.dmg_modifier.length; i++) {
-				if(item.dmg_modifier[i].toString().indexOf("dmgb") >= 0){
-					var temp = {"dmg_dice" : 0, "dmg_diceType" : 0, "dmg_operator" : "", "dmg_modifier" : [0], "dmg_flat" : 0, "dmgb_multiplier" : 1};
+				if (item.dmg_modifier[i].toString().indexOf("dmgb") >= 0) {
+					var temp = {
+						"dmg_dice": 0,
+						"dmg_diceType": 0,
+						"dmg_operator": "",
+						"dmg_modifier": [0],
+						"dmg_flat": 0,
+						"dmgb_multiplier": 1
+					};
 
 					if (($scope.constructedDamageBonus.dmg_diceType == item.dmg_diceType) && ($scope.isUndefined(item.dmgb_multiplier))) {
 						temp.dmg_dice = $scope.constructedDamageBonus.dmg_dice + item.dmg_dice;
@@ -254,7 +289,7 @@
 			}
 		};
 
-		function getFlatDamage(item){
+		function getFlatDamage(item) {
 			var flatDamage = 0;
 			for (var i = 0; i < item.dmg_modifier.length; i++) {
 				if (flatDamage > 0) break;
@@ -264,14 +299,14 @@
 		}
 
 		// Get player status (hp, magic, sanity)
-		$scope.getStatus = function(stat, minValue, value) {
+		$scope.getStatus = function (stat, minValue, value) {
 			var status = '';
 
 			if (stat == 'magic') {
 				status = (value >= minValue && value < 1) ? 'unconscious' : 'normal';
 			}
 			else if (stat == 'hitpoints') {
-				if (value >= (minValue+1) && value < 1){
+				if (value >= (minValue + 1) && value < 1) {
 					status = 'unconscious';
 				}
 				else if (value == minValue) {
@@ -289,7 +324,7 @@
 		};
 
 		// check if time period is vaild (display)
-		$scope.validTimePeriod = function(time, mod, selectValue) {
+		$scope.validTimePeriod = function (time, mod, selectValue) {
 			mod = (mod == "not") ? false : true;
 
 			if (typeof time === "undefined") return true;
@@ -298,7 +333,7 @@
 			else return false;
 		};
 
-		$scope.changeLanguage = function(){
+		$scope.changeLanguage = function () {
 			if ($scope.data.options.languageSelect.value == "English") {
 				$scope.data.options.languageIndex = 0;
 			}
@@ -307,39 +342,39 @@
 			}
 		};
 
-		$scope.addCustomAbility = function() {
+		$scope.addCustomAbility = function () {
 			var obj = {
 				"name": [],
-				"value_added" : 0,
-				"value_total" : 0,
-				"skilled" : false,
-				"custom_name" : ""
+				"value_added": 0,
+				"value_total": 0,
+				"skilled": false,
+				"custom_name": ""
 			};
 
 			$scope.data.abilities.custom.push(obj);
 		};
 
-		$scope.removeCustomAbility = function() {
+		$scope.removeCustomAbility = function () {
 			for (var i = 0; i < $scope.data.abilities.custom.length; i++) {
 				console.log($scope.data.abilities.custom[i].custom_name);
-				if($scope.data.abilities.custom[i].custom_name == "") {
+				if ($scope.data.abilities.custom[i].custom_name == "") {
 					$scope.data.abilities.custom.splice(i, 1);
 				}
 			}
 		};
 
-		$scope.handleSkillChanges = function(ability) {
+		$scope.handleSkillChanges = function (ability) {
 			$scope.calculateMaxSanity();
 			$scope.checkAvailableSkillPoints();
 			$scope.calculateSkillTotal(ability);
 		};
 
-		$scope.checkAvailableSkillPoints = function() {
+		$scope.checkAvailableSkillPoints = function () {
 			var obj = $scope.data.abilities;
 			var v = 0;
 
-			Object.keys($scope.data.abilities).forEach(function(key,index) {
-				for (var i = 0; i < obj[key].length; i++){
+			Object.keys($scope.data.abilities).forEach(function (key, index) {
+				for (var i = 0; i < obj[key].length; i++) {
 					if (!$scope.isUndefined(obj[key][i].value_added)) {
 						v += obj[key][i].value_added;
 					}
@@ -348,27 +383,28 @@
 			$scope.data.player.skillPoints_used = v;
 		};
 
-		$scope.playerHasArmour = function() {
+		$scope.playerHasArmour = function () {
 			var v = 0;
 			try {
-				for (var i = 0; i < $scope.data.player.items.armour.length; i++ ) {
+				for (var i = 0; i < $scope.data.player.items.armour.length; i++) {
 					v += $scope.data.player.items.armour[i].value
 				}
 				$scope.armourRating = v;
 			}
-			catch(err){}
+			catch (err) {
+			}
 
 			return ( v > 0 );
 		};
 
-		$scope.getWeaponSubTypeSkillChance = function(item) {
+		$scope.getWeaponSubTypeSkillChance = function (item) {
 			var type = item.sub_type;
 			var obj = $scope.data.abilities;
 			var v = 0;
 
-			Object.keys($scope.data.abilities).forEach(function(key,index) {
-				for (var i = 0; i < obj[key].length; i++){
-					if ( key != "custom") {
+			Object.keys($scope.data.abilities).forEach(function (key, index) {
+				for (var i = 0; i < obj[key].length; i++) {
+					if (key != "custom") {
 						//var skillName = obj[key][i].name[0].toLowerCase().replace(/ /g, '');
 						var skillName = obj[key][i].sub_type;
 
@@ -383,39 +419,39 @@
 		};
 
 		// synch success states between weapon skills and equipped weapons
-		$scope.synchSuccessStates = function(state, type, triggeredBySkill){
-			if(typeof type === "undefined" || type == "armour") return;
+		$scope.synchSuccessStates = function (state, type, triggeredBySkill) {
+			if (typeof type === "undefined" || type == "armour") return;
 			var obj = $scope.data.abilities;
 			var items = $scope.data.player.items.equipped;
 			var group = [];
 			var v = 0;
 
-			Object.keys(items).forEach(function(key,index) {
-				for (var i = 0; i < items[key].length; i++){
-					if(items[key][i].sub_type == type){
+			Object.keys(items).forEach(function (key, index) {
+				for (var i = 0; i < items[key].length; i++) {
+					if (items[key][i].sub_type == type) {
 						group.push(items[key][i]);
 					}
 				}
 			});
 
-			Object.keys(obj).forEach(function(key,index) {
-				for (var i = 0; i < obj[key].length; i++){
+			Object.keys(obj).forEach(function (key, index) {
+				for (var i = 0; i < obj[key].length; i++) {
 					if (key != "custom") {
 						var skillName = obj[key][i].sub_type;
 						if (skillName == type) {
 							if (obj[key][i].success) {
-								for (var j = 0; j < group.length; j++){
+								for (var j = 0; j < group.length; j++) {
 									group[j].success = obj[key][i].success;
 								}
 							}
 							if (!triggeredBySkill && state) {
-								for (var j = 0; j < group.length; j++){
+								for (var j = 0; j < group.length; j++) {
 									group[j].success = true;
 								}
 								obj[key][i].success = true;
 							}
 							if (triggeredBySkill) {
-								for (var j = 0; j < group.length; j++){
+								for (var j = 0; j < group.length; j++) {
 									group[j].success = obj[key][i].success;
 								}
 							}
@@ -425,7 +461,7 @@
 			});
 		};
 
-		$scope.selectItemGroup = function(){
+		$scope.selectItemGroup = function () {
 			var select = $scope.data.options.itemSelect;
 			var index = select.options.indexOf(select.value);
 			var key = select.types[index];
@@ -434,17 +470,17 @@
 			$scope.selectedItemList = obj;
 		};
 
-		$scope.resetItemSelect = function() {
+		$scope.resetItemSelect = function () {
 			$scope.data.options.itemSelect.value = "";
 			$scope.selectedItemListTime = "anytime";
 			$scope.showRemovable = true;
 		};
 
-		$scope.hasRemovables = function(list) {
+		$scope.hasRemovables = function (list) {
 			var l = list.length;
 
-			for (var i = 0; i < l; i++){
-				if (!$scope.isUndefined(list[i].removable)){
+			for (var i = 0; i < l; i++) {
+				if (!$scope.isUndefined(list[i].removable)) {
 					if (!list[i].removable) return false;
 				}
 			}
@@ -452,11 +488,11 @@
 			return l != 0;
 		};
 
-		$scope.addNewItems = function(){
+		$scope.addNewItems = function () {
 			var items = $scope.data.player.items.available;
-			Object.keys(items).forEach(function(key,index) {
-				for (var i = 0; i < items[key].length; i++){
-					if(items[key][i].remove){
+			Object.keys(items).forEach(function (key, index) {
+				for (var i = 0; i < items[key].length; i++) {
+					if (items[key][i].remove) {
 						$scope.data.player.items.equipped[key].push(items[key][i]);
 						items[key][i].remove = false;
 					}
@@ -464,37 +500,37 @@
 			});
 		};
 
-		$scope.removeItems = function(){
+		$scope.removeItems = function () {
 			var items = $scope.data.player.items.equipped;
-			Object.keys(items).forEach(function(key,index) {
-				for (var i = 0; i < items[key].length; i++){
-					if(items[key][i].remove){
+			Object.keys(items).forEach(function (key, index) {
+				for (var i = 0; i < items[key].length; i++) {
+					if (items[key][i].remove) {
 						$scope.data.player.items.equipped[key].splice(i, 1);
 					}
 				}
 			});
 		};
 
-		$scope.rollDice = function(ability, type){
+		$scope.rollDice = function (ability, type) {
 			var rollResult = getRandomInt(1, 100);
 			$scope.diceRollResult = {
-				"rollType" : "", "rollTypeText" : "", "chance" : 0, "roll" : 0, "diceType" : 0, "name" : "",
-				"resultText" : "", "dmg" : 0, "success" : false, "ability" : ability
+				"rollType": "", "rollTypeText": "", "chance": 0, "roll": 0, "diceType": 0, "name": "",
+				"resultText": "", "dmg": 0, "success": false, "ability": ability
 			};
 
 			console.group('Rolling Dice...');
 			console.group(ability.value_base);
-			if(type == 'skillCheck'){
+			if (type == 'skillCheck') {
 
-				if(!$scope.isUndefined(ability.sub_type)){
-					if(ability.sub_type == 'melee'){
+				if (!$scope.isUndefined(ability.sub_type)) {
+					if (ability.sub_type == 'melee') {
 						$scope.diceRollResult.chance = ability.value_base;
 					}
 					else {
 						var obj = $scope.data.abilities;
-						Object.keys(obj).forEach(function(key,index) {
-							for (var i = 0; i < obj[key].length; i++){
-								if(obj[key][i].sub_type == ability.sub_type){
+						Object.keys(obj).forEach(function (key, index) {
+							for (var i = 0; i < obj[key].length; i++) {
+								if (obj[key][i].sub_type == ability.sub_type) {
 									ability = obj[key][i];
 									break;
 								}
@@ -511,8 +547,8 @@
 				$scope.diceRollResult.roll = rollResult;
 
 				console.log('Rolled ', rollResult, ' against ', $scope.diceRollResult.chance);
-				if(rollResult > $scope.diceRollResult.chance){
-					if(rollResult >= 96){
+				if (rollResult > $scope.diceRollResult.chance) {
+					if (rollResult >= 96) {
 						console.log('Critical Fail (Roll >= 96).');
 						$scope.diceRollResult.resultText = 'Critical Fail (Roll >= 96).';
 					}
@@ -547,37 +583,37 @@
 		};
 
 		/* Load JSON */
-		function loadJSON(url){
+		function loadJSON(url) {
 			$http.get(url)
-				.then(function(res){
+				.then(function (res) {
 					$scope.data = res.data;
 					initCalculations();
 				});
 		}
 
 		function initCalculations() {
-			Object.keys($scope.data.player.stats_base).forEach(function(key,index) {
+			Object.keys($scope.data.player.stats_base).forEach(function (key, index) {
 				$scope.calculateDependencies(key, $scope.data.player.stats_base[key]);
 			})
 		}
 
 		/* Helpers */
-		$scope.isUndefined = function(e){
+		$scope.isUndefined = function (e) {
 			return typeof e === 'undefined';
 		};
-		$scope.isEmpty = function(e){
+		$scope.isEmpty = function (e) {
 			return e.length;
 		};
 
-		$scope.calculateColspan = function(showValueBase){
+		$scope.calculateColspan = function (showValueBase) {
 			var count = 0;
-			if(showValueBase) {
+			if (showValueBase) {
 				count++;
 			}
 			return count;
 		};
 
-		$scope.range = function(count, added, offset){
+		$scope.range = function (count, added, offset) {
 			var range = [];
 			for (var i = offset; i < (count + added); i++) {
 				range.push(i)
@@ -585,15 +621,18 @@
 			return range;
 		};
 
-		$scope.isMaxStatValue = function(key){
+		$scope.isMaxStatValue = function (key) {
 			return key.indexOf('_max') < 1;
 		};
 
-		$scope.isVariableStat = function(key){
+		$scope.isVariableStat = function (key) {
 			switch (key) {
-				case "hp" : return true;
-				case "san" : return true;
-				case "magic" : return true;
+				case "hp" :
+					return true;
+				case "san" :
+					return true;
+				case "magic" :
+					return true;
 			}
 		};
 
@@ -608,8 +647,8 @@
 
 	/* Filters */
 
-	appModule.filter("max99", [function() {
-		return function(v) {
+	appModule.filter("max99", [function () {
+		return function (v) {
 			return v < 99 ? v : 99;
 		};
 	}]);

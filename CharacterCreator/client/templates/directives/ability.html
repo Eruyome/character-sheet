@@ -1,12 +1,15 @@
-<tr ng-show="(data.options.showSuccesses || ability.success || (ability.skillable==false)) && validTimePeriod(ability.time, ability.time_mod, data.options.timeSelect.value)"
+<tr ng-show="(data.options.showSuccesses || ability.success || (ability.skillable==false)) &&
+	validTimePeriod(ability.time, ability.time_mod, data.options.timeSelect.value)"
 	ng-class="{customText:!isUndefined(ability.custom_input), customName:!isUndefined(ability.custom_name)}">
 	<td>
 		<input id="check-{{ability.name[0]}}" ng-model="ability.success" type="checkbox"
-			   ng-if="ability.skillable!==false" ng-change="synchSuccessStates(ability.success, ability.sub_type, true)">
+			   ng-if="ability.skillable!==false"
+			   ng-change="synchSuccessStates(ability.success, ability.sub_type, true)">
 	</td>
 	<td colspan="{{calculateColspan(data.options.showValueBase)}}">
 		<label for="check-{{ability.name[0]}}" ng-if="isUndefined(ability.custom_name)">
-			<span ng-class="{noRightPadding:!isUndefined(ability.calc_desc)}">{{ability.name[data.options.languageIndex]}}</span>
+			<span ng-class="{noRightPadding:!isUndefined(ability.calc_desc)}">
+				{{ability.name[data.options.languageIndex]}}</span>
 			<span ng-if="!isUndefined(ability.calc_desc) && data.options.showValueBase">
 				({{ability.calc_desc[data.options.languageIndex]}})
 			</span>
@@ -16,10 +19,12 @@
 			   ng-class="{text:!isUndefined(ability.custom_name || !isUndefined(ability.custom_name))}">
 	</td>
 	<td class="values" ng-if="data.options.showValueBase && !isUndefined(ability.value_base)">
-		<span ng-show="data.options.showValueBase" class="valueBase form-label" ng-if="isUndefined(ability.calc)" title="Default">
+		<span ng-show="data.options.showValueBase" class="valueBase form-label" ng-if="isUndefined(ability.calc)"
+			  title="Default">
 			({{ability.value_base}}%)
 		</span>
-		<span ng-show="data.options.showValueBase" class="valueBase form-label" ng-model="ability.value_calc" ng-if="!isUndefined(ability.calc)" title="Default">
+		<span ng-show="data.options.showValueBase" class="valueBase form-label" ng-model="ability.value_calc"
+			  ng-if="!isUndefined(ability.calc)" title="Default">
 			({{ability.value_calc}}%)
 		</span>
 	</td>
@@ -29,10 +34,13 @@
 		</span>
 	</td>
 	<td class="numberInput" ng-class="{time:!isUndefined(ability.time)}">
-		<input ng-if="isUndefined(ability.time)" type="number" ng-model="ability.value_added" min="0" max="{{99 - ability.value_base}}" ng-change="handleSkillChanges(ability)">
-		<span ng-if="!isUndefined(ability.time)"><span class="not" ng-class="{visible:ability.time_mod=='not'}"></span>{{ability.time}}</span>
+		<input ng-if="isUndefined(ability.time)" type="number" ng-model="ability.value_added" min="0"
+			   max="{{99 - ability.value_base}}" ng-change="handleSkillChanges(ability)">
+		<span ng-if="!isUndefined(ability.time)"><span class="not" ng-class="{visible:ability.time_mod=='not'}"></span>
+			{{ability.time}}</span>
 	</td>
 	<td class="dice" ng-ig="showDice">
-		<a zf-open="rollDiceModal" class="diceLink" href="#" ng-click="rollDice(ability,'skillCheck')" title="Roll Dice"></a>
+		<a zf-open="rollDiceModal" class="diceLink" href="#" ng-click="rollDice(ability,'skillCheck')"
+		   title="Roll Dice"></a>
 	</td>
 </tr>
