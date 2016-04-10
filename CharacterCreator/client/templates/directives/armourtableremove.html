@@ -1,24 +1,24 @@
 <table>
 	<thead>
-	<tr>
-		<td colspan="2">{{data.player.items.stat_desc[key]["desc_x"][data.options.languageIndex]}}</td>
-		<td class="armour" ng-repeat="i in range(4,0,0)">
-			{{ data.player.items.stat_desc[key]["desc_"+i][data.options.languageIndex]}}
-		</td>
-	</tr>
+		<tr>
+			<td colspan="2">{{data.player.items.stat_desc[key]["desc_x"][data.options.languageIndex]}}</td>
+			<td class="armour" ng-repeat="i in range(4,0,0)">
+				{{ data.player.items.stat_desc[key]["desc_"+i][data.options.languageIndex]}}
+			</td>
+		</tr>
 	</thead>
 	<tbody>
-	<tr ng-repeat="item in type"
-		ng-if="validTimePeriod(item.time, item.time_mod, selectedItemListTime) &&
-		((item.removable == true || isUndefined(item.removable)) && showRemovable == true)">
-		<td class="input">
-			<input type="checkbox" ng-model="item.remove" ng-change="">
-		</td>
-		<td>{{item.name[data.options.languageIndex]}}</td>
-		<td class="reduction">{{item.dmg_reduction}}</td>
-		<td class="weight">{{item.weight}}kg</td>
-		<td class="price">{{item.price}}<span ng-if="item.price>0">$</span></td>
-		<td class="time"><span class="not" ng-class="{visible:item.time_mod=='not'}"></span>{{item.time}}</td>
-	</tr>
+		<tr ng-repeat="item in type"
+			ng-if="validTimePeriod(item.time, item.time_mod, selectedItemListTime) &&
+			((item.removable == true || isUndefined(item.removable)) && showRemovable == true)">
+			<td class="input">
+				<input type="checkbox" ng-model="item.remove" ng-change="">
+			</td>
+			<td>{{item.name[data.options.languageIndex]}}</td>
+			<td class="reduction">{{item.dmg_reduction}}</td>
+			<td class="weight">{{item.weight}}kg</td>
+			<td class="price">{{item.price}}<span ng-if="item.price>0">$</span></td>
+			<td class="time"><span class="not" ng-class="{visible:item.time_mod=='not'}"></span>{{item.time}}</td>
+		</tr>
 	</tbody>
 </table>

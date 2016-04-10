@@ -214,12 +214,27 @@
 			</div>
 		</div>
 		<a zf-open="addItemModal" class="button hollow" href="#" ng-click="resetItemSelect()">+ Add</a>
+		<a zf-open="removeItemModal" class="button hollow alert" ng-click="showRemovable = false" href="#" >- Remove</a>
+	</zf-accordion-item>
+</zf-accordion>
+
+<zf-accordion>
+	<zf-accordion-item title="Armour" class="items">
+		<div class="grid-block items armour xxlarge-up2 xlarge-up2 large-up-2 medium-up-1 small-up-1">
+			<div class="" ng-repeat="(key, type) in data.player.items.equipped" ng-if="key=='armour'">
+				<div armourtable></div>
+			</div>
+		</div>
+		<a zf-open="addItemModal" class="button hollow" href="#" ng-click="resetItemSelect()">+ Add</a>
+		<a zf-open="removeItemModal" class="button hollow alert" ng-click="showRemovable = false" href="#" >- Remove</a>
 	</zf-accordion-item>
 </zf-accordion>
 
 
 <div zf-modal="" id="addItemModal">
 	<a zf-close="" class="close-button">×</a>
+
+	<h5>Add Items</h5>
 
 	<label>Select Item Type</label>
 	<select name="" ng-model="data.options.itemSelect.value" id="option-item"
@@ -234,7 +249,7 @@
 
 	<div class="items" ng-repeat="(key, type) in selectedItemList">
 		<div ng-if="key != 'armour'" weapontableavailable></div>
-		<div ng-if="key == 'armour'" armourtable></div>
+		<div ng-if="key == 'armour'" armourtableremove></div>
 	</div>
 
 	<a href="#" class="button hollow" ng-click="addNewItems()">+ Add selected</a>
@@ -252,16 +267,3 @@
 
 	<a zf-close="" href="#" class="button hollow alert" ng-click="removeItems()">+ Remove selected</a>
 </div>
-
-
-<zf-accordion>
-	<zf-accordion-item title="Armour" class="items">
-		<div class="grid-block items armour xxlarge-up2 xlarge-up2 large-up-2 medium-up-1 small-up-1">
-			<div class="" ng-repeat="(key, type) in data.player.items.equipped" ng-if="key=='armour'">
-				<div armourtable></div>
-			</div>
-		</div>
-		<a zf-open="addItemModal" class="button hollow" href="#" ng-click="resetItemSelect()">+ Add</a>
-		<a zf-open="removeItemModal" class="button hollow alert" ng-click="showRemovable = false" href="#" >- Remove</a>
-	</zf-accordion-item>
-</zf-accordion>

@@ -8,17 +8,17 @@
 		</tr>
 	</thead>
 	<tbody>
-	<tr ng-repeat="item in type"
-		ng-if="validTimePeriod(item.time, item.time_mod, selectedItemListTime) &&
-		((item.removable == true || isUndefined(item.removable)) && showRemovable == true)">
-		<td class="input">
-			<input type="checkbox" ng-model="item.remove">
-		</td>
-		<td>{{item.name[data.options.languageIndex]}}</td>
-		<td class="reduction">{{item.dmg_reduction}}</td>
-		<td class="weight">{{item.weight}}kg</td>
-		<td class="price">{{item.price}}<span ng-if="item.price>0">$</span></td>
-		<td class="time"><span class="not" ng-class="{visible:item.time_mod=='not'}"></span>{{item.time}}</td>
-	</tr>
+		<tr ng-repeat="item in type"
+			ng-if="validTimePeriod(item.time, item.time_mod, selectedItemListTime) &&
+			((item.removable == true || isUndefined(item.removable)) && showRemovable == true)">
+			<td class="input">
+
+			</td>
+			<td>{{item.name[data.options.languageIndex]}}</td>
+			<td class="reduction">{{item.dmg_reduction}}</td>
+			<td class="weight">{{item.weight}}kg</td>
+			<td class="price">{{item.price}}<span ng-if="item.price>0">$</span></td>
+			<td class="time"><span class="not" ng-class="{visible:item.time_mod=='not'}"></span>{{item.time}}</td>
+		</tr>
 	</tbody>
 </table>
