@@ -49,6 +49,7 @@
 		$scope.showRemovable = true;
 		$scope.diceRollResult = {};
 		$scope.tempDiceResults = [];
+		$scope.predicate = 'name[0]';
 		$scope.constructedDamageBonus = {
 			"dmg_dice": 0, "dmg_diceType": 0, "dmg_operator": "", "dmg_display": ""
 		};
@@ -347,9 +348,11 @@
 		$scope.changeLanguage = function () {
 			if ($scope.data.options.languageSelect.value == "English") {
 				$scope.data.options.languageIndex = 0;
+				$scope.predicate = 'name[0]';
 			}
 			else if ($scope.data.options.languageSelect.value == "Deutsch") {
 				$scope.data.options.languageIndex = 1;
+				$scope.predicate = 'name[1]';
 			}
 		};
 

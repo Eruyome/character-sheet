@@ -56,12 +56,12 @@
       {"name": ["Shotgun", "Schrotflinte"], "value_base" : 30, "value_added" : 0, "value_total" : 0, "success" : false, "sub_type" : "shotgun"}
     ],
     "other" : [
-      {"name": ["Art", "Kunst"], "value_base" : 5, "skillable" : false, "time" : "anytime"},
-      {"name": ["Computer Use", "Computer Kenntnisse"], "value_base" : 1, "skillable" : false, "time" : "1990"},
-      {"name": ["Drive Automobile", "Auto Fahren"], "value_base" : 20, "skillable" : false, "time" : "1890", "time_mod" : "not"},
-      {"name": ["Drive Carriage", "Kutsche Fahren"], "value_base" : 20, "skillable" : false, "time" : "1890"},
-      {"name": ["Pilot", "Steuern (Fahrzeug)"], "value_base" : 1, "skillable" : false, "time" : "anytime"},
-      {"name": ["Electronics", "Elektronik"], "value_base" : 1, "skillable" : false, "time" : "1990"},
+      {"name": ["Art", "Kunst"], "value_base" : 5, "skillable" : true, "success" : false, "time" : "anytime"},
+      {"name": ["Computer Use", "Computer Kenntnisse"], "value_base" : 1, "skillable" : true, "success" : false, "time" : "1990"},
+      {"name": ["Drive Automobile", "Auto Fahren"], "value_base" : 20, "skillable" : true, "success" : false, "time" : "1890", "time_mod" : "not"},
+      {"name": ["Drive Carriage", "Kutsche Fahren"], "value_base" : 20, "skillable" : true, "success" : false, "time" : "1890"},
+      {"name": ["Pilot", "Steuern (Fahrzeug)"], "value_base" : 1, "skillable" : true, "success" : false, "time" : "anytime"},
+      {"name": ["Electronics", "Elektronik"], "value_base" : 1, "skillable" : true, "success" : false, "time" : "1990"},
       {"name": ["Submachine Gun", "Maschinenpistole"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "success" : false, "time" : "1890", "time_mod" : "not"}
     ],
     "custom" : [

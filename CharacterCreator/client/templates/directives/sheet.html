@@ -163,13 +163,13 @@
 
 			<div class="grid-block list">
 				<table>
-					<tr ng-repeat="(key, ability) in data.abilities.common | limitTo:getLength(data, 0)" ability>
+					<tr ng-repeat="(key, ability) in data.abilities.common | orderBy: predicate | limitTo:getLength(data, 0)" ability>
 					</tr>
 				</table>
 			</div>
 			<div class="grid-block list">
 				<table>
-					<tr ng-repeat="(key, ability) in data.abilities.common | limitTo:-getLength(data, 1)" ability>
+					<tr ng-repeat="(key, ability) in data.abilities.common | orderBy: predicate | limitTo:-getLength(data, 1)" ability>
 					</tr>
 				</table>
 			</div>

@@ -20,7 +20,9 @@ body {
 		}
 	}
 }
-
+.menu-bar {
+	border-bottom: 1px solid #00558b;
+}
 .menu-bar, .tab-headers div {
 	@include max-screen(900px){
 		li a {
