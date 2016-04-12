@@ -50,6 +50,7 @@
 		$scope.diceRollResult = {};
 		$scope.tempDiceResults = [];
 		$scope.predicate = 'name[0]';
+		$scope.fireFromCoreRange = false;
 		$scope.constructedDamageBonus = {
 			"dmg_dice": 0, "dmg_diceType": 0, "dmg_operator": "", "dmg_display": ""
 		};
@@ -526,7 +527,7 @@
 			});
 		};
 
-		$scope.rollDice = function (ability, type) {
+		$scope.rollDice = function (ability, type, reroll) {
 			var rollResult = getRandomInt(1, 100);
 			$scope.diceRollResult = {
 				"rollType": "", "rollTypeText": "", "chance": 0, "roll": 0, "diceType": 0, "name": "",
@@ -539,6 +540,20 @@
 				$scope.diceRollResult.weapon = ability;
 				//console.log(ability);
 				//console.log($scope.constructedDamageBonus);
+			}
+
+			$scope.fireFromCoreRange = reroll;
+			var weaponType = ability.sub_type;
+			if (!$scope.isUndefined(weaponType)) {
+				switch (weaponType) {
+					case "shotgun": $scope.fireFromCoreRange = reroll; break;
+					case "rifle": $scope.fireFromCoreRange = reroll; break;
+					case "handgun": $scope.fireFromCoreRange = reroll; break;
+					case "machinegun": $scope.fireFromCoreRange = reroll; break;
+					case "submachinegun": $scope.fireFromCoreRange = reroll; break;
+					case "throw": $scope.fireFromCoreRange = reroll; break;
+					default : $scope.fireFromCoreRange = false;
+				}
 			}
 
 			//console.group('Rolling Dice...');
@@ -564,6 +579,13 @@
 				}
 				else {
 					$scope.diceRollResult.chance = ability.value_total;
+				}
+
+				if ($scope.fireFromCoreRange) {
+					$scope.diceRollResult.chance = $scope.diceRollResult.chance * 2;
+					if($scope.diceRollResult.chance >= 99) {
+						$scope.diceRollResult.chance = 99
+					}
 				}
 
 				//console.log('Skill-Check: ', ability.name[0], ' ', $scope.diceRollResult.chance, '% Chance');

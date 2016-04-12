@@ -336,10 +336,16 @@
 		<span class="line" ng-if="diceRollResult.canRollDamage && !isUndefined(diceRollResult.weapon.malfunction)">
 			<span ng-if="diceRollResult.weapon.malfunction <= diceRollResult.roll" class="malfunction">Weapon has a Malfunction!</span>
 		</span>
+
+		<span class="line" ng-if="diceRollResult.canRollDamage && (diceRollResult.weapon.sub_type == 'handgun' || diceRollResult.weapon.sub_type == 'rifle'
+		 || diceRollResult.weapon.sub_type == 'shotgun' || diceRollResult.weapon.sub_type == 'machinegun' || diceRollResult.weapon.sub_type == 'submachinegun'
+		 || diceRollResult.weapon.sub_type == 'throw')">
+			<input type="checkbox" ng-model="fireFromCoreRange"><label>Fire from within core fire range (roll again)</label>
+		</span>
 	</div>
 
 	<a zf-close="" href="#" class="button">Ok</a>
-	<a href="#" class="button warning" ng-click="rollDice(diceRollResult.ability,diceRollResult.rollType)">Reroll</a>
+	<a href="#" class="button warning" ng-click="rollDice(diceRollResult.ability,diceRollResult.rollType,true)">Reroll</a>
 
 	<div ng-show="diceRollResult.canRollDamage">
 		<div class="result">
@@ -348,6 +354,9 @@
 				Damage: ( {{diceRollResult.weapon.dmg_display[data.options.languageIndex]}} )
 				<span ng-show="diceRollResult.isCrit && diceRollResult.weapon.crit"> roll x2 and add up [Crit Bonus]</span>
 				<span ng-if="diceRollResult.weapon.malfunction <= diceRollResult.roll" class="malfunction">Weapon has a Malfunction!</span>
+			</span>
+			<span ng-if="diceRollResult.canRollDamage && !isUndefined(diceRollResult.weapon.crit)">
+				Damage Bonus: {{constructedDamageBonus.dmg_display}} (add to damage if stated)
 			</span>
 			<span class="line">#Attacks: {{diceRollResult.weapon.attacks}}</span>
 

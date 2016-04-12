@@ -24,7 +24,7 @@
 		<td class="hp"><input type="number" min="0" max="{{item.hp}}" ng-model="item.hp" ng-if="item.hp"></td>
 		<td class="hp_max">{{item.hp_max}}</td>
 		<td class="dice" ng-if="data.options.showDice">
-			<a zf-open="rollDiceModal" class="diceLink" href="#" ng-click="rollDice(item,'skillCheck')" title="Roll Dice"></a>
+			<a zf-open="rollDiceModal" class="diceLink" href="#" ng-click="rollDice(item,'skillCheck',false)" title="Roll Dice"></a>
 		</td>
 	</tr>
 	</tbody>
