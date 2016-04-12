@@ -5,6 +5,9 @@
 			'ui.router',
 			'ngAnimate',
 			'ui.bootstrap',
+			'ngFileUpload',
+			'LocalStorageModule',
+			//'$window',
 
 			//foundation
 			'foundation',
@@ -15,9 +18,9 @@
 			.run(run)
 		;
 
-	config.$inject = ['$urlRouterProvider', '$locationProvider'];
+	config.$inject = ['$urlRouterProvider', '$locationProvider', 'localStorageServiceProvider'];
 
-	function config($urlProvider, $locationProvider) {
+	function config($urlProvider, $locationProvider, localStorageServiceProvider) {
 		$urlProvider.otherwise('/');
 
 		$locationProvider.html5Mode({
@@ -26,13 +29,18 @@
 		});
 
 		$locationProvider.hashPrefix('!');
+
+		localStorageServiceProvider
+			.setStorageType('localStorage');
+		localStorageServiceProvider
+			.setPrefix('cthulhuCharacter');
 	}
 
 	function run() {
 		FastClick.attach(document.body);
 	}
 
-	appModule.controller('characterController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
+	appModule.controller('characterController', ['$scope', '$http', 'Upload', '$timeout', '$location', '$window', 'localStorageService', function ($scope, $http, Upload, $timeout, $location, $window, localStorageService) {
 		$scope.data = {};
 		$scope.currentTab = 0;
 		$scope.armourRating = 0;
@@ -47,20 +55,20 @@
 
 		var operators = {
 			'+': function (a, b) {
-				return a + b
+				return a + b;
 			},
 			'*': function (a, b) {
-				return a * b
+				return a * b;
 			},
 			'/': function (a, b) {
-				return a / b
+				return a / b;
 			},
 			'-': function (a, b) {
-				return a - b
+				return a - b;
 			}
 		};
 
-		loadJSON('./assets/json/data.json');
+		loadData();
 
 		/* Tabs */
 		$scope.onClickTab = function (tabId) {
@@ -80,25 +88,26 @@
 				return l;
 			}
 			catch (err) {
-				console.info('Data not ready yet.')
+				console.info('Data not ready yet.');
 			}
 		};
 
 		// Calculate all values dependend on base stats
 		$scope.calculateDependencies = function (key, stat) {
+			var v = 0;
 			// calcualte ability base values
 			calculateAbilityValues($scope.data.abilities);
 
 			// calculate dmg bonus
 			if (key == 'str' || key == 'siz') {
-				var v = $scope.data.player.stats_base.str.value + $scope.data.player.stats_base.siz.value;
+				v = $scope.data.player.stats_base.str.value + $scope.data.player.stats_base.siz.value;
 				var result = 0;
 				$scope.data.player.stats_calc.dmg_bonus.value = constructDamageBonus(v);
 			}
 
 			if (key == 'con' || key == 'siz') {
 				// calculate max hp
-				var v = $scope.data.player.stats_base.con.value + $scope.data.player.stats_base.siz.value;
+				v = $scope.data.player.stats_base.con.value + $scope.data.player.stats_base.siz.value;
 				if (v > 0) {
 					// calculate current hp if not set
 					$scope.data.player.stats_calc.hp_max.value = Math.ceil(v / 2);
@@ -112,7 +121,7 @@
 
 			if (key == 'pow') {
 				// calculate max sanity
-				var v = (stat.value * 5) < 99 ? (stat.value * 5) : 99;
+				v = (stat.value * 5) < 99 ? (stat.value * 5) : 99;
 
 				$scope.calculateMaxSanity();
 
@@ -141,15 +150,15 @@
 				$scope.reducePointsIfHigherThanMaxValue("magic", "magic_max");
 			}
 			if (key == 'int') {
-				var v = (stat.value * 5) < 99 ? (stat.value * 5) : 99;
+				v = (stat.value * 5) < 99 ? (stat.value * 5) : 99;
 				$scope.data.player.stats_calc.idea.value = v;
 			}
 			if (key == 'edu') {
-				var v = (stat.value * 5) < 99 ? (stat.value * 5) : 99;
+				v = (stat.value * 5) < 99 ? (stat.value * 5) : 99;
 				$scope.data.player.stats_calc.know.value = v;
 			}
 			if (key == 'dex') {
-				var v = Math.round((stat.value * 0.3 * 100)) / 100;
+				v = Math.round((stat.value * 0.3 * 100)) / 100;
 				$scope.data.player.stats_calc.range.value = v + "m";
 			}
 		};
@@ -187,7 +196,7 @@
 			}
 
 			result = dmg_operator + dmg_dice;
-			if (dmg_diceType > 0) result += 'D' + dmg_diceType;
+			if (dmg_diceType > 0) {result += 'D' + dmg_diceType;}
 
 			$scope.constructedDamageBonus.dmg_dice = dmg_dice;
 			$scope.constructedDamageBonus.dmg_diceType = dmg_diceType;
@@ -294,8 +303,8 @@
 		function getFlatDamage(item) {
 			var flatDamage = 0;
 			for (var i = 0; i < item.dmg_modifier.length; i++) {
-				if (flatDamage > 0) break;
-				flatDamage = (typeof item.dmg_modifier[i] === "number") ? item.dmg_modifier[i] : 0
+				if (flatDamage > 0) {break;}
+				flatDamage = (typeof item.dmg_modifier[i] === "number") ? item.dmg_modifier[i] : 0;
 			}
 			return flatDamage;
 		}
@@ -329,10 +338,10 @@
 		$scope.validTimePeriod = function (time, mod, selectValue) {
 			mod = (mod == "not") ? false : true;
 
-			if (typeof time === "undefined") return true;
-			else if (time === "anytime") return true;
-			else if (selectValue == "anytime" || negateMaybe(time == selectValue, mod)) return true;
-			else return false;
+			if (typeof time === "undefined") {return true;}
+			else if (time === "anytime") {return true;}
+			else if (selectValue == "anytime" || negateMaybe(time == selectValue, mod)) {return true;}
+			else {return false;}
 		};
 
 		$scope.changeLanguage = function () {
@@ -359,7 +368,7 @@
 		$scope.removeCustomAbility = function () {
 			for (var i = 0; i < $scope.data.abilities.custom.length; i++) {
 				console.log($scope.data.abilities.custom[i].custom_name);
-				if ($scope.data.abilities.custom[i].custom_name == "") {
+				if ($scope.data.abilities.custom[i].custom_name === "") {
 					$scope.data.abilities.custom.splice(i, 1);
 				}
 			}
@@ -389,7 +398,7 @@
 			var v = 0;
 			try {
 				for (var i = 0; i < $scope.data.player.items.armour.length; i++) {
-					v += $scope.data.player.items.armour[i].value
+					v += $scope.data.player.items.armour[i].value;
 				}
 				$scope.armourRating = v;
 			}
@@ -422,11 +431,12 @@
 
 		// synch success states between weapon skills and equipped weapons
 		$scope.synchSuccessStates = function (state, type, triggeredBySkill) {
-			if (typeof type === "undefined" || type == "armour") return;
+			if (typeof type === "undefined" || type == "armour") {return;}
 			var obj = $scope.data.abilities;
 			var items = $scope.data.player.items.equipped;
 			var group = [];
 			var v = 0;
+			var j = 0;
 
 			Object.keys(items).forEach(function (key, index) {
 				for (var i = 0; i < items[key].length; i++) {
@@ -442,18 +452,18 @@
 						var skillName = obj[key][i].sub_type;
 						if (skillName == type) {
 							if (obj[key][i].success) {
-								for (var j = 0; j < group.length; j++) {
+								for (j = 0; j < group.length; j++) {
 									group[j].success = obj[key][i].success;
 								}
 							}
 							if (!triggeredBySkill && state) {
-								for (var j = 0; j < group.length; j++) {
+								for (j = 0; j < group.length; j++) {
 									group[j].success = true;
 								}
 								obj[key][i].success = true;
 							}
 							if (triggeredBySkill) {
-								for (var j = 0; j < group.length; j++) {
+								for (j = 0; j < group.length; j++) {
 									group[j].success = obj[key][i].success;
 								}
 							}
@@ -483,11 +493,11 @@
 
 			for (var i = 0; i < l; i++) {
 				if (!$scope.isUndefined(list[i].removable)) {
-					if (!list[i].removable) return false;
+					if (!list[i].removable) {return false;}
 				}
 			}
 
-			return l != 0;
+			return l !== 0;
 		};
 
 		$scope.addNewItems = function () {
@@ -625,8 +635,28 @@
 		function initCalculations() {
 			Object.keys($scope.data.player.stats_base).forEach(function (key, index) {
 				$scope.calculateDependencies(key, $scope.data.player.stats_base[key]);
-			})
+			});
 		}
+
+		$scope.uploadFiles = function(file, errFiles) {
+			$scope.f = file;
+			$scope.errFile = errFiles && errFiles[0];
+			if (file) {
+				var upload = Upload.dataUrl(file, false).then(function(url){
+					$http.get(url).success (function(data) {
+						$scope.data = data;
+					});
+				});
+			}
+		};
+
+		$scope.resetCharacter = function() {
+			var url = $location.host() + '/assets/json/data.json';
+
+			$http.get(url).success (function(data) {
+				$scope.data = data;
+			});
+		};
 
 		/* Save data */
 		$scope.saveDataToJSON = function (data, filename) {
@@ -634,12 +664,13 @@
 				console.error('No data');
 				return;
 			}
-			filename = filename.toLowerCase().replace(/ /g, '_');
-			filename = filename.replace(/\W/g, '')+ '.json';
 
 			if (!filename) {
-				filename = 'character.json';
+				filename = 'character';
 			}
+
+			filename = filename.toLowerCase().replace(/ /g, '_');
+			filename = filename.replace(/\W/g, '')+ '.json';
 
 			if (typeof data === 'object') {
 				data = JSON.stringify(data, undefined, 2);
@@ -657,6 +688,28 @@
 			a.dispatchEvent(e);
 		};
 
+		function loadData() {
+			var d =	getLocalStorage('data');
+			if (!isEmpty(d)) {
+				$scope.data = d;
+			}
+			else {
+				loadJSON('./assets/json/data.json');
+			}
+		}
+
+		// write data to localStorage on changes
+		$scope.$watch('data', function(newVal, oldVal){
+			setLocalStorage('data', $scope.data);
+		}, true);
+
+		function setLocalStorage(key, val) {
+			return localStorageService.set(key, val);
+		}
+		function getLocalStorage(key) {
+			return localStorageService.get(key);
+		}
+
 		/* Helpers */
 		$scope.isUndefined = function (e) {
 			return typeof e === 'undefined';
@@ -664,6 +717,22 @@
 		$scope.isEmpty = function (e) {
 			return e.length;
 		};
+
+		function isEmpty (obj) {
+			if (obj == null) return true;
+
+			// Assume if it has a length property with a non-zero value
+			// that that property is correct.
+			if (obj.length > 0)    return false;
+			if (obj.length === 0)  return true;
+
+			// Otherwise, does it have any properties of its own?
+			// Note that this doesn't handle
+			// toString and valueOf enumeration bugs in IE < 9
+			for (var key in obj) {
+				if (hasOwnProperty.call(obj, key)) return false;
+			}
+		}
 
 		$scope.calculateColspan = function (showValueBase) {
 			var count = 0;
@@ -676,7 +745,7 @@
 		$scope.range = function (count, added, offset) {
 			var range = [];
 			for (var i = offset; i < (count + added); i++) {
-				range.push(i)
+				range.push(i);
 			}
 			return range;
 		};
@@ -706,7 +775,6 @@
 	}]);
 
 	/* Filters */
-
 	appModule.filter("max99", [function () {
 		return function (v) {
 			return v < 99 ? v : 99;
@@ -714,7 +782,6 @@
 	}]);
 
 	/* Directives */
-
 	appModule.directive('sheet', function () {
 		return {
 			restrict: 'A',
@@ -770,59 +837,4 @@
 			replace: true
 		};
 	});
-
-	appModule.controller('DialogCtrl', ['$scope', '$dialog', function($scope, $dialog) {
-		var t = '<div class="modal-header">'+
-			'<h1>This is the title</h1>'+
-			'</div>'+
-			'<div class="modal-body">'+
-			'<p>Enter a value to pass to <code>close</code> as the result: <input ng-model="result" /></p>'+
-			'</div>'+
-			'<div class="modal-footer">'+
-			'<button ng-click="close(result)" class="btn btn-primary" >Close</button>'+
-			'</div>';
-
-		var dialog = $dialog.dialog({
-			backdrop: true,
-			keyboard: true,
-			backdropClick: true,
-			template:  t, // OR: templateUrl: 'path/to/view.html',
-			controller: 'TestDialogController'
-		});
-
-		$scope.$on('fileAdded', function (evt, file) {
-			alert('opening dialog');
-			dialog.open().then(function(result){
-				if(result) {
-					alert('dialog closed with result: ' + result);
-				}
-			});
-		});
-
-		$scope.open = function(){
-			dialog.open().then(function(result){
-				if(result) {
-					alert('dialog closed with result: ' + result);
-				}
-			});
-		};
-	}]);
-
-	function TestDialogController($scope, dialog){
-		$scope.close = function(result){
-			dialog.close(result);
-		};
-	}
-
-	appModule.directive('fileDialog', [function() {
-		return {
-			restrict: 'A',
-			scope: true,
-			link: function (scope, element, attr) {
-				element.bind('change', function (evt) {
-					scope.$emit('fileAdded', evt.target.files[0]);
-				});
-			}
-		};
-	}]);
 })();
