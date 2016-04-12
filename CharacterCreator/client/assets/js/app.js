@@ -696,6 +696,8 @@
 			else {
 				loadJSON('./assets/json/data.json');
 			}
+			//dev
+			loadJSON('./assets/json/data.json');
 		}
 
 		// write data to localStorage on changes

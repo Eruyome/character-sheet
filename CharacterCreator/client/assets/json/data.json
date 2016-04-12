@@ -2,33 +2,67 @@
   "abilities" : {
     "common" : [
       {"name": ["Accounting", "Buchhaltung"], "value_base" : 10, "value_added" : 0, "value_total" : 0, "success" : false},
-      {"name": ["Anthropology", "Anthropology"], "value_base" : 1, "value_added" : 0, "value_total" : 0, "success" : false},
-      {"name": ["Archeology", "Archeology"], "value_base" : 1, "value_added" : 0, "value_total" : 0, "success" : false},
-      {"name": ["Astronomy", "Astronomy"], "value_base" : 1, "value_added" : 0, "value_total" : 0, "success" : false},
-      {"name": ["Bargain", "Bargain"], "value_base" : 5, "value_added" : 0, "value_total" : 0, "success" : false},
-      {"name": ["Biology", "Biology"], "value_base" : 1, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Anthropology", "Anthropologie"], "value_base" : 1, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Archeology", "Archeologie"], "value_base" : 1, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Credit Rating", "Ansehen"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Library Use", "Bibliotheksnutzung"], "value_base" : 25, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Astronomy", "Astronomie"], "value_base" : 1, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Bargain", "Feilschen"], "value_base" : 5, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Biology", "Biologie"], "value_base" : 1, "value_added" : 0, "value_total" : 0, "success" : false},
       {"name": ["Chemistry", "Chemistry"], "value_base" : 1, "value_added" : 0, "value_total" : 0, "success" : false},
-      {"name": ["Climb", "Climb"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "success" : false, "calc_desc" : ["STR + DEX", "ST + GE"], "value_calc" : 0, "calc" : { "stat" : "str", "operator" : "+", "modifier" : "dex"}},
+      {"name": ["Climb", "Klettern"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "success" : false, "calc_desc" : ["STR + DEX", "ST + GE"], "value_calc" : 0, "calc" : { "stat" : "str", "operator" : "+", "modifier" : "dex"}},
       {"name": ["Conceal", "Conceal"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "success" : false},
-      {"name": ["Credit Rating", "Credit Rating"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "success" : false},
       {"name": ["Cthulhu Mythos", "Cthulhu Mythos"], "value_base" : 1, "value_added" : 0, "value_total" : 0, "success" : false, "skillable" : false, "cthulhu_mythos" : true},
       {"name": ["Dodge", "Ausweichen"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "success" : false, "calc_desc" : ["DEX * 2", "GE * 2"], "value_calc" : 0, "calc" : { "stat" : "dex", "operator" : "*", "modifier" : 2}},
-      {"name": ["Electrical Repair", "Electrical Repair"], "value_base" : 10, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Electrical Repair", "Elektronishce Reparaturen"], "value_base" : 10, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["First Aid", "Erste Hilfe"], "value_base" : 30, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Photography", "Fotografie"], "value_base" : 10, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Foreign Language", "Fremdsprache"], "value_base" : 1, "value_added" : 0, "value_total" : 0, "success" : false, "custom_input" : ""},
       {"name": ["Own Language", "Muttersprache"], "value_base" : 0, "value_added" : 0, "value_total" : 0, "success" : false, "custom_input" : "", "calc_desc" : ["EDU * 5", "BI * 5"], "value_calc" : 0, "calc" : { "stat" : "edu", "operator" : "*", "modifier" : 5}},
-      {"name": ["Electrical Repair", "Electrical Repair"], "value_base" : 10, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Geology", "Geology"], "value_base" : 1, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["History", "Geschichtskenntnisse"], "value_base" : 20, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Law", "Gesetzeskenntnisse"], "value_base" : 5, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Craft", "Handwerk"], "value_base" : 5, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Listen", "Horchen"], "value_base" : 25, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Martial Arts", "Kampfsportarten"], "value_base" : 1, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Mechanical Repairs", "Mechanische Reparaturen"], "value_base" : 20, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Medicine", "Medizin"], "value_base" : 5, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Natural History", "Naturkunde"], "value_base" : 10, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Occult", "Okkultismus"], "value_base" : 5, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Navigate", "Orientierung"], "value_base" : 10, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Pharmacy", "Pharmazie"], "value_base" : 10, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Physic", "Physik"], "value_base" : 1, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Psychoanalysis", "Psychoanalyse"], "value_base" : 1, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Psychology", "Psychologie"], "value_base" : 1, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Ride", "Reiten"], "value_base" : 5, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Sneak", "Schleichen"], "value_base" : 10, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Locksmith", "Schlosserarbeiten"], "value_base" : 1, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Operate Hvy. Machinery", "Schweres Gerät"], "value_base" : 1, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Swim", "Schwimmen"], "value_base" : 25, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Jump", "Springen"], "value_base" : 25, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Track", "Spurensuche"], "value_base" : 10, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Hide", "Tarnen"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Fast Talk", "Überreden"], "value_base" : 5, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Persuade", "Überzeugen"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Conceal", "Verbergen"], "value_base" : 10, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Spot Hidden", "Verborgenes erkennen"], "value_base" : 25, "value_added" : 0, "value_total" : 0, "success" : false},
+      {"name": ["Disguise ", "Verkleiden"], "value_base" : 1, "value_added" : 0, "value_total" : 0, "success" : false},
       {"name": ["Throw", "Werfen"], "value_base" : 25, "value_added" : 0, "value_total" : 0, "success" : false, "sub_type" : "throw"}
     ],
     "firearms" : [
-      {"name": ["Handgun", "Handgun"], "value_base" : 20, "value_added" : 0, "value_total" : 0, "success" : false, "sub_type" : "handgun"},
-      {"name": ["Machine Gun", "Machine Gun"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "success" : false, "sub_type" : "machinegun"},
-      {"name": ["Rifle", "Rifle"], "value_base" : 25, "value_added" : 0, "value_total" : 0, "success" : false, "sub_type" : "rifle"},
-      {"name": ["Shotgun", "Shotgun"], "value_base" : 30, "value_added" : 0, "value_total" : 0, "success" : false, "sub_type" : "shotgun"}
+      {"name": ["Handgun", "Faustfeuerwaffe"], "value_base" : 20, "value_added" : 0, "value_total" : 0, "success" : false, "sub_type" : "handgun"},
+      {"name": ["Machine Gun", "Machinengewehr"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "success" : false, "sub_type" : "machinegun"},
+      {"name": ["Rifle", "Gewehr"], "value_base" : 25, "value_added" : 0, "value_total" : 0, "success" : false, "sub_type" : "rifle"},
+      {"name": ["Shotgun", "Schrotflinte"], "value_base" : 30, "value_added" : 0, "value_total" : 0, "success" : false, "sub_type" : "shotgun"}
     ],
     "other" : [
-      {"name": ["Art", "Art"], "value_base" : 5, "skillable" : false, "time" : "anytime"},
-      {"name": ["Computer Use", "Computer Use"], "value_base" : 1, "skillable" : false, "time" : "1990"},
-      {"name": ["Drive Carriage", "Drive Carriage"], "value_base" : 1, "skillable" : false, "time" : "1890"},
-      {"name": ["Submachine Gun", "Submachine Gun"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "success" : false, "time" : "1890", "time_mod" : "not"}
+      {"name": ["Art", "Kunst"], "value_base" : 5, "skillable" : false, "time" : "anytime"},
+      {"name": ["Computer Use", "Computer Kenntnisse"], "value_base" : 1, "skillable" : false, "time" : "1990"},
+      {"name": ["Drive Automobile", "Auto Fahren"], "value_base" : 20, "skillable" : false, "time" : "1890", "time_mod" : "not"},
+      {"name": ["Drive Carriage", "Kutsche Fahren"], "value_base" : 20, "skillable" : false, "time" : "1890"},
+      {"name": ["Pilot", "Steuern (Fahrzeug)"], "value_base" : 1, "skillable" : false, "time" : "anytime"},
+      {"name": ["Electronics", "Elektronik"], "value_base" : 1, "skillable" : false, "time" : "1990"},
+      {"name": ["Submachine Gun", "Maschinenpistole"], "value_base" : 15, "value_added" : 0, "value_total" : 0, "success" : false, "time" : "1890", "time_mod" : "not"}
     ],
     "custom" : [
 
@@ -36,14 +70,14 @@
   },
   "player" : {
     "stats_base" : {
-      "str" : { "name" : ["Strength", "Stärke"], "abbrev" : ["STR", "ST"], "value" : 13 },
-      "dex" : { "name" : ["Dexterity", "Geschicklichkeit"], "abbrev" : ["DEX", "GE"], "value" : 12 },
-      "int" : { "name" : ["Intelligence", "Intelligenz"], "abbrev" : ["INT", "IN"], "value" : 11 },
-      "con" : { "name" : ["Constitution", "Constitution"], "abbrev" : ["CON", "KO"],"value" : 8 },
-      "app" : { "name" : ["Appearance", "Appearance"], "abbrev" : ["APP", "ER"], "value" : 13 },
-      "pow" : { "name" : ["Power", "Magie"], "abbrev" : ["POW", "MA"], "value" : 14 },
-      "siz" : { "name" : ["Size", "Größe"], "abbrev" : ["SIZ", "GR"], "value" : 12 },
-      "edu" : { "name" : ["Education", "Bildung"], "abbrev" : ["EDU", "BI"], "value" : 15 }
+      "str" : { "name" : ["Strength", "Stärke"], "abbrev" : ["STR", "ST"], "value" : 0 },
+      "dex" : { "name" : ["Dexterity", "Geschicklichkeit"], "abbrev" : ["DEX", "GE"], "value" : 0 },
+      "int" : { "name" : ["Intelligence", "Intelligenz"], "abbrev" : ["INT", "IN"], "value" : 0 },
+      "con" : { "name" : ["Constitution", "Konstitution"], "abbrev" : ["CON", "KO"],"value" : 0 },
+      "app" : { "name" : ["Appearance", "Aussehen"], "abbrev" : ["APP", "ER"], "value" : 0 },
+      "pow" : { "name" : ["Power", "Magie"], "abbrev" : ["POW", "MA"], "value" : 0 },
+      "siz" : { "name" : ["Size", "Größe"], "abbrev" : ["SIZ", "GR"], "value" : 0 },
+      "edu" : { "name" : ["Education", "Bildung"], "abbrev" : ["EDU", "BI"], "value" : 0 }
     },
     "stats_calc" : {
       "idea" : { "name" : ["Idea", "Idee"], "abbrev" : ["Idea", "Idee"], "value" : 0 },
@@ -56,7 +90,7 @@
       "magic" : { "name" : ["Current Magic Points", "Aktuelle Magie Punkte"], "abbrev" : ["MP", "MP"], "value_min" : 0},
       "magic_max" : { "name" : ["Max Magic Points", "Max Magie Punkte"], "abbrev" : ["Max MP", "Max MP"], "value" : 0 },
       "dmg_bonus" : { "name" : ["Melee Damage Bonus", "Nahkampf Schadens Bonus"], "abbrev" : ["Damage Bonus", "Schadens Bonus"], "value" : "" },
-      "range" : { "name" : ["Core Fire Range", "Kernschussweite"], "abbrev" : ["Core Fire Range", "Kern-Schussw."], "value" : "" }
+      "range" : { "name" : ["Core Fire Range (Shots from within this range have double success chance.)", "Kernschussweite (Schüsse von innerhalb dieser Reichweite haben die doppelte Erfolgs-Chance."], "abbrev" : ["Core Fire Range", "Kern-Schussw."], "value" : "" }
     },
     "items" : {
       "available" : {

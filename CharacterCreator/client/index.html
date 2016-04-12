@@ -21,12 +21,21 @@
 			<li class="pageTitle mobile"><a><strong>CoC Character Manager</strong></a></li>
 		</ul>
 		<ul class="menu-bar">
-			<li><a href="#" ng-click="resetCharacter()">New Character</a></li>
+			<li><a href="#" zf-open="resetCharModal" >New Character</a></li>
 			<li><a href="#" ng-click="" type="file" ngf-select="uploadFiles($file, $invalidFiles)"
 				   accept=".json" ngf-max-size="1MB">Load from JSON</a></li>
 			<li><a href="#" ng-click="saveDataToJSON(data, data.players.info.name)">Save to JSON</a></li>
 		</ul>
 	</div>
+
+	<div zf-modal="" id="resetCharModal">
+		<a zf-close="" class="close-button">×</a>
+		<h3>New Character</h3>
+		<p>The current data will be reset. Are you sure you want to create a new character?</p>
+		<a href="#" class="button" ng-click="resetCharacter()">Yes</a>
+		<a href="#" zf-close="" class="button alert">Cancel</a>
+	</div>
+
 	<div ui-view class="grid-content uiview">
 	</div>
 </div>
