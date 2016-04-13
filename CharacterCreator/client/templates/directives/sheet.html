@@ -1,5 +1,10 @@
 <zf-accordion>
-	<zf-accordion-item title="Characteristics">
+	<zf-accordion-item title="">
+		<span class="accordionTitle">Characteristics</span>
+		<span class="build">
+			<input type="checkbox" ng-model="build.character" ng-change="">
+			<label>Uncheck if you have set the initial character stats!</label>
+		</span>
 		<div class="grid-block stats">
 			<div class="base grid-block">
 				<label ng-repeat="(key, stat) in data.player.stats_base">
@@ -95,7 +100,8 @@
 
 
 <zf-accordion>
-	<zf-accordion-item title="Options">
+	<zf-accordion-item title="">
+		<span class="accordionTitle">Options</span>
 		<div class="grid-block options clearfix">
 			<ul>
 				<li>
@@ -149,7 +155,8 @@
 
 
 <zf-accordion>
-	<zf-accordion-item title="Skills">
+	<zf-accordion-item title="">
+		<span class="accordionTitle">Skills</span>
 		<div class="grid-block abilities large-up-3 medium-up-2 small-up-1">
 			<span class="skillpoints">
 				<span>
@@ -224,7 +231,8 @@
 </zf-accordion>
 
 <zf-accordion>
-	<zf-accordion-item title="Weapons" class="items">
+	<zf-accordion-item title="" class="items">
+		<span class="accordionTitle">Weapons</span>
 		<div class="grid-block items weapons xxlarge-up2 xlarge-up2 large-up-2 medium-up-1 small-up-1">
 			<div class="" ng-repeat="(key, type) in data.player.items.equipped" ng-if="key!='armour'">
 				<div weapontable></div>
@@ -236,7 +244,8 @@
 </zf-accordion>
 
 <zf-accordion>
-	<zf-accordion-item title="Armour" class="items">
+	<zf-accordion-item title="" class="items">
+		<span class="accordionTitle">Armour</span>
 		<div class="grid-block items armour xxlarge-up2 xlarge-up2 large-up-2 medium-up-1 small-up-1">
 			<div class="" ng-repeat="(key, type) in data.player.items.equipped" ng-if="key=='armour'">
 				<div armourtable></div>
@@ -244,6 +253,94 @@
 		</div>
 		<a zf-open="addItemModal" class="button hollow" href="#" ng-click="resetItemSelect()">+ Add</a>
 		<a zf-open="removeItemModal" class="button hollow alert" ng-click="showRemovable = false" href="#">- Remove</a>
+	</zf-accordion-item>
+</zf-accordion>
+
+<zf-accordion>
+	<zf-accordion-item title="" class="income">
+		<span class="accordionTitle">Income & Savings</span>
+		<div class="radio">
+
+			<label for="era1890">
+				<span class="inline-label">
+					<input class="form-label" type="radio" name="era" value="1890" id="era1890"
+						   ng-model="data.player.income.era" ng-change="calculateMoney(false)">
+					<span class="form-label">1890's</span>
+				</span>
+			</label>
+			<label for="era1920">
+				<span class="inline-label">
+					<input class="form-label" type="radio" name="era" value="1920" id="era1920" checked="true"
+						   ng-model="data.player.income.era" ng-change="calculateMoney(false)">
+					<span class="form-label">1920's</span>
+				</span>
+			</label>
+			<label for="eraModern">
+				<span class="inline-label">
+					<input class="form-label" type="radio" name="era" value="modern" id="eraModern"
+						   ng-model="data.player.income.era" ng-change="calculateMoney(false)">
+					<span class="form-label">Modern Era</span>
+				</span>
+			</label>
+		</div>
+
+		<div class="money grid-block">
+
+			<table>
+				<thead>
+					<tr>
+						<td>
+							<a class="diceLink" href="#" ng-click="calculateMoney(true)"
+							   title="Roll Dice (1D10)"></a>
+						</td>
+						<td>Base Value</td>
+						<td>Total Value</td>
+						<td>Added/Subtracted Money</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><span class="form-label">Yearly Income</span></td>
+						<td><input type="text" ng-model="data.player.income.y_income" disabled></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><span class="form-label">Cash</span></td>
+						<td><input type="text" disabled ng-model="data.player.income.cash.value_base"
+								title="1/10th of total property & assets"></td>
+						<td><input type="text" disabled ng-model="data.player.income.cash.value_total"></td>
+						<td><input type="number" ng-model="data.player.income.cash.value_added" ng-change=""></td>
+					</tr>
+					<tr>
+						<td><span class="form-label">Stocks & Bonds</span></td>
+						<td><input type="text" disabled ng-model="data.player.income.stocks.value_base"
+								title="1/10th of total property & assets"></td>
+						<td><input type="text" disabled ng-model="data.player.income.stocks.value_total"></td>
+						<td><input type="number" ng-model="data.player.income.stocks.value_added"></td>
+					</tr>
+					<tr>
+						<td><span class="form-label">Other assets</span></td>
+						<td><input type="text" disabled ng-model="data.player.income.assets.value_base"
+								   title="Rest of total assets."></td>
+						<td><input type="text" disabled ng-model="data.player.income.assets.value_total"></td>
+						<td><input type="number" ng-model="data.player.income.assets.value_added"></td>
+					</tr>
+					<tr>
+						<td><span class="form-label">Total property & assets</span></td>
+						<td><input type="text" disabled ng-model="data.player.income.total_assets.value_base"
+								   title="Yearly income * 5">
+							<span ng-bind="data.player.income.total_assets.value_base">
+								{{data.player.income.y_income*5}}
+							</span>
+						</td>
+						<td><input type="text" disabled ng-model="data.player.income.total_assets.value_total"></td>
+					</tr>
+				</tbody>
+			</table>
+
+
+		</div>
 	</zf-accordion-item>
 </zf-accordion>
 
@@ -362,4 +459,13 @@
 
 		</div>
 	</div>
+</div>
+
+
+<div zf-modal="" id="resetCharModal">
+	<a zf-close="" class="close-button">×</a>
+	<h3>New Character</h3>
+	<p>The current data will be reset. Are you sure you want to create a new character?</p>
+	<a href="#" class="button" ng-click="resetCharacter()">Yes</a>
+	<a href="#" zf-close="" class="button alert">Cancel</a>
 </div>

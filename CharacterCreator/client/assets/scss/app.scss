@@ -54,6 +54,20 @@ body {
 .accordion {
 	border: none;
 
+	.accordion-item {
+		position: relative;
+	}
+	.accordion-title {
+		height: 1.7rem;
+	}
+
+	.accordionTitle {
+		position: absolute;
+		color: white;
+		top: 6px;
+		padding-left: 0.4rem;
+	}
+
 	.accordion-title::after {
 		content: "▼";
 		float: right;
@@ -115,8 +129,22 @@ table {
 	}
 }
 
+.build {
+	display: inline-block;
+	line-height: 30px;
+	padding: 0 1.5rem;
+	margin-bottom: 0.4rem;
+	position: relative;
+	input {
+		position: absolute;
+		top: 7px;
+		left: 0.5rem;
+	}
+}
+
 .stats {
 	padding: 0 0.5rem !important;
+
 	.base, .calculated {
 		span, input {
 			font-size: rem-calc(12px);
@@ -613,6 +641,40 @@ tr.customText {
 		padding-bottom:0;
 		line-height: 1.5rem;
 		margin-left: 1rem;
+	}
+}
+
+.income {
+	input {
+		font-size: 0.75rem !important;
+		height: 1.5rem;
+		line-height: 1.5rem;
+		padding-top: 0;
+		padding-bottom: 0;
+		margin: 0;
+	}
+	input[type="number"] {
+		padding-right: 0;
+	}
+	.money, .radio {
+		padding: 0.5rem;
+	}
+	.radio {
+		label {
+			max-width: 100px;
+			width: 100px;
+			display: inline-block;
+		}
+		input {
+			margin: 0 0.3rem;
+		}
+		.form-label {
+			background: transparent;
+			border:none;
+		}
+		.inline-label {
+			margin-bottom: 0;
+		}
 	}
 }
 

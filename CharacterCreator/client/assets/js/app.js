@@ -51,6 +51,8 @@
 		$scope.tempDiceResults = [];
 		$scope.predicate = 'name[0]';
 		$scope.fireFromCoreRange = false;
+		$scope.build = {};
+		$scope.build.character = true;
 		$scope.constructedDamageBonus = {
 			"dmg_dice": 0, "dmg_diceType": 0, "dmg_operator": "", "dmg_display": ""
 		};
@@ -97,7 +99,7 @@
 		// Calculate all values dependend on base stats
 		$scope.calculateDependencies = function (key, stat) {
 			var v = 0;
-			// calcualte ability base values
+			// calculate ability base values
 			calculateAbilityValues($scope.data.abilities);
 
 			// calculate dmg bonus
@@ -113,7 +115,7 @@
 				if (v > 0) {
 					// calculate current hp if not set
 					$scope.data.player.stats_calc.hp_max.value = Math.ceil(v / 2);
-					if ($scope.isUndefined($scope.data.player.stats_calc.hp.value)) {
+					if ($scope.isUndefined($scope.data.player.stats_calc.hp.value) || $scope.build.character) {
 						$scope.data.player.stats_calc.hp.value = Math.ceil(v / 2);
 					}
 					// reduce current hp if max hp is reduced too much
@@ -128,7 +130,7 @@
 				$scope.calculateMaxSanity();
 
 				// calculate current sanity if not set
-				if ($scope.isUndefined($scope.data.player.stats_calc.san.value)) {
+				if ($scope.isUndefined($scope.data.player.stats_calc.san.value) || $scope.build.character) {
 					$scope.data.player.stats_calc.san.value = v;
 				}
 				// reduce current sanity if max sanity is reduced too much
@@ -140,11 +142,11 @@
 
 				//calculate max magic
 				$scope.data.player.stats_calc.magic_max.value = stat.value;
-				if ($scope.isUndefined($scope.data.player.stats_calc.magic.value)) {
+				if ($scope.isUndefined($scope.data.player.stats_calc.magic.value) || $scope.build.character) {
 					$scope.data.player.stats_calc.magic.value = stat.value;
 				}
-				// calculate current sanits if not set
-				if ($scope.isUndefined($scope.data.player.stats_calc.magic.value)) {
+				// calculate current magic if not set
+				if ($scope.isUndefined($scope.data.player.stats_calc.magic.value) || $scope.build.character) {
 					$scope.data.player.stats_calc.magic.value = v;
 				}
 
@@ -310,6 +312,38 @@
 			}
 			return flatDamage;
 		}
+
+		$scope.calculateMoney = function (isDiceRoll) {
+			var roll = getRandomInt(0, 9);
+			var income = 0;
+			var chart = {
+				"1890" : [500,1000,1500,2000,2500,3000,4000,5000,5000,10000],
+				"1920" : [1500,2500,3500,3500,4500,5500,6500,7500,10000,20000],
+				"modern" : [15000,25000,35000,45000,55000,75000,100000,200000,300000,500000]
+			};
+
+			if (!isDiceRoll) {
+				$scope.data.player.income.y_income = chart[$scope.data.player.income.era][$scope.data.player.income.roll];
+			}
+			else {
+				$scope.data.player.income.roll = roll;
+				$scope.data.player.income.y_income =
+					chart[$scope.data.player.income.era][roll];
+			}
+
+		//	$scope.data.player.income.total_assets.value_base = $scope.data.player.income.y_income * 5;
+			//$scope.data.player.income.cash.value_base = $scope.data.player.income.total_assets.value_base / 10;
+		//	$scope.data.player.income.stocks.value_base = $scope.data.player.income.total_assets.value_base / 10;
+		//	$scope.data.player.income.assets.value_base =
+		//		$scope.data.player.income.total_assets.value_base * 0.8;
+		};
+		$scope.$watch('data.player.income', function(newVal, oldVal){
+
+
+			if($scope.data.options.buildingCharacter) {
+				initCalculations();
+			}
+		}, true);
 
 		// Get player status (hp, magic, sanity)
 		$scope.getStatus = function (stat, minValue, value) {
@@ -662,6 +696,11 @@
 				$scope.calculateDependencies(key, $scope.data.player.stats_base[key]);
 			});
 		}
+		$scope.$watch('data.player.stats_base', function(newVal, oldVal){
+			if($scope.data.options.buildingCharacter) {
+				initCalculations();
+			}
+		}, true);
 
 		$scope.uploadFiles = function(file, errFiles) {
 			$scope.f = file;
@@ -724,6 +763,10 @@
 			//dev
 			loadJSON('./assets/json/data.json');
 		}
+
+		$scope.$watch('buildingCharacter', function(newVal, oldVal){
+			$scope.data.options.buildingCharacter = $scope.build.character;
+		}, true);
 
 		// write data to localStorage on changes
 		$scope.$watch('data', function(newVal, oldVal){
