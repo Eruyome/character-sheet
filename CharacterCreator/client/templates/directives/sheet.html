@@ -1,6 +1,5 @@
 <zf-accordion>
-	<zf-accordion-item title="">
-		<span class="accordionTitle">Characteristics</span>
+	<zf-accordion-item title="Characteristics" class="removeTitle">
 		<span class="build">
 			<input type="checkbox" ng-model="build.character" ng-change="">
 			<label>Uncheck if you have set the initial character stats!</label>
@@ -42,7 +41,10 @@
 
 		<div class="grid-block points large-up-3 medium-up-3 small-up-1">
 			<div class="sanity clearfix">
-				<h6>Sanity Points</h6>
+				<h6>Sanity Points
+					<a zf-open="rollDiceModal" class="diceLink" href="#" ng-click="rollDice(ability,'skillCheck',false)"
+					   title="Roll Dice"></a>
+				</h6>
 
 				<div class="status">
 					<span>Status: </span>
@@ -100,8 +102,7 @@
 
 
 <zf-accordion>
-	<zf-accordion-item title="">
-		<span class="accordionTitle">Options</span>
+	<zf-accordion-item title="Options" class="removeTitle">
 		<div class="grid-block options clearfix">
 			<ul>
 				<li>
@@ -155,8 +156,7 @@
 
 
 <zf-accordion>
-	<zf-accordion-item title="">
-		<span class="accordionTitle">Skills</span>
+	<zf-accordion-item title="Skills" class="removeTitle">
 		<div class="grid-block abilities large-up-3 medium-up-2 small-up-1">
 			<span class="skillpoints">
 				<span>
@@ -231,8 +231,7 @@
 </zf-accordion>
 
 <zf-accordion>
-	<zf-accordion-item title="" class="items">
-		<span class="accordionTitle">Weapons</span>
+	<zf-accordion-item title="Weapons" class="items removeTitle">
 		<div class="grid-block items weapons xxlarge-up2 xlarge-up2 large-up-2 medium-up-1 small-up-1">
 			<div class="" ng-repeat="(key, type) in data.player.items.equipped" ng-if="key!='armour'">
 				<div weapontable></div>
@@ -244,8 +243,7 @@
 </zf-accordion>
 
 <zf-accordion>
-	<zf-accordion-item title="" class="items">
-		<span class="accordionTitle">Armour</span>
+	<zf-accordion-item title="Armour" class="items removeTitle">
 		<div class="grid-block items armour xxlarge-up2 xlarge-up2 large-up-2 medium-up-1 small-up-1">
 			<div class="" ng-repeat="(key, type) in data.player.items.equipped" ng-if="key=='armour'">
 				<div armourtable></div>
@@ -257,8 +255,7 @@
 </zf-accordion>
 
 <zf-accordion>
-	<zf-accordion-item title="" class="income">
-		<span class="accordionTitle">Income & Savings</span>
+	<zf-accordion-item title="Income & Savings" class="removeTitle income">
 		<div class="radio">
 
 			<label for="era1890">

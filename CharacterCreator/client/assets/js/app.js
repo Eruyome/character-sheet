@@ -348,6 +348,13 @@
 
 		}, true);
 
+
+		angular.forEach(document.getElementsByClassName("accordion-item"), function(value, key){
+			var a = angular.element(value);
+			console.log(a);
+			a.removeAttr('title');
+		});
+
 		// Get player status (hp, magic, sanity)
 		$scope.getStatus = function (stat, minValue, value) {
 			var status = '';
@@ -764,7 +771,7 @@
 				loadJSON('./assets/json/data.json');
 			}
 			//dev
-			loadJSON('./assets/json/data.json');
+			devLoadData();
 		}
 
 		$scope.$watch('buildingCharacter', function(newVal, oldVal){
@@ -781,6 +788,13 @@
 		}
 		function getLocalStorage(key) {
 			return localStorageService.get(key);
+		}
+
+		function devLoadData() {
+			if (typeof debugDevBuild === 'undefined') {
+				return;
+			}
+			loadJSON('./assets/json/data.json');
 		}
 
 		/* Helpers */
@@ -908,6 +922,15 @@
 			templateUrl: 'templates/directives/armourtableremove.html',
 			scope: true,
 			replace: true
+		};
+	});
+
+	appModule.directive('removeTitle',function(){
+		return {
+			restrict: 'C',
+			link: function($scope, iElm, iAttrs, controller) {
+				iElm.removeAttr('title');
+			}
 		};
 	});
 })();
