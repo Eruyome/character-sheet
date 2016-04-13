@@ -53,6 +53,8 @@
 		$scope.fireFromCoreRange = false;
 		$scope.build = {};
 		$scope.build.character = true;
+		$scope.select = {};
+		$scope.select.sanitySelect = {};
 		$scope.constructedDamageBonus = {
 			"dmg_dice": 0, "dmg_diceType": 0, "dmg_operator": "", "dmg_display": ""
 		};
@@ -571,19 +573,19 @@
 			});
 		};
 
+
 		$scope.rollDice = function (ability, type, reroll) {
 			var rollResult = getRandomInt(1, 100);
-			$scope.diceRollResult = {
+			var r = {
 				"rollType": "", "rollTypeText": "", "chance": 0, "roll": 0, "diceType": 0, "name": "",
 				"resultText": "", "dmg": 0, "success": false, "ability": ability, "canRollDamage" : false, "weapon" :{},
 				"isCrit" : false
 			};
+			var sanity = $scope.data.player.sanity;
 
 			if (!$scope.isUndefined(ability.equip)) {
-				$scope.diceRollResult.canRollDamage = true;
-				$scope.diceRollResult.weapon = ability;
-				//console.log(ability);
-				//console.log($scope.constructedDamageBonus);
+				r.canRollDamage = true;
+				r.weapon = ability;
 			}
 
 			$scope.fireFromCoreRange = reroll;
@@ -600,13 +602,11 @@
 				}
 			}
 
-			//console.group('Rolling Dice...');
-			//console.group(ability.value_base);
 			if (type == 'skillCheck') {
 
 				if (!$scope.isUndefined(ability.sub_type)) {
 					if (ability.sub_type == 'melee') {
-						$scope.diceRollResult.chance = ability.value_base;
+						r.chance = ability.value_base;
 					}
 					else {
 						var obj = $scope.data.abilities;
@@ -618,68 +618,138 @@
 								}
 							}
 						});
-						$scope.diceRollResult.chance = ability.value_total;
+						r.chance = ability.value_total;
 					}
 				}
 				else {
-					$scope.diceRollResult.chance = ability.value_total;
+					r.chance = ability.value_total;
 				}
 
 				if ($scope.fireFromCoreRange) {
-					$scope.diceRollResult.chance = $scope.diceRollResult.chance * 2;
-					if($scope.diceRollResult.chance >= 99) {
-						$scope.diceRollResult.chance = 99
+					r.chance = r.chance * 2;
+					if (r.chance >= 99) {
+						r.chance = 99;
 					}
 				}
 
-				//console.log('Skill-Check: ', ability.name[0], ' ', $scope.diceRollResult.chance, '% Chance');
-				$scope.diceRollResult.rollTypeText = "Skill-Check";
-				$scope.diceRollResult.rollType = "skillCheck";
-				$scope.diceRollResult.name = ability.name[$scope.data.options.languageIndex];
-				$scope.diceRollResult.roll = rollResult;
-
-				//console.log('Rolled ', rollResult, ' against ', $scope.diceRollResult.chance);
-				if (rollResult > $scope.diceRollResult.chance) {
-					if (rollResult >= 96) {
-						//console.log('Critical Fail (Roll >= 96).');
-						$scope.diceRollResult.resultText = 'Critical Fail (Roll >= 96).';
-					}
-					else {
-						//console.log('Fail.');
-						$scope.diceRollResult.resultText = 'Fail.';
-					}
-				}
-				else {
-					if (rollResult == 1) {
-						//console.log('Critical Success (Roll == 1).');
-						$scope.diceRollResult.resultText = 'Critical Success (Roll == 1).';
-						$scope.diceRollResult.isCrit = true;
-					}
-					else if (rollResult <= ( Math.ceil($scope.diceRollResult.chance * 0.20))) {
-						//console.log('Extreme Success (Roll <= 1/5 of Ability).');
-						$scope.diceRollResult.resultText = 'Extreme Success (Roll <= 1/5 of Ability).';
-						$scope.diceRollResult.isCrit = true;
-					}
-					else if (rollResult <= ( Math.ceil($scope.diceRollResult.chance * 0.5))) {
-						//console.log('Difficult Success (Roll <= 1/2 of Ability).');
-						$scope.diceRollResult.resultText = 'Difficult Success (Roll <= 1/2 of Ability).';
-					}
-					else {
-						//console.log('Success.');
-						$scope.diceRollResult.resultText = 'Success.';
-					}
-					ability.success = true;
-					$scope.diceRollResult.success = true;
-				}
+				r.rollTypeText = "Skill-Check";
+				r.rollType = "skillCheck";
+			}
+			else if (type=='valueCheck') {
+				r.chance = ability.value;
+				r.rollTypeText = "Check";
+				r.rollType = "valueCheck";
+				r.name = ability.name[$scope.data.options.languageIndex];
+				r.roll = rollResult;
+			}
+			else if (type=='sanityCheck') {
+				r.chance = ability.value;
+				r.rollTypeText = "Sanity-Check";
+				r.rollType = "sanityCheck";
+				r.name = ability.name[$scope.data.options.languageIndex];
+				r.roll = rollResult;
 			}
 
-			if ($scope.diceRollResult.canRollDamage && !$scope.isUndefined($scope.diceRollResult.weapon.malfunction)){
-				if($scope.diceRollResult.weapon.malfunction <= $scope.diceRollResult.roll){
-					$scope.diceRollResult.weapon.hasMalfunction = true;
+			r.name = ability.name[$scope.data.options.languageIndex];
+			r.roll = rollResult;
+
+			if (rollResult > r.chance) {
+				if (type=='sanityCheck') {
+					var situation = $scope.select.sanitySelect;
+					var savingRoll = sanity.mentalDefects.temp.savingRoll;
+					var savingAgainst = operators[savingRoll.operator]($scope.data.player.stats_base[savingRoll.stat], savingRoll.modifier);
+					var savingRollResult = getRandomInt(1,100);
+
+					if (savingAgainst > savingRollResult) {
+						// saved
+						r.resultText = 'Sanity-Check failed but Saving-Roll succeeded.';
+						if (!$scope.isUndefined(situation.success.dice)){
+							if (situation.success.dice > 0) {
+								for ( var i = 0; i < situation.success.dice; i++ ) {
+									r.dmg = r.dmg + getRandomInt(1,situation.success.diceType);
+								}
+							}
+							r.dmg = r.dmg + situation.success.flat;
+						}
+						else {
+							r.dmg = situation.success.flat;
+						}
+					}
+					else {
+						//fail
+						r.resultText = 'Failed.';
+						if (!$scope.isUndefined(situation.fail.dice)){
+							if (situation.fail.dice > 0) {
+								for ( var i = 0; i < situation.fail.dice; i++ ) {
+									r.dmg = r.dmg + getRandomInt(1,situation.fail.diceType);
+								}
+							}
+							r.dmg = r.dmg + situation.fail.flat;
+						}
+						else {
+							r.dmg = situation.fail.flat;
+						}
+					}
+
+				}
+				else if (rollResult >= 96) {
+					r.resultText = 'Critical Fail (Roll >= 96).';
+				}
+				else {
+					r.resultText = 'Fail.';
+				}
+			}
+			else {
+				if (type=='sanityCheck') {
+					// saved
+					var situation = $scope.select.sanitySelect;
+					var savingRoll = sanity.mentalDefects.temp.savingRoll;
+					var savingAgainst = operators[savingRoll.operator]($scope.data.player.stats_base[savingRoll.stat], savingRoll.modifier);
+					var savingRollResult = getRandomInt(1,100);
+
+					r.resultText = 'Success.';
+					if (!$scope.isUndefined(situation.success.dice)){
+						if (situation.success.dice > 0) {
+							for ( var i = 0; i < situation.success.dice; i++ ) {
+								r.dmg = r.dmg + getRandomInt(1,situation.success.diceType);
+							}
+						}
+						r.dmg = r.dmg + situation.success.flat;
+					}
+					else {
+						r.dmg = situation.success.flat;
+					}
+				}
+				else if (rollResult == 1) {
+					r.resultText = 'Critical Success (Roll == 1).';
+					r.isCrit = true;
+				}
+				else if (rollResult <= ( Math.ceil(r.chance * 0.20))) {
+					r.resultText = 'Extreme Success (Roll <= 1/5 of Ability).';
+					r.isCrit = true;
+				}
+				else if (rollResult <= ( Math.ceil(r.chance * 0.5))) {
+					r.resultText = 'Difficult Success (Roll <= 1/2 of Ability).';
+				}
+				else {
+					r.resultText = 'Success.';
+				}
+				ability.success = true;
+				r.success = true;
+			}
+
+			if (r.canRollDamage && !$scope.isUndefined(r.weapon.malfunction)){
+				if(r.weapon.malfunction <= r.roll){
+					r.weapon.hasMalfunction = true;
 				}
 			}
 
 			//console.groupEnd();
+			$scope.diceRollResult = r;
+		};
+
+		$scope.rollDiceAgainstCustomValues = function (){
+
 		};
 
 		$scope.rollCustomDice = function (count, type) {
@@ -806,18 +876,18 @@
 		};
 
 		function isEmpty (obj) {
-			if (obj == null) return true;
+			if (obj === null) {return true;}
 
 			// Assume if it has a length property with a non-zero value
 			// that that property is correct.
-			if (obj.length > 0)    return false;
-			if (obj.length === 0)  return true;
+			if (obj.length > 0)    {return false;}
+			if (obj.length === 0)  {return true;}
 
 			// Otherwise, does it have any properties of its own?
 			// Note that this doesn't handle
 			// toString and valueOf enumeration bugs in IE < 9
 			for (var key in obj) {
-				if (hasOwnProperty.call(obj, key)) return false;
+				if (hasOwnProperty.call(obj, key)) {return false;}
 			}
 		}
 

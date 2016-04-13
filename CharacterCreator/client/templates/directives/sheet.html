@@ -42,8 +42,7 @@
 		<div class="grid-block points large-up-3 medium-up-3 small-up-1">
 			<div class="sanity clearfix">
 				<h6>Sanity Points
-					<a zf-open="rollDiceModal" class="diceLink" href="#" ng-click="rollDice(ability,'skillCheck',false)"
-					   title="Roll Dice"></a>
+					<a zf-open="rollSanityDiceModal" class="diceLink" href="#"  title="Roll Dice"></a>
 				</h6>
 
 				<div class="status">
@@ -454,6 +453,39 @@
 
 		</div>
 	</div>
+</div>
+
+
+<div zf-modal="" id="rollSanityDiceModal">
+	<a zf-close="" class="close-button">×</a>
+
+	<h5>Rolling Dice...</h5>
+
+	<div class="result">
+
+		<select ng-model="select.sanitySelect"
+				ng-options="situation.display[0] for situation in data.player.sanity.situations">
+		</select>
+
+		<span class="line">{{diceRollResult.rollTypeText}}</span>
+		<span class="line"><span
+				class="highlight">{{diceRollResult.name}}</span> ({{diceRollResult.chance}}% Chance).</span>
+		<span class="line">
+			Rolled <span class="highlight">{{diceRollResult.roll}}</span> against <span class="highlight">{{diceRollResult.chance}}</span>.
+		</span>
+		<span class="line">
+			Result: <span class="highlight">{{diceRollResult.resultText}}</span>
+			<img zf-iconic="" ng-show="diceRollResult.success" icon="Circle-check" class="iconic-color-success"
+				 size="small">
+			<img zf-iconic="" ng-show="!diceRollResult.success" icon="Circle-x" class="iconic-color-alert" size="small">
+		</span>
+		<span class="line">
+			Sanity Damage taken: <span class="highlight">{{diceRollResult.dmg}}</span>
+		</span>
+	</div>
+
+	<a zf-close="" href="#" class="button">Close</a>
+	<a href="#" class="button" ng-class="{disabled:isUndefined(select.sanitySelect.success)}" ng-click="rollDice(data.player.stats_calc.san,'sanityCheck',false)" title="Roll Dice">Roll</a>
 </div>
 
 

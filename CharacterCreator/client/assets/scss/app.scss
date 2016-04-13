@@ -446,6 +446,7 @@ h6 {
 	padding: 0.1rem 0.4rem;
 	margin-bottom: 5px;
 	font-size: rem-calc(14px);
+	line-height: 1.5rem;
 }
 
 .points {
@@ -501,6 +502,19 @@ h6 {
 			height: 20px;
 		}
 	}
+
+	.diceLink {
+		background-color: white;
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		margin: 0;
+		width: 17px;
+		height: 17px;
+	}
+	h6 {
+		position: relative;
+	}
 }
 
 .modal {
@@ -530,8 +544,8 @@ tr.customText {
 .customDice {
 	position: absolute;
 	background: white;
-	right: 9px;
-	top: 9px;
+	right: 5px;
+	top: 5px;
 	width: 28px;
 	height: 28px;
 	text-align: center;
@@ -678,7 +692,7 @@ tr.customText {
 	}
 }
 
-#rollDiceModal, #rollCustomDiceModal {
+#rollDiceModal, #rollCustomDiceModal, #rollSanityDiceModal {
 	.result {
 		margin-bottom: 15px;
 	}

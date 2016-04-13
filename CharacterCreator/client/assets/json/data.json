@@ -148,6 +148,19 @@
       "assets" : { "value_base" : 0, "value_total" : 0, "value_added" : 0 },
       "total_assets" : { "value_base" : 0, "value_total" : 0, "value_added" : 0 }
     },
+    "sanity" : {
+      "situations" : [
+        { "success" : { "flat" : 0 }, "fail" : { "dice" : 1, "diceType" : 2, "flat" : 0 }, "display" : ["0/1D2" , "0/1W2"], "desc" : ["Surprising discovery of a mutilated animal corpse." , "Überraschender Fund eines Tierkadavers"] },
+        { "success" : { "flat" : 0 }, "fail" : { "dice" : 1, "diceType" : 3, "flat" : 0 }, "display" : ["0/1D3" , "0/1W3"], "desc" : ["Surprising discovery of a corpse." , "Überraschender Fund einer Leiche."] },
+        { "success" : { "flat" : 1 }, "fail" : { "dice" : 1, "diceType" : 4, "flat" : 1 }, "display" : ["1/1D4+1" , "1/1W4+1"], "desc" : ["Bloodstream in the water." , "Blutstrom im Wasser."] },
+        { "success" : { "dice" : 1, "diceType" : 10, "flat" : 0 }, "fail" : { "dice" : 1, "diceType" : 100, "flat" : 0 }, "display" : ["1D10/1D100" , "1W10/1W100"], "desc" : ["Character sees the great Cthuluh." , "Charakter sieht den großen Cthulhu."] }
+      ],
+      "mentalDefects" : {
+        "temp" : { "desc" : ["Temporal Trauma" , "Temporäres Trauma"], "savingRoll" : { "stat" : "int", "operator" : "*", "modifier" : 5} },
+        "abberation" : { "desc" : ["Abberation" , "Geistige Umnachtung"] },
+        "permanent" : { "desc" : ["Permanent Insanity" , "Permanenter Wahnsinn"] }
+      }
+    },
     "info" : {
       "name" : ""
     }
