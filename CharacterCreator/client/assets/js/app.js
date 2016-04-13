@@ -331,18 +331,21 @@
 					chart[$scope.data.player.income.era][roll];
 			}
 
-		//	$scope.data.player.income.total_assets.value_base = $scope.data.player.income.y_income * 5;
-			//$scope.data.player.income.cash.value_base = $scope.data.player.income.total_assets.value_base / 10;
-		//	$scope.data.player.income.stocks.value_base = $scope.data.player.income.total_assets.value_base / 10;
-		//	$scope.data.player.income.assets.value_base =
-		//		$scope.data.player.income.total_assets.value_base * 0.8;
+			$scope.data.player.income.total_assets.value_base = $scope.data.player.income.y_income * 5;
+			$scope.data.player.income.cash.value_base = $scope.data.player.income.total_assets.value_base / 10;
+			$scope.data.player.income.stocks.value_base = $scope.data.player.income.total_assets.value_base / 10;
+			$scope.data.player.income.assets.value_base =
+				$scope.data.player.income.total_assets.value_base * 0.8;
 		};
 		$scope.$watch('data.player.income', function(newVal, oldVal){
+			newVal.cash.value_total = newVal.cash.value_base + newVal.cash.value_added;
+			newVal.stocks.value_total = newVal.stocks.value_base + newVal.stocks.value_added;
+			newVal.assets.value_total = newVal.assets.value_base + newVal.assets.value_added;
+
+			newVal.total_assets.value_added = newVal.cash.value_added + newVal.stocks.value_added + newVal.assets.value_added;
+			newVal.total_assets.value_total = newVal.total_assets.value_base + newVal.total_assets.value_added;
 
 
-			if($scope.data.options.buildingCharacter) {
-				initCalculations();
-			}
 		}, true);
 
 		// Get player status (hp, magic, sanity)

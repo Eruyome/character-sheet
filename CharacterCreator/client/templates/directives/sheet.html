@@ -293,9 +293,9 @@
 							<a class="diceLink" href="#" ng-click="calculateMoney(true)"
 							   title="Roll Dice (1D10)"></a>
 						</td>
-						<td>Base Value</td>
-						<td>Total Value</td>
-						<td>Added/Subtracted Money</td>
+						<td>Base Value $</td>
+						<td>Total Value $</td>
+						<td>Added/Subtracted Money $</td>
 					</tr>
 				</thead>
 				<tbody>
@@ -330,11 +330,9 @@
 						<td><span class="form-label">Total property & assets</span></td>
 						<td><input type="text" disabled ng-model="data.player.income.total_assets.value_base"
 								   title="Yearly income * 5">
-							<span ng-bind="data.player.income.total_assets.value_base">
-								{{data.player.income.y_income*5}}
-							</span>
 						</td>
 						<td><input type="text" disabled ng-model="data.player.income.total_assets.value_total"></td>
+						<td><input type="text" disabled ng-model="data.player.income.total_assets.value_added"></td>
 					</tr>
 				</tbody>
 			</table>
